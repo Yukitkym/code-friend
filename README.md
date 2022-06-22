@@ -1,34 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Code Friend
 
-## Getting Started
+## 開発メンバー
 
-First, run the development server:
+- Takayama（Yukitkym）
 
-```bash
-npm run dev
-# or
-yarn dev
+
+## 使用技術
+- React.js (https://github.com/facebook/react)
+- TypeScript (https://www.typescriptlang.org/)
+- Next.js (https://github.com/vercel/next.js)
+- Firebase (https://firebase.google.com/docs/web/setup?hl=ja)
+
+
+
+## バージョン情報
+
+```
+"node": "16.14.2",
+"yarn": "1.22.18"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## プロジェクトの概要
+同じ趣味・同じ言語を勉強しているエンジニア友達を探せるサービス「Code Friend」の開発を行う。
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 開発Tips
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+1. プルリクエスト前の作業
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+プルリクエストを上げる前に必ず、作業を行なっているブランチで`git pull origin main`を行う
+もし、コンフリクトが発生したら、ローカル上で解決する
 
-## Learn More
+2. `git pull origin main`を行なった後の作業
 
-To learn more about Next.js, take a look at the following resources:
+remoteに変更があった場合は、`git pull origin main`のコマンドを実行し、remoteの変更を取り込む
+packageに更新がないか、確認するため、`yarn`コマンドを実行する
+`success Already up-to-date.`と表示されればOK。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. ブランチの作成について
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+ブランチを作成する際は、必ず、mainブランチを最新の状態にし、mainブランチから派生させて、新しいブランチを作成する
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### ブランチ命名規則
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+issue 番号を必ず含める
+
+**＜具体例＞**
+issue#1 【UI】TopページのUIを作成 を実装する場合
+
+`git checkout -b #1-Top-Page-UI`
+
+#### コミットメッセージ
+
+#issue 番号 + 日本語で端的に
+
+例）
+`git commit -m '#1 TopページのUIを作成' `
