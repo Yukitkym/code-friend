@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function Home() {
   const languages = [
@@ -90,6 +91,103 @@ export default function Home() {
     posts = [...posts, initPost]
   }
 
+  // temporaryは検索ボタンが押されるまでの仮の要素
+  const [temporaryFilteringText, setTemporaryFilteringText] = useState('')
+  const [temporaryFilteringLanguage, setTemporaryFilteringLanguage] = useState(['None'])
+  const [temporaryFilteringHobby, setTemporaryFilteringHobby] = useState(['None'])
+  const [filteringText, setFilteringText] = useState('')
+  const [filteringLanguage, setFilteringLanguage] = useState(['None'])
+  const [filteringHobby, setFilteringHobby] = useState(['None'])
+
+  const searchClick = () => {
+    // 検索ボタンを押すとtemporary(仮の要素)から正式な要素に移り、フィルタリングを行う
+    setFilteringText(temporaryFilteringText)
+    setFilteringLanguage(temporaryFilteringLanguage)
+    setFilteringHobby(temporaryFilteringHobby)
+  }
+
+  const resetClick = () => {
+    // チェックボックスのチェックを外す
+    const allCheckbox = document.querySelectorAll(`input[type='checkbox']`) as NodeListOf<HTMLInputElement>
+    for (let i = 0; i < allCheckbox.length; i++) {
+      allCheckbox[i].checked = false
+    }
+
+    setTemporaryFilteringText('')
+    setTemporaryFilteringLanguage(['None'])
+    setTemporaryFilteringHobby(['None'])
+    setFilteringText('')
+    setFilteringLanguage(['None'])
+    setFilteringHobby(['None'])
+  }
+
+  const languageCheckboxClick = (e: any) => {
+    if (e.target.checked === true) {
+      if (temporaryFilteringLanguage[0] === 'None') {
+        setTemporaryFilteringLanguage([e.target.id])
+      } else {
+        setTemporaryFilteringLanguage([...temporaryFilteringLanguage, e.target.id])
+      }
+    } else {
+      const newFilteringLanguage = temporaryFilteringLanguage.filter((language) => !language.match(e.target.id))
+      if (newFilteringLanguage.length !== 0) {
+        setTemporaryFilteringLanguage(newFilteringLanguage)
+      } else {
+        setTemporaryFilteringLanguage(['None'])
+      }
+    }
+  }
+
+  const hobbyCheckboxClick = (e: any) => {
+    if (e.target.checked === true) {
+      if (temporaryFilteringHobby[0] === 'None') {
+        setTemporaryFilteringHobby([e.target.id])
+      } else {
+        setTemporaryFilteringHobby([...temporaryFilteringHobby, e.target.id])
+      }
+    } else {
+      const newFilteringHobby = temporaryFilteringHobby.filter((hobby) => !hobby.match(e.target.id))
+      if (newFilteringHobby.length !== 0) {
+        setTemporaryFilteringHobby(newFilteringHobby)
+      } else {
+        setTemporaryFilteringHobby(['None'])
+      }
+    }
+  }
+
+  const checkText = (userName: string, posts: any, postNum: number) => {
+    let checkTextFlag = false
+    if (userName.match(filteringText)) {
+      checkTextFlag = true
+    }
+    for (let i = 0; i < postNum; i++) {
+      if (posts[i].postTitle.match(filteringText)) {
+        checkTextFlag = true
+      }
+    }
+    return checkTextFlag
+  }
+
+  const checkLanguage = (languages: any) => {
+    let checkLanguageFlag = true
+    for (let i = 0; i < filteringLanguage.length; i++) {
+      if (!languages.includes(filteringLanguage[i]) && !(filteringLanguage[0] === 'None')) {
+        checkLanguageFlag = false
+      }
+    }
+    return checkLanguageFlag
+  }
+
+  const checkHobby = (hobby: any) => {
+    let checkHobbyFlag = true
+    for (let i = 0; i < filteringHobby.length; i++) {
+      if (!hobby.includes(filteringHobby[i]) && !(filteringHobby[0] === 'None')) {
+        checkHobbyFlag = false
+      }
+    }
+    return checkHobbyFlag
+  }
+
   return (
     <div className="bg-bg-color">
       <div>
@@ -118,7 +216,11 @@ export default function Home() {
             &quot;フリーワード&quot;<span className="code-white">:</span>
             <span className="text-code-orange">
               &quot;
-              <input className="w-[518px] bg-[#36311A] border-[#BD9B03] border-[1px]" />
+              <input
+                className="w-[518px] bg-[#36311A] border-[#BD9B03] border-[1px]"
+                value={temporaryFilteringText}
+                onChange={(e: any) => setTemporaryFilteringText(e.target.value)}
+              />
               &quot;
             </span>
           </p>
@@ -130,7 +232,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left">
                 {languages1.map((language: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={language}
+                      onChange={(e: any) => languageCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {language}
                       <span className="code-white">,</span>
@@ -141,7 +248,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left">
                 {languages2.map((language: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={language}
+                      onChange={(e: any) => languageCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {language}
                       <span className="code-white">,</span>
@@ -152,7 +264,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left">
                 {languages3.map((language: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={language}
+                      onChange={(e: any) => languageCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {language}
                       <span className="code-white">,</span>
@@ -175,7 +292,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left pl-[60px]">
                 {game1.map((game: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={game}
+                      onChange={(e: any) => hobbyCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {game}
                       <span className="code-white">,</span>
@@ -186,7 +308,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left pl-[60px]">
                 {game2.map((game: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={game}
+                      onChange={(e: any) => hobbyCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {game}
                       <span className="code-white">,</span>
@@ -206,7 +333,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left pl-[60px]">
                 {sports1.map((sports: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={sports}
+                      onChange={(e: any) => hobbyCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {sports}
                       <span className="code-white">,</span>
@@ -217,7 +349,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left pl-[60px]">
                 {sports2.map((sports: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={sports}
+                      onChange={(e: any) => hobbyCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {sports}
                       <span className="code-white">,</span>
@@ -228,7 +365,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left pl-[60px]">
                 {sports3.map((sports: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={sports}
+                      onChange={(e: any) => hobbyCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {sports}
                       <span className="code-white">,</span>
@@ -248,7 +390,12 @@ export default function Home() {
               <div className="flex flex-wrap float-left pl-[60px]">
                 {watching.map((watch: string, index: number) => (
                   <div key={index}>
-                    <input type="checkbox" className="h-[16px] w-[16px] m-auto" />
+                    <input
+                      type="checkbox"
+                      className="h-[16px] w-[16px] m-auto"
+                      id={watch}
+                      onChange={(e: any) => hobbyCheckboxClick(e)}
+                    />
                     <p className="code-blue mr-[10px]">
                       {watch}
                       <span className="code-white">,</span>
@@ -265,10 +412,10 @@ export default function Home() {
             <p className="text-white m-auto">もっと見る</p>
           </div>
           <div className="flex">
-            <div className="bg-btn-blue w-[340px] h-[48px] flex items-center">
+            <div className="bg-btn-blue w-[340px] h-[48px] flex items-center" onClick={searchClick}>
               <p className="text-white m-auto">検索</p>
             </div>
-            <div className="bg-btn-gray w-[340px] h-[48px] flex items-center">
+            <div className="bg-btn-gray w-[340px] h-[48px] flex items-center" onClick={resetClick}>
               <p className="text-white m-auto">リセット</p>
             </div>
           </div>
@@ -282,42 +429,50 @@ export default function Home() {
           </p>
         </div>
         <div>
-          {posts.map((post: any, index: number) => (
-            <div key={index} className="bg-black-light mb-[10px]">
-              <p className="text-code-white">{post.userName}</p>
-              <p className="text-code-white">{post.language}</p>
-              <p className="text-code-white">{post.hobby}</p>
-              {post.postNum === 0 && (
-                <Link href="/">
-                  <a className="text-code-blue">もっと知りたい</a>
-                </Link>
-              )}
-              {post.postNum >= 1 && (
-                <div>
-                  <p className="text-code-white">{post.posts[0].postTitle}</p>
-                  <Link href="/">
-                    <a className="text-code-blue">もっと詳しく</a>
-                  </Link>
+          {posts.map((post: any, index: number) => {
+            if (
+              checkText(post.userName, post.posts, post.postNum) &&
+              checkLanguage(post.language) &&
+              checkHobby(post.hobby)
+            ) {
+              return (
+                <div key={index} className="bg-black-light mb-[10px]">
+                  <p className="text-code-white">{post.userName}</p>
+                  <p className="text-code-white">{post.language}</p>
+                  <p className="text-code-white">{post.hobby}</p>
+                  {post.postNum === 0 && (
+                    <Link href="/">
+                      <a className="text-code-blue">もっと知りたい</a>
+                    </Link>
+                  )}
+                  {post.postNum >= 1 && (
+                    <div>
+                      <p className="text-code-white">{post.posts[0].postTitle}</p>
+                      <Link href="/">
+                        <a className="text-code-blue">もっと詳しく</a>
+                      </Link>
+                    </div>
+                  )}
+                  {post.postNum >= 2 && (
+                    <div>
+                      <p className="text-code-white">{post.posts[1].postTitle}</p>
+                      <Link href="/">
+                        <a className="text-code-blue">もっと詳しく</a>
+                      </Link>
+                    </div>
+                  )}
+                  {post.postNum >= 3 && (
+                    <div>
+                      <p className="text-code-white">{post.posts[2].postTitle}</p>
+                      <Link href="/">
+                        <a className="text-code-blue">もっと詳しく</a>
+                      </Link>
+                    </div>
+                  )}
                 </div>
-              )}
-              {post.postNum >= 2 && (
-                <div>
-                  <p className="text-code-white">{post.posts[1].postTitle}</p>
-                  <Link href="/">
-                    <a className="text-code-blue">もっと詳しく</a>
-                  </Link>
-                </div>
-              )}
-              {post.postNum >= 3 && (
-                <div>
-                  <p className="text-code-white">{post.posts[2].postTitle}</p>
-                  <Link href="/">
-                    <a className="text-code-blue">もっと詳しく</a>
-                  </Link>
-                </div>
-              )}
-            </div>
-          ))}
+              )
+            }
+          })}
         </div>
       </div>
     </div>
