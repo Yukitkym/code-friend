@@ -2,8 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.tag-gray {
+  @apply text-tag-gray font-en
+}
+
+.code-blue {
+  @apply text-code-blue font-en
+}
+.code-white {
+  @apply text-code-white
+}
+
+.search-row {
+  @apply text-code-blue font-en pb-[20px]
+}
+
+.search-row-sub {
+  @apply text-code-blue font-en pb-[20px] pl-[30px]
+}
+
+
 html,
 body {
+  height: 100%;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
