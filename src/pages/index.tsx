@@ -1,5 +1,7 @@
+import { collection, onSnapshot, query } from 'firebase/firestore'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { db } from '../firebaseConfig'
 
 export default function Home() {
   const languages = [
@@ -61,35 +63,39 @@ export default function Home() {
   const sports3 = hobby.sports.slice(11)
   const watching = hobby.watching
 
-  let posts: any = []
-
-  for (let i = 1; i < 21; i++) {
-    const initPost = {
-      userName: 'Takayama',
-      language: ['JavaScript', 'SQL', 'Visual Basic'],
-      hobby: ['テレビゲーム', 'ボードゲーム', '筋トレ'],
+  const [users, setUsers] = useState([
+    {
+      uid: '',
+      name: '',
+      languages: [],
+      hobbies: [],
       postNum: 0,
-      posts: [{}]
-    }
-    if (i % 4 === 2) {
-      initPost.postNum = 1
-      initPost.posts = [{ postTitle: 'ポーカーが趣味のエンジニアと出会いたい！' }]
-    } else if (i % 4 === 3) {
-      initPost.postNum = 2
-      initPost.posts = [
-        { postTitle: 'ポーカーが趣味のエンジニアと出会いたい！' },
-        { postTitle: 'ポーカーが趣味のエンジニアと出会いたい！' }
-      ]
-    } else if (i % 4 === 0) {
-      initPost.postNum = 3
-      initPost.posts = [
-        { postTitle: 'ポーカーが趣味のエンジニアと出会いたい！' },
-        { postTitle: 'ポーカーが趣味のエンジニアと出会いたい！' },
-        { postTitle: 'ポーカーが趣味のエンジニアと出会いたい！' }
+      posts: [
+        {
+          title: '',
+          url: ''
+        }
       ]
     }
-    posts = [...posts, initPost]
-  }
+  ])
+
+  const q = query(collection(db, 'users'))
+
+  useEffect(() => {
+    const unSub = onSnapshot(q, (querySnapshot) => {
+      setUsers(
+        querySnapshot.docs.map((user) => ({
+          uid: user.data().uid,
+          name: user.data().name,
+          languages: user.data().languages,
+          hobbies: user.data().hobbies,
+          postNum: user.data().postNum,
+          posts: user.data().posts
+        }))
+      )
+    })
+    return () => unSub()
+  }, [q])
 
   // temporaryは検索ボタンが押されるまでの仮の要素
   const [temporaryFilteringText, setTemporaryFilteringText] = useState('')
@@ -161,7 +167,7 @@ export default function Home() {
       checkTextFlag = true
     }
     for (let i = 0; i < postNum; i++) {
-      if (posts[i].postTitle.match(filteringText)) {
+      if (posts[i].title.match(filteringText)) {
         checkTextFlag = true
       }
     }
@@ -429,41 +435,41 @@ export default function Home() {
           </p>
         </div>
         <div>
-          {posts.map((post: any, index: number) => {
+          {users.map((user: any, index: number) => {
             if (
-              checkText(post.userName, post.posts, post.postNum) &&
-              checkLanguage(post.language) &&
-              checkHobby(post.hobby)
+              checkText(user.name, user.posts, user.postNum) &&
+              checkLanguage(user.languages) &&
+              checkHobby(user.hobbies)
             ) {
               return (
                 <div key={index} className="bg-black-light mb-[10px]">
-                  <p className="text-code-white">{post.userName}</p>
-                  <p className="text-code-white">{post.language}</p>
-                  <p className="text-code-white">{post.hobby}</p>
-                  {post.postNum === 0 && (
+                  <p className="text-code-white">{user.name}</p>
+                  <p className="text-code-white">{user.languages}</p>
+                  <p className="text-code-white">{user.hobbies}</p>
+                  {user.postNum === 0 && (
                     <Link href="/">
                       <a className="text-code-blue">もっと知りたい</a>
                     </Link>
                   )}
-                  {post.postNum >= 1 && (
+                  {user.postNum >= 1 && (
                     <div>
-                      <p className="text-code-white">{post.posts[0].postTitle}</p>
+                      <p className="text-code-white">{user.posts[0].title}</p>
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
                     </div>
                   )}
-                  {post.postNum >= 2 && (
+                  {user.postNum >= 2 && (
                     <div>
-                      <p className="text-code-white">{post.posts[1].postTitle}</p>
+                      <p className="text-code-white">{user.posts[1].title}</p>
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
                     </div>
                   )}
-                  {post.postNum >= 3 && (
+                  {user.postNum >= 3 && (
                     <div>
-                      <p className="text-code-white">{post.posts[2].postTitle}</p>
+                      <p className="text-code-white">{user.posts[2].title}</p>
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
