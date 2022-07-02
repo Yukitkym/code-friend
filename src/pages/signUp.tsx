@@ -1,10 +1,26 @@
 import { useRouter } from 'next/router'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 import { useState } from 'react'
 import { auth } from '../firebaseConfig'
+import Link from 'next/link'
+import { useRecoilState } from 'recoil'
+import { isLoginState } from '../atoms'
 
 export default function SignUp() {
   const router = useRouter()
+
+  /* eslint-disable-next-line */
+  const [isLogin, setIsLogin] = useRecoilState(isLoginState)
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setIsLogin(true)
+      router.push('/')
+    } else {
+      setIsLogin(false)
+    }
+  })
+
   const [message, setMessage] = useState('')
 
   const clickSignUp = (e: any) => {
@@ -63,6 +79,7 @@ export default function SignUp() {
     // Firebase Authを使い、メールアドレスとパスワードを登録
     createUserWithEmailAndPassword(auth, email, password)
       .then(() => {
+        setIsLogin(true)
         router.push('/')
       })
       .catch((error) => {
@@ -125,8 +142,17 @@ export default function SignUp() {
         <input name="password" className="bg-code-blue" />
         <p>パスワード確認用</p>
         <input name="checkPassword" className="bg-code-blue" />
+        <br />
+        <br />
         <button className="bg-code-green">サインアップ</button>
       </form>
+      <p>
+        新規登録済みの方は
+        <Link href="/login">
+          <a className="text-code-blue">こちら</a>
+        </Link>
+        へ
+      </p>
       <p>{message}</p>
     </div>
   )
