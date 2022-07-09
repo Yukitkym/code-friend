@@ -95,7 +95,8 @@ export default function Home() {
       )
     })
     return () => unSub()
-  }, [q])
+    /* eslint-disable-next-line */
+  }, [])
 
   // temporaryは検索ボタンが押されるまでの仮の要素
   const [temporaryFilteringText, setTemporaryFilteringText] = useState('')
