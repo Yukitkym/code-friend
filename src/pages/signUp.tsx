@@ -16,7 +16,7 @@ export default function SignUp() {
     if (isLogin === true) {
       router.push('/')
     }
-  }, [isLogin])
+  }, [isLogin, router])
 
   const [message, setMessage] = useState('')
 
@@ -72,9 +72,9 @@ export default function SignUp() {
     }
 
     const setUserFireStore = async (uid: string) => {
-      await setDoc(doc(db, "users", uid), {
-        hobbies: ["None"],
-        languages: ["None"],
+      await setDoc(doc(db, 'users', uid), {
+        hobbies: ['None'],
+        languages: ['None'],
         name: userName,
         email: email,
         postNum: 0,

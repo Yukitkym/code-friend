@@ -95,6 +95,7 @@ export default function Home() {
       )
     })
     return () => unSub()
+    /* eslint-disable-next-line */
   }, [])
 
   // temporaryは検索ボタンが押されるまでの仮の要素

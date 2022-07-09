@@ -15,7 +15,7 @@ export default function CreatePost() {
     if (isLogin === false) {
       router.push('/')
     }
-  }, [isLogin])
+  }, [isLogin, router])
 
   const clickPost = async (e: any) => {
     e.preventDefault()
@@ -24,16 +24,19 @@ export default function CreatePost() {
     const title: string = (data.get('title') ?? '').toString()
     const content: string = (data.get('content') ?? '').toString()
 
-    const userDocData = await (await getDoc(doc(db, "users", uid))).data()
-    const posts =  userDocData.posts
+    const userDocData = await (await getDoc(doc(db, 'users', uid))).data()
+    const posts = userDocData.posts
     const postNum: number = userDocData.postNum
-    const updatedPosts = postNum === 0 ? [{title: title, content: content}] : [...posts, {title: title, content: content}]
+    const updatedPosts =
+      postNum === 0 ? [{ title: title, content: content }] : [...posts, { title: title, content: content }]
     const updatedPostNum: number = postNum + 1
 
-    await updateDoc(doc(db, "users", uid), {
+    await updateDoc(doc(db, 'users', uid), {
       postNum: updatedPostNum,
       posts: updatedPosts
     })
+
+    router.push('/')
   }
 
   return (
@@ -46,7 +49,7 @@ export default function CreatePost() {
         <input name="content" className="bg-code-blue" />
         <br />
         <br />
-        <button className="bg-code-green">サインアップ</button>
+        <button className="bg-code-green">新規投稿</button>
       </form>
     </div>
   )

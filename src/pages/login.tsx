@@ -16,7 +16,7 @@ export default function Login() {
     if (isLogin === true) {
       router.push('/')
     }
-  }, [isLogin])
+  }, [isLogin, router])
 
   const [message, setMessage] = useState('')
   const clickLogin = (e: any) => {
