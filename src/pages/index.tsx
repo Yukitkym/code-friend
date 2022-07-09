@@ -95,7 +95,7 @@ export default function Home() {
       )
     })
     return () => unSub()
-  }, [q])
+  }, [])
 
   // temporaryは検索ボタンが押されるまでの仮の要素
   const [temporaryFilteringText, setTemporaryFilteringText] = useState('')

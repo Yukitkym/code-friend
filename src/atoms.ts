@@ -11,3 +11,9 @@ export const isLoginState = atom({
 	default: false,
   effects_UNSTABLE: [persistAtom]
 });
+
+export const uidState = atom({
+	key: "uidState",
+	default: "",
+  effects_UNSTABLE: [persistAtom]
+});

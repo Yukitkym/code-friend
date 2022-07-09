@@ -1,35 +1,30 @@
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
-import { useRecoilState } from 'recoil'
-import { isLoginState } from '../atoms'
+import { useEffect, useState } from 'react'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { isLoginState, uidState } from '../atoms'
 import { auth } from '../firebaseConfig'
 
 export default function Login() {
   const router = useRouter()
 
-  /* eslint-disable-next-line */
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
+  const setUid = useSetRecoilState(uidState)
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setIsLogin(true)
+  useEffect(() => {
+    if (isLogin === true) {
       router.push('/')
-    } else {
-      setIsLogin(false)
     }
-  })
+  }, [isLogin])
 
   const [message, setMessage] = useState('')
   const clickLogin = (e: any) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
 
-    /* eslint-disable @typescript-eslint/no-non-null-assertion */
-    const email = data.get('email') !== null ? data.get('email')!.toString() : ''
-    const password = data.get('password') !== null ? data.get('password')!.toString() : ''
-    /* eslint-enable @typescript-eslint/no-non-null-assertion */
+    const email: string = (data.get('email') ?? '').toString()
+    const password: string = (data.get('password') ?? '').toString()
 
     if (email === '') {
       setMessage('メールアドレスが入力されていません')
@@ -50,8 +45,9 @@ export default function Login() {
     }
 
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((userCredential) => {
         setIsLogin(true)
+        setUid(userCredential.user.uid)
         router.push('/')
       })
       .catch((error) => {

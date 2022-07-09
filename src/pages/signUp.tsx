@@ -1,25 +1,22 @@
 import { useRouter } from 'next/router'
-import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
-import { useState } from 'react'
-import { auth } from '../firebaseConfig'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { useEffect, useState } from 'react'
+import { auth, db } from '../firebaseConfig'
 import Link from 'next/link'
-import { useRecoilState } from 'recoil'
-import { isLoginState } from '../atoms'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { isLoginState, uidState } from '../atoms'
+import { doc, setDoc } from 'firebase/firestore'
 
 export default function SignUp() {
   const router = useRouter()
-
-  /* eslint-disable-next-line */
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
+  const setUid = useSetRecoilState(uidState)
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setIsLogin(true)
+  useEffect(() => {
+    if (isLogin === true) {
       router.push('/')
-    } else {
-      setIsLogin(false)
     }
-  })
+  }, [isLogin])
 
   const [message, setMessage] = useState('')
 
@@ -27,12 +24,10 @@ export default function SignUp() {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
 
-    /* eslint-disable @typescript-eslint/no-non-null-assertion */
-    const userName: string = data.get('userName') !== null ? data.get('userName')!.toString() : ''
-    const email = data.get('email') !== null ? data.get('email')!.toString() : ''
-    const password = data.get('password') !== null ? data.get('password')!.toString() : ''
-    const checkPassword = data.get('checkPassword') !== null ? data.get('checkPassword')!.toString() : ''
-    /* eslint-enable @typescript-eslint/no-non-null-assertion */
+    const userName: string = (data.get('userName') ?? '').toString()
+    const email: string = (data.get('email') ?? '').toString()
+    const password: string = (data.get('password') ?? '').toString()
+    const checkPassword: string = (data.get('checkPassword') ?? '').toString()
 
     if (userName === '') {
       setMessage('ユーザーネームが入力されていません')
@@ -76,10 +71,23 @@ export default function SignUp() {
       return
     }
 
+    const setUserFireStore = async (uid: string) => {
+      await setDoc(doc(db, "users", uid), {
+        hobbies: ["None"],
+        languages: ["None"],
+        name: userName,
+        email: email,
+        postNum: 0,
+        posts: [{}]
+      })
+      setIsLogin(true)
+      setUid(uid)
+    }
+
     // Firebase Authを使い、メールアドレスとパスワードを登録
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        setIsLogin(true)
+      .then((userCredential) => {
+        setUserFireStore(userCredential.user.uid)
         router.push('/')
       })
       .catch((error) => {
