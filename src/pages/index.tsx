@@ -24,8 +24,9 @@ export default function Home() {
       postNum: 0,
       posts: [
         {
+          id: '',
           title: '',
-          url: ''
+          content: ''
         }
       ]
     }

@@ -18,7 +18,7 @@ export default function Posts() {
     }
   }, [isLogin])
 
-  const [posts, setPosts] = useState([{title: "", content: ""}])
+  const [posts, setPosts] = useState([{id: "", title: "", content: ""}])
   const [postNum, setPostNum] = useState(0)
 
   const getUserPosts = async () => {
@@ -40,8 +40,12 @@ export default function Posts() {
       )}
       {postNum >= 1 && posts.map((post: any, index: number) => (
         <div key={index}>
+          <p>ID：　{post.id}</p>
           <p>タイトル： {post.title}</p>
           <p>内容：　{post.content}</p>
+          <Link href={`/posts/${post.id}`}>
+            <p>投稿詳細へ</p>
+          </Link>
         </div>
       ))}
       <br />
