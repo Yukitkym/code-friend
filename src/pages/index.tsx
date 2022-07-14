@@ -2,67 +2,9 @@ import { collection, onSnapshot, query } from 'firebase/firestore'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { db } from '../firebaseConfig'
+import { game1, game2, languages1, languages2, languages3, sports1, sports2, sports3, watching } from '../languagesAndHobbies'
 
 export default function Home() {
-  const languages = [
-    'HTML/CSS',
-    'JavaScript',
-    'PHP',
-    'Ruby',
-    'Python',
-    'Java',
-    'GO',
-    'Kotlin',
-    'Scala',
-    'Swift',
-    'SQL',
-    'C',
-    'C++',
-    'C#',
-    'R',
-    'Visual Basic'
-  ]
-  const languages1 = languages.slice(0, 5)
-  const languages2 = languages.slice(5, 11)
-  const languages3 = languages.slice(11)
-  const hobby = {
-    game: [
-      'PCゲーム',
-      'テレビゲーム',
-      '将棋',
-      'チェス',
-      'ポーカー',
-      '麻雀',
-      'ボードゲーム',
-      'トレーディングカードゲーム'
-    ],
-    sports: [
-      '筋トレ',
-      'ランニング',
-      '野球',
-      'サッカー',
-      'テニス',
-      'バスケ',
-      'バレーボール',
-      'ダンス',
-      'ゴルフ',
-      'スポーツ観戦',
-      'ダーツ',
-      'ビリヤード',
-      'ボルダリング',
-      'サーフィン',
-      'スノボ',
-      'スキー'
-    ],
-    watching: ['アニメ', '映画鑑賞']
-  }
-  const game1 = hobby.game.slice(0, 6)
-  const game2 = hobby.game.slice(6)
-  const sports1 = hobby.sports.slice(0, 6)
-  const sports2 = hobby.sports.slice(6, 11)
-  const sports3 = hobby.sports.slice(11)
-  const watching = hobby.watching
-
   const [users, setUsers] = useState([
     {
       uid: '',
