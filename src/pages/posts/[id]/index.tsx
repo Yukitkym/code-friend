@@ -1,4 +1,5 @@
-import { collection, doc, getDoc, query, where } from "firebase/firestore"
+import { doc, getDoc } from "firebase/firestore"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useRecoilValue } from "recoil"
@@ -21,18 +22,17 @@ export default function PostsId() {
   const [posts, setPosts] = useState([{id: "", title: "", content: ""}])
   const [postNum, setPostNum] = useState(0)
 
-  const postId = router.asPath.slice(7)
-
   const getUserPost = async () => {
+    const postId = router.asPath.slice(7)
     const userRef = doc(db, "users", uid)
     const userSnap = await getDoc(userRef)
     if (userSnap.exists()) {
       setPosts(userSnap.data().posts)
       setPostNum(userSnap.data().postNum)
-    }
-    for (let i = 0; i < postNum; i++) {
-      if (posts[i].id === postId) {
-        setPost(posts[i])
+      for (let i = 0; i < postNum; i++) {
+        if (posts[i].id === postId) {
+          setPost(posts[i])
+        }
       }
     }
   }
@@ -45,6 +45,9 @@ export default function PostsId() {
       <p>{post.id}</p>
       <p>{post.title}</p>
       <p>{post.content}</p>
+      <Link href={`/posts/${post.id}/edit`}>
+        <p>投稿編集ページへ</p>
+      </Link>
     </div>
   )
 }

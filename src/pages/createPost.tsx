@@ -37,7 +37,7 @@ export default function CreatePost() {
       posts: updatedPosts
     })
 
-    router.push('/')
+    router.push('/posts')
   }
 
   return (
