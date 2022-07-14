@@ -62,7 +62,10 @@ export default function Profile() {
       <p>メールアドレス: {userEmail}</p>
       <p>プログラミング言語: {userLanguages}</p>
       <p>趣味: {userHobbies}</p>
-      <p>投稿はこちらへ(後々リンクを作成予定)</p>
+      <br />
+      <Link href="/posts">
+        <p>投稿一覧ページへ</p>
+      </Link>
       <br />
       <Link href="/setting/profile/edit">
         <p>プロフィール編集ページへ</p>
