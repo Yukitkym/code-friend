@@ -2,7 +2,17 @@ import { collection, onSnapshot, query } from 'firebase/firestore'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { db } from '../firebaseConfig'
-import { game1, game2, languages1, languages2, languages3, sports1, sports2, sports3, watching } from '../languagesAndHobbies'
+import {
+  game1,
+  game2,
+  languages1,
+  languages2,
+  languages3,
+  sports1,
+  sports2,
+  sports3,
+  watching
+} from '../languagesAndHobbies'
 
 export default function Home() {
   const [users, setUsers] = useState([
