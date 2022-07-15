@@ -29,7 +29,9 @@ export default function CreatePost() {
     const posts = userDocData.posts
     const postNum: number = userDocData.postNum
     const updatedPosts =
-      postNum === 0 ? [{ id: getUniqueStr(), title: title, content: content }] : [...posts, { id: getUniqueStr(), title: title, content: content }]
+      postNum === 0
+        ? [{ id: getUniqueStr(), title: title, content: content }]
+        : [...posts, { id: getUniqueStr(), title: title, content: content }]
     const updatedPostNum: number = postNum + 1
 
     await updateDoc(doc(db, 'users', uid), {
