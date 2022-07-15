@@ -25,18 +25,18 @@ export default function CreatePost() {
     const content: string = (data.get('content') ?? '').toString()
 
     // postsに投稿を作成
-    await addDoc(collection(db, "posts"), {
+    await addDoc(collection(db, 'posts'), {
       title: title,
       content: content,
-      poster: "yet"
+      poster: 'yet'
     })
-    const q = await query(collection(db, "posts"), where("poster", "==", "yet"))
+    const q = await query(collection(db, 'posts'), where('poster', '==', 'yet'))
     const querySnapshot = await getDocs(q)
-    let postId = ""
+    let postId = ''
     querySnapshot.forEach((doc) => {
       postId = doc.id
     })
-    const updateRef = doc(db, "posts", postId)
+    const updateRef = doc(db, 'posts', postId)
     await updateDoc(updateRef, {
       poster: uid
     })
