@@ -13,11 +13,25 @@ export default function PostsIdEdit() {
   const isLogin = useRecoilValue(isLoginState)
   const uid = useRecoilValue(uidState)
 
-  useEffect(() => {
-    if (isLogin === false) {
-      router.push("/")
+  const [poster, setPoster] = useState(uid)
+
+  const getPoster = async () => {
+    // urlを直打ちした場合、初回レンダリング時にpostIdは[id]/editとなるため
+    if (postId.length === 20) {
+      const postRef = doc(db, "posts", postId)
+      const postSnap = await getDoc(postRef)
+      if (postSnap.exists()) {
+        setPoster(postSnap.data().poster)
+      }
     }
-  }, [isLogin])
+  }
+  getPoster()
+
+  useEffect(() => {
+    if ((isLogin === false) || (poster !== uid)) {
+      router.push(`/posts/${postId}`)
+    }
+  }, [isLogin, poster])
 
   const [post, setPost] = useState({id: "", title: "", content: ""})
   const [posts, setPosts] = useState([{id: "", title: "", content: ""}])
