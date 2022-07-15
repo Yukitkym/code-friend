@@ -27,13 +27,15 @@ export default function Profile() {
   const [message, setMessage] = useState("")
 
   const getUserProfile = async () => {
-    const userRef = doc(db, "users", uid)
-    const userSnap = await getDoc(userRef)
-    if (userSnap.exists()) {
-      setUserName(userSnap.data().name)
-      setUserEmail(userSnap.data().email)
-      setUserLanguages(userSnap.data().languages)
-      setUserHobbies(userSnap.data().hobbies)
+    if (uid !== "") {
+      const userRef = doc(db, "users", uid)
+      const userSnap = await getDoc(userRef)
+      if (userSnap.exists()) {
+        setUserName(userSnap.data().name)
+        setUserEmail(userSnap.data().email)
+        setUserLanguages(userSnap.data().languages)
+        setUserHobbies(userSnap.data().hobbies)
+      }
     }
   }
   getUserProfile()
@@ -44,7 +46,7 @@ export default function Profile() {
         .then(() => {
           setUid("")
           setIsLogin(false)
-          // router.push("/")
+          router.push("/")
         })
         .catch((error) => {
           setMessage(error)
