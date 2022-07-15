@@ -19,6 +19,7 @@ export default function Home() {
     {
       uid: '',
       name: '',
+      image:'',
       languages: [],
       hobbies: [],
       postNum: 0,
@@ -40,6 +41,7 @@ export default function Home() {
         querySnapshot.docs.map((user) => ({
           uid: user.data().uid,
           name: user.data().name,
+          image: user.data().image,
           languages: user.data().languages,
           hobbies: user.data().hobbies,
           postNum: user.data().postNum,
@@ -397,6 +399,7 @@ export default function Home() {
             ) {
               return (
                 <div key={index} className="bg-black-light mb-[10px]">
+                  <img src={user.image} className="w-[100px]"/>
                   <p className="text-code-white">{user.name}</p>
                   <p className="text-code-white">{user.languages}</p>
                   <p className="text-code-white">{user.hobbies}</p>
