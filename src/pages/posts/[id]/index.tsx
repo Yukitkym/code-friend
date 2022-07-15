@@ -19,24 +19,16 @@ export default function PostsId() {
   }, [isLogin])
 
   const [post, setPost] = useState({id: "", title: "", content: ""})
-  const [posts, setPosts] = useState([{id: "", title: "", content: ""}])
-  const [postNum, setPostNum] = useState(0)
 
-  const getUserPost = async () => {
+  const getPost = async () => {
     const postId = router.asPath.slice(7)
-    const userRef = doc(db, "users", uid)
-    const userSnap = await getDoc(userRef)
-    if (userSnap.exists()) {
-      setPosts(userSnap.data().posts)
-      setPostNum(userSnap.data().postNum)
-      for (let i = 0; i < postNum; i++) {
-        if (posts[i].id === postId) {
-          setPost(posts[i])
-        }
-      }
+    const postRef = doc(db, "posts", postId)
+    const postSnap = await getDoc(postRef)
+    if (postSnap.exists()) {
+      setPost(postSnap.data())
     }
   }
-  getUserPost()
+  getPost()
 
   return (
     <div>
