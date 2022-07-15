@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc } from "firebase/firestore"
+import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -8,22 +8,36 @@ import { db } from "../../../firebaseConfig"
 
 export default function PostsIdEdit() {
   const router = useRouter()
+  const postId = router.asPath.slice(7, 27)
 
   const isLogin = useRecoilValue(isLoginState)
   const uid = useRecoilValue(uidState)
 
-  useEffect(() => {
-    if (isLogin === false) {
-      router.push("/")
+  const [poster, setPoster] = useState(uid)
+
+  const getPoster = async () => {
+    // urlを直打ちした場合、初回レンダリング時にpostIdは[id]/editとなるため
+    if (postId.length === 20) {
+      const postRef = doc(db, "posts", postId)
+      const postSnap = await getDoc(postRef)
+      if (postSnap.exists()) {
+        setPoster(postSnap.data().poster)
+      }
     }
-  }, [isLogin])
+  }
+  getPoster()
+
+  useEffect(() => {
+    if ((isLogin === false) || (poster !== uid)) {
+      router.push(`/posts/${postId}`)
+    }
+  }, [isLogin, poster])
 
   const [post, setPost] = useState({id: "", title: "", content: ""})
   const [posts, setPosts] = useState([{id: "", title: "", content: ""}])
   const [postNum, setPostNum] = useState(0)
 
   const getUserPost = async () => {
-    const postId = router.asPath.slice(7, 21)
     const userRef = doc(db, "users", uid)
     const userSnap = await getDoc(userRef)
     if (userSnap.exists() && post.id === "") {
@@ -45,6 +59,10 @@ export default function PostsIdEdit() {
     await updateDoc(doc(db, "users", uid), {
       "posts": newPosts
     })
+    await updateDoc(doc(db, "posts", postId), {
+      "title": post.title,
+      "content": post.content
+    })
     router.push(`/posts/${post.id}`)
   }
 
@@ -62,7 +80,7 @@ export default function PostsIdEdit() {
         "postNum": postNum - 1
       })
     }
-
+    await deleteDoc(doc(db, "posts", postId))
     router.push("/posts")
   }
 

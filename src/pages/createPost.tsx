@@ -1,10 +1,9 @@
-import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { isLoginState, uidState } from '../atoms'
 import { db } from '../firebaseConfig'
-import { getUniqueStr } from '../uniqueStr'
 
 export default function CreatePost() {
   const router = useRouter()
@@ -25,13 +24,31 @@ export default function CreatePost() {
     const title: string = (data.get('title') ?? '').toString()
     const content: string = (data.get('content') ?? '').toString()
 
+    // postsに投稿を作成
+    await addDoc(collection(db, 'posts'), {
+      title: title,
+      content: content,
+      poster: 'yet'
+    })
+    const q = await query(collection(db, 'posts'), where('poster', '==', 'yet'))
+    const querySnapshot = await getDocs(q)
+    let postId = ''
+    querySnapshot.forEach((doc) => {
+      postId = doc.id
+    })
+    const updateRef = doc(db, 'posts', postId)
+    await updateDoc(updateRef, {
+      poster: uid
+    })
+
+    // usersに投稿を作成
     const userDocData = await (await getDoc(doc(db, 'users', uid))).data()
     const posts = userDocData.posts
     const postNum: number = userDocData.postNum
     const updatedPosts =
       postNum === 0
-        ? [{ id: getUniqueStr(), title: title, content: content }]
-        : [...posts, { id: getUniqueStr(), title: title, content: content }]
+        ? [{ id: postId, title: title, content: content }]
+        : [...posts, { id: postId, title: title, content: content }]
     const updatedPostNum: number = postNum + 1
 
     await updateDoc(doc(db, 'users', uid), {
