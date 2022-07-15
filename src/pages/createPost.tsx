@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { isLoginState, uidState } from '../atoms'
 import { db } from '../firebaseConfig'
+import { getUniqueStr } from '../uniqueStr'
 
 export default function CreatePost() {
   const router = useRouter()
@@ -28,7 +29,9 @@ export default function CreatePost() {
     const posts = userDocData.posts
     const postNum: number = userDocData.postNum
     const updatedPosts =
-      postNum === 0 ? [{ title: title, content: content }] : [...posts, { title: title, content: content }]
+      postNum === 0
+        ? [{ id: getUniqueStr(), title: title, content: content }]
+        : [...posts, { id: getUniqueStr(), title: title, content: content }]
     const updatedPostNum: number = postNum + 1
 
     await updateDoc(doc(db, 'users', uid), {
@@ -36,7 +39,7 @@ export default function CreatePost() {
       posts: updatedPosts
     })
 
-    router.push('/')
+    router.push('/posts')
   }
 
   return (
