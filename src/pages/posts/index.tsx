@@ -41,6 +41,7 @@ export default function Posts() {
       {postNum >= 1 && posts.map((post: any, index: number) => (
         <div key={index}>
           <p>ID：　{post.id}</p>
+          <img src={post.image} className="w-[300px]"/>
           <p>タイトル： {post.title}</p>
           <p>内容：　{post.content}</p>
           <Link href={`/posts/${post.id}`}>

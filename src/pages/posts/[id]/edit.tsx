@@ -1,10 +1,11 @@
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore"
+import { deleteObject, getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useRecoilValue } from "recoil"
 import { isLoginState, uidState } from "../../../atoms"
-import { db } from "../../../firebaseConfig"
+import { db, storage } from "../../../firebaseConfig"
 
 export default function PostsIdEdit() {
   const router = useRouter()
@@ -33,7 +34,7 @@ export default function PostsIdEdit() {
     }
   }, [isLogin, poster])
 
-  const [post, setPost] = useState({id: "", title: "", content: ""})
+  const [post, setPost] = useState({id: "", title: "", content: "", image: ""})
   const [posts, setPosts] = useState([{id: "", title: "", content: ""}])
   const [postNum, setPostNum] = useState(0)
 
@@ -53,16 +54,44 @@ export default function PostsIdEdit() {
   getUserPost()
 
   const clickEditDone = async  () => {
-    const newPosts = posts.map((oldPost) => {
-      return oldPost.id === post.id ? post : oldPost
-    })
-    await updateDoc(doc(db, "users", uid), {
-      "posts": newPosts
-    })
-    await updateDoc(doc(db, "posts", postId), {
-      "title": post.title,
-      "content": post.content
-    })
+    const image = document.getElementById("image") as HTMLInputElement
+    if (image.value !== "") {
+      // 画像をStorageに保存
+      await uploadBytes(ref(storage, `postImages/${post.id}`), image.files[0])
+      const pathReference = ref(storage, `postImages/${post.id}`)
+      let imageUrl = ""
+      await getDownloadURL(pathReference)
+      .then((url) => {
+        imageUrl = url
+      })
+      await updateDoc(doc(db, 'posts', post.id), {
+        "title": post.title,
+        "content": post.content,
+        "image": imageUrl
+      })
+      const newPosts = posts.map((oldPost) => {
+        return oldPost.id === post.id ? {
+          "id": post.id,
+          "title": post.title,
+          "content": post.content,
+          "image": imageUrl
+      } : oldPost
+      })
+      await updateDoc(doc(db, "users", uid), {
+        "posts": newPosts
+      })
+    } else {
+      const newPosts = posts.map((oldPost) => {
+        return oldPost.id === post.id ? post : oldPost
+      })
+      await updateDoc(doc(db, "users", uid), {
+        "posts": newPosts
+      })
+      await updateDoc(doc(db, "posts", postId), {
+        "title": post.title,
+        "content": post.content
+      })
+    }
     router.push(`/posts/${post.id}`)
   }
 
@@ -81,6 +110,7 @@ export default function PostsIdEdit() {
       })
     }
     await deleteDoc(doc(db, "posts", postId))
+    await deleteObject(ref(storage, `postImages/${postId}`))
     router.push("/posts")
   }
 
@@ -89,9 +119,14 @@ export default function PostsIdEdit() {
       <p>投稿編集ページ</p>
       <br />
       <p>タイトル</p>
-      <input value={post.title} onChange={(e: any) => setPost({id: post.id, title: e.target.value, content: post.content})}/>
+      <input value={post.title} onChange={(e: any) => setPost({id: post.id, title: e.target.value, content: post.content, image: post.image})}/>
       <p>内容</p>
-      <input value={post.content} onChange={(e: any) => setPost({id: post.id, title: post.title, content: e.target.value})}/>
+      <input value={post.content} onChange={(e: any) => setPost({id: post.id, title: post.title, content: e.target.value, image: post.image})}/>
+      <br />
+      <br />
+      <img src={post.image} className="w-[300px]" />
+      <br />
+      <input id="image" type="file" />
       <br />
       <br />
       <button onClick={clickEditDone}>編集完了</button>

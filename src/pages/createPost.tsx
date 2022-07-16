@@ -1,9 +1,10 @@
 import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useRecoilValue } from 'recoil'
 import { isLoginState, uidState } from '../atoms'
-import { db } from '../firebaseConfig'
+import { db, storage } from '../firebaseConfig'
 
 export default function CreatePost() {
   const router = useRouter()
@@ -41,14 +42,31 @@ export default function CreatePost() {
       poster: uid
     })
 
+    // 画像をStorageに保存し、URLをpostsに作成
+    let imageUrl = ""
+    const image = document.getElementById("image") as HTMLInputElement
+    if (image.value !== "") {
+      await uploadBytes(ref(storage, `postImages/${postId}`), image.files[0])
+      const pathReference = ref(storage, `postImages/${postId}`)
+      await getDownloadURL(pathReference)
+      .then((url) => {
+        imageUrl = url
+      })
+    } else {
+      imageUrl = "https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e"
+    }
+    await updateDoc(updateRef, {
+      image: imageUrl
+    })
+
     // usersに投稿を作成
     const userDocData = await (await getDoc(doc(db, 'users', uid))).data()
     const posts = userDocData.posts
     const postNum: number = userDocData.postNum
     const updatedPosts =
       postNum === 0
-        ? [{ id: postId, title: title, content: content }]
-        : [...posts, { id: postId, title: title, content: content }]
+        ? [{ id: postId, title: title, content: content, image: imageUrl }]
+        : [...posts, { id: postId, title: title, content: content, image: imageUrl }]
     const updatedPostNum: number = postNum + 1
 
     await updateDoc(doc(db, 'users', uid), {

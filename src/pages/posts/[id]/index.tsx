@@ -12,7 +12,7 @@ export default function PostsId() {
 
   const uid = useRecoilValue(uidState)
 
-  const [post, setPost] = useState({poster: "", title: "", content: ""})
+  const [post, setPost] = useState({poster: "", title: "", content: "", image: ""})
 
   const getPost = async () => {
     const postRef = doc(db, "posts", postId)
@@ -30,6 +30,7 @@ export default function PostsId() {
       <p>{postId}</p>
       <p>{post.title}</p>
       <p>{post.content}</p>
+      <img src={post.image} className="w-[300px]"/>
       <p>{post.poster}</p>
       {post.poster === uid && (
         <Link href={`/posts/${postId}/edit`}>
