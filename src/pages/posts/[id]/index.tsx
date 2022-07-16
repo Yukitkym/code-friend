@@ -1,10 +1,10 @@
-import { doc, getDoc } from "firebase/firestore"
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { useState } from "react"
-import { useRecoilValue } from "recoil"
-import { uidState } from "../../../atoms"
-import { db } from "../../../firebaseConfig"
+import { doc, getDoc } from 'firebase/firestore'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import { uidState } from '../../../atoms'
+import { db } from '../../../firebaseConfig'
 
 export default function PostsId() {
   const router = useRouter()
@@ -12,10 +12,10 @@ export default function PostsId() {
 
   const uid = useRecoilValue(uidState)
 
-  const [post, setPost] = useState({poster: "", title: "", content: "", image: ""})
+  const [post, setPost] = useState({ poster: '', title: '', content: '', image: '' })
 
   const getPost = async () => {
-    const postRef = doc(db, "posts", postId)
+    const postRef = doc(db, 'posts', postId)
     const postSnap = await getDoc(postRef)
     if (postSnap.exists()) {
       setPost(postSnap.data())
@@ -30,13 +30,14 @@ export default function PostsId() {
       <p>{postId}</p>
       <p>{post.title}</p>
       <p>{post.content}</p>
-      <img src={post.image} className="w-[300px]"/>
+      {/* eslint-disable-next-line */}
+      <img src={post.image} alt="投稿サムネイル画像" className="w-[300px]" />
       <p>{post.poster}</p>
       {post.poster === uid && (
         <Link href={`/posts/${postId}/edit`}>
           <p>投稿編集ページへ</p>
         </Link>
-      ) }
+      )}
     </div>
   )
 }

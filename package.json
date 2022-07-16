@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --fix './src/pages/*.{js,ts,jsx,tsx}' && prettier --write './src/pages/*.{js,ts,jsx,tsx}' "
+    "lint": "eslint --fix './src/**/*.{js,ts,jsx,tsx}' && './src/pages/*.{js,ts,jsx,tsx}' && prettier --write './src/**/*.{js,ts,jsx,tsx}' && './src/pages/*.{js,ts,jsx,tsx}'"
   },
   "dependencies": {
     "firebase": "^9.8.4",
