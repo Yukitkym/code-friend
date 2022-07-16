@@ -1,10 +1,11 @@
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { isLoginState, uidState } from "../../../atoms";
-import { db } from "../../../firebaseConfig";
+import { db, storage } from "../../../firebaseConfig";
 import { games, languages, sports, watching } from "../../../languagesAndHobbies";
 
 export default function ProfileEdit() {
@@ -21,6 +22,7 @@ export default function ProfileEdit() {
 
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
+  const [userImage, setUserImage] = useState("")
   const [userLanguages, setUserLanguages] = useState(["None"])
   const [userHobbies, setUserHobbies] = useState(["None"])
 
@@ -32,6 +34,7 @@ export default function ProfileEdit() {
     if (userSnap.exists() && userEmail !== userSnap.data().email) {
       setUserName(userSnap.data().name)
       setUserEmail(userSnap.data().email)
+      setUserImage(userSnap.data().image)
       setUserLanguages(userSnap.data().languages)
       setUserHobbies(userSnap.data().hobbies)
     }
@@ -86,13 +89,30 @@ export default function ProfileEdit() {
     }
   }
 
-  const clickEditDone = () => {
-    // チェックボックスの内容をfirestoreに反映
-    updateDoc(doc(db, "users", uid), {
-      "name": userName,
-      "languages": userLanguages,
-      "hobbies": userHobbies
-    })
+  const clickEditDone = async () => {
+    const image = document.getElementById("image") as HTMLInputElement
+    if (image.value !== "") {
+      await uploadBytes(ref(storage, `userImages/${uid}`), image.files[0])
+      const pathReference = ref(storage, `userImages/${uid}`)
+      let imageUrl = ""
+      await getDownloadURL(pathReference)
+      .then((url) => {
+        imageUrl = url
+        setUserImage(url)
+      })
+      updateDoc(doc(db, "users", uid), {
+        "name": userName,
+        "image": imageUrl,
+        "languages": userLanguages,
+        "hobbies": userHobbies
+      })
+    } else {
+      updateDoc(doc(db, "users", uid), {
+        "name": userName,
+        "languages": userLanguages,
+        "hobbies": userHobbies
+      })
+    }
   }
 
   return (
@@ -101,6 +121,11 @@ export default function ProfileEdit() {
       <br />
       <p>ユーザー名</p>
       <input value={userName} onChange={(e: any) => setUserName(e.target.value)}/>
+      <br />
+      <br />
+      <img src={userImage} className="w-[100px]" />
+      <br />
+      <input id="image" type="file" />
       <br />
       <br />
       <p>プログラミング言語</p>

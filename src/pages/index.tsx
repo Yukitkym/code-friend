@@ -1,4 +1,5 @@
 import { collection, onSnapshot, query } from 'firebase/firestore'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { db } from '../firebaseConfig'
@@ -19,6 +20,7 @@ export default function Home() {
     {
       uid: '',
       name: '',
+      image: '',
       languages: [],
       hobbies: [],
       postNum: 0,
@@ -40,6 +42,7 @@ export default function Home() {
         querySnapshot.docs.map((user) => ({
           uid: user.data().uid,
           name: user.data().name,
+          image: user.data().image,
           languages: user.data().languages,
           hobbies: user.data().hobbies,
           postNum: user.data().postNum,
@@ -397,6 +400,16 @@ export default function Home() {
             ) {
               return (
                 <div key={index} className="bg-black-light mb-[10px]">
+                  <Image
+                    src={
+                      user.image
+                        ? user.image
+                        : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/userImages%2Finit.jpg?alt=media&token=69a50ddd-5912-4415-91cb-1cdb1fdf6d3f'
+                    }
+                    alt="ユーザー画像"
+                    width="100px"
+                    height="100px"
+                  />
                   <p className="text-code-white">{user.name}</p>
                   <p className="text-code-white">{user.languages}</p>
                   <p className="text-code-white">{user.hobbies}</p>
@@ -408,6 +421,16 @@ export default function Home() {
                   {user.postNum >= 1 && (
                     <div>
                       <p className="text-code-white">{user.posts[0].title}</p>
+                      <Image
+                        src={
+                          user.posts[0].image
+                            ? user.posts[0].image
+                            : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
+                        }
+                        alt="投稿サムネイル1"
+                        width="200px"
+                        height="100px"
+                      />
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
@@ -416,6 +439,16 @@ export default function Home() {
                   {user.postNum >= 2 && (
                     <div>
                       <p className="text-code-white">{user.posts[1].title}</p>
+                      <Image
+                        src={
+                          user.posts[1].image
+                            ? user.posts[1].image
+                            : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
+                        }
+                        alt="投稿サムネイル2"
+                        width="200px"
+                        height="100px"
+                      />
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
@@ -424,6 +457,16 @@ export default function Home() {
                   {user.postNum >= 3 && (
                     <div>
                       <p className="text-code-white">{user.posts[2].title}</p>
+                      <Image
+                        src={
+                          user.posts[2].image
+                            ? user.posts[2].image
+                            : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
+                        }
+                        alt="投稿サムネイル3"
+                        width="200px"
+                        height="100px"
+                      />
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>

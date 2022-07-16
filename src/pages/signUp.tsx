@@ -77,6 +77,8 @@ export default function SignUp() {
         languages: ['None'],
         name: userName,
         email: email,
+        image:
+          'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/userImages%2Finit.jpg?alt=media&token=69a50ddd-5912-4415-91cb-1cdb1fdf6d3f',
         postNum: 0,
         posts: [{}]
       })

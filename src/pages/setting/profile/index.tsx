@@ -21,6 +21,7 @@ export default function Profile() {
 
   const [userName, setUserName] = useState("")
   const [userEmail, setUserEmail] = useState("")
+  const [userImage, setUserImage] = useState("")
   const [userLanguages, setUserLanguages] = useState(["None"])
   const [userHobbies, setUserHobbies] = useState(["None"])
 
@@ -33,6 +34,7 @@ export default function Profile() {
       if (userSnap.exists()) {
         setUserName(userSnap.data().name)
         setUserEmail(userSnap.data().email)
+        setUserImage(userSnap.data().image)
         setUserLanguages(userSnap.data().languages)
         setUserHobbies(userSnap.data().hobbies)
       }
@@ -59,6 +61,7 @@ export default function Profile() {
   return (
     <div>
       <p>プロフィール</p>
+      <img src={userImage} className="w-[100px]" />
       <p>ユーザーID: {uid}</p>
       <p>ユーザー名: {userName}</p>
       <p>メールアドレス: {userEmail}</p>
