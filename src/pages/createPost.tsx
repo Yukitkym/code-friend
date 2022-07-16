@@ -69,6 +69,9 @@ export default function CreatePost() {
         <input name="content" className="bg-code-blue" />
         <br />
         <br />
+        <input id="image" type="file" />
+        <br />
+        <br />
         <button className="bg-code-green">新規投稿</button>
       </form>
     </div>

@@ -92,8 +92,8 @@ export default function ProfileEdit() {
   const clickEditDone = async () => {
     const image = document.getElementById("image") as HTMLInputElement
     if (image.value !== "") {
-      await uploadBytes(ref(storage, uid), image.files[0])
-      const pathReference = ref(storage, uid)
+      await uploadBytes(ref(storage, `userImages/${uid}`), image.files[0])
+      const pathReference = ref(storage, `userImages/${uid}`)
       let imageUrl = ""
       await getDownloadURL(pathReference)
       .then((url) => {
