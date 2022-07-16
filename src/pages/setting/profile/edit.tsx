@@ -1,12 +1,12 @@
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
-import { isLoginState, uidState } from "../../../atoms";
-import { db, storage } from "../../../firebaseConfig";
-import { games, languages, sports, watching } from "../../../languagesAndHobbies";
+import { doc, getDoc, updateDoc } from 'firebase/firestore'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import { isLoginState, uidState } from '../../../atoms'
+import { db, storage } from '../../../firebaseConfig'
+import { games, languages, sports, watching } from '../../../languagesAndHobbies'
 
 export default function ProfileEdit() {
   const router = useRouter()
@@ -16,18 +16,19 @@ export default function ProfileEdit() {
 
   useEffect(() => {
     if (isLogin === false) {
-      router.push("/")
+      router.push('/')
     }
+    /* eslint-disable-next-line */
   }, [isLogin])
 
-  const [userName, setUserName] = useState("")
-  const [userEmail, setUserEmail] = useState("")
-  const [userImage, setUserImage] = useState("")
-  const [userLanguages, setUserLanguages] = useState(["None"])
-  const [userHobbies, setUserHobbies] = useState(["None"])
+  const [userName, setUserName] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const [userImage, setUserImage] = useState('')
+  const [userLanguages, setUserLanguages] = useState(['None'])
+  const [userHobbies, setUserHobbies] = useState(['None'])
 
   const getUserProfile = async () => {
-    const userRef = doc(db, "users", uid)
+    const userRef = doc(db, 'users', uid)
     const userSnap = await getDoc(userRef)
 
     // userEmail !== userSnap.data().email は、useStateによる無限ループを防ぐために
@@ -41,13 +42,13 @@ export default function ProfileEdit() {
 
     // firestoreから取ってきた情報をチェックボックスに反映させる
     for (let i = 0; i < userLanguages.length; i++) {
-      if (userLanguages.length !== 1 || userLanguages[0] !== "None") {
+      if (userLanguages.length !== 1 || userLanguages[0] !== 'None') {
         const languageCheckbox = document.getElementById(userLanguages[i]) as HTMLInputElement
         languageCheckbox.checked = true
       }
     }
     for (let i = 0; i < userHobbies.length; i++) {
-      if (userHobbies.length !== 1 || userHobbies[0] !== "None") {
+      if (userHobbies.length !== 1 || userHobbies[0] !== 'None') {
         const hobbyCheckbox = document.getElementById(userHobbies[i]) as HTMLInputElement
         hobbyCheckbox.checked = true
       }
@@ -90,27 +91,26 @@ export default function ProfileEdit() {
   }
 
   const clickEditDone = async () => {
-    const image = document.getElementById("image") as HTMLInputElement
-    if (image.value !== "") {
+    const image = document.getElementById('image') as HTMLInputElement
+    if (image.value !== '') {
       await uploadBytes(ref(storage, `userImages/${uid}`), image.files[0])
       const pathReference = ref(storage, `userImages/${uid}`)
-      let imageUrl = ""
-      await getDownloadURL(pathReference)
-      .then((url) => {
+      let imageUrl = ''
+      await getDownloadURL(pathReference).then((url) => {
         imageUrl = url
         setUserImage(url)
       })
-      updateDoc(doc(db, "users", uid), {
-        "name": userName,
-        "image": imageUrl,
-        "languages": userLanguages,
-        "hobbies": userHobbies
+      updateDoc(doc(db, 'users', uid), {
+        name: userName,
+        image: imageUrl,
+        languages: userLanguages,
+        hobbies: userHobbies
       })
     } else {
-      updateDoc(doc(db, "users", uid), {
-        "name": userName,
-        "languages": userLanguages,
-        "hobbies": userHobbies
+      updateDoc(doc(db, 'users', uid), {
+        name: userName,
+        languages: userLanguages,
+        hobbies: userHobbies
       })
     }
   }
@@ -120,10 +120,11 @@ export default function ProfileEdit() {
       <p>プロフィール編集ページです</p>
       <br />
       <p>ユーザー名</p>
-      <input value={userName} onChange={(e: any) => setUserName(e.target.value)}/>
+      <input value={userName} onChange={(e: any) => setUserName(e.target.value)} />
       <br />
       <br />
-      <img src={userImage} className="w-[100px]" />
+      {/* eslint-disable-next-line */}
+      <img src={userImage} alt="現在のプロフィール画像" className="w-[100px]" />
       <br />
       <input id="image" type="file" />
       <br />
@@ -138,9 +139,7 @@ export default function ProfileEdit() {
               id={language}
               onChange={(e: any) => languageCheckboxClick(e)}
             />
-            <p className="code-blue mr-[10px]">
-              {language},
-            </p>
+            <p className="code-blue mr-[10px]">{language},</p>
           </div>
         ))}
       </div>
@@ -155,9 +154,7 @@ export default function ProfileEdit() {
               id={game}
               onChange={(e: any) => hobbyCheckboxClick(e)}
             />
-            <p className="code-blue mr-[10px]">
-              {game},
-            </p>
+            <p className="code-blue mr-[10px]">{game},</p>
           </div>
         ))}
         {sports.map((sport: string, index: number) => (
@@ -168,9 +165,7 @@ export default function ProfileEdit() {
               id={sport}
               onChange={(e: any) => hobbyCheckboxClick(e)}
             />
-            <p className="code-blue mr-[10px]">
-              {sport},
-            </p>
+            <p className="code-blue mr-[10px]">{sport},</p>
           </div>
         ))}
         {watching.map((watch: string, index: number) => (
@@ -181,9 +176,7 @@ export default function ProfileEdit() {
               id={watch}
               onChange={(e: any) => hobbyCheckboxClick(e)}
             />
-            <p className="code-blue mr-[10px]">
-              {watch},
-            </p>
+            <p className="code-blue mr-[10px]">{watch},</p>
           </div>
         ))}
       </div>
