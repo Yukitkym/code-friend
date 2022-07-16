@@ -1,4 +1,5 @@
 import { collection, onSnapshot, query } from 'firebase/firestore'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { db } from '../firebaseConfig'
@@ -19,7 +20,7 @@ export default function Home() {
     {
       uid: '',
       name: '',
-      image:'',
+      image: '',
       languages: [],
       hobbies: [],
       postNum: 0,
@@ -399,7 +400,7 @@ export default function Home() {
             ) {
               return (
                 <div key={index} className="bg-black-light mb-[10px]">
-                  <img src={user.image} className="w-[100px]"/>
+                  <Image src={user.image} alt="ユーザー画像" width="100px" height="100px" />
                   <p className="text-code-white">{user.name}</p>
                   <p className="text-code-white">{user.languages}</p>
                   <p className="text-code-white">{user.hobbies}</p>
@@ -411,6 +412,7 @@ export default function Home() {
                   {user.postNum >= 1 && (
                     <div>
                       <p className="text-code-white">{user.posts[0].title}</p>
+                      <Image src={user.posts[0].image} alt="投稿サムネイル1" width="200px" height="100px" />
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
@@ -419,6 +421,7 @@ export default function Home() {
                   {user.postNum >= 2 && (
                     <div>
                       <p className="text-code-white">{user.posts[1].title}</p>
+                      <Image src={user.posts[1].image} alt="投稿サムネイル2" width="200px" height="100px" />
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
@@ -427,6 +430,7 @@ export default function Home() {
                   {user.postNum >= 3 && (
                     <div>
                       <p className="text-code-white">{user.posts[2].title}</p>
+                      <Image src={user.posts[2].image} alt="投稿サムネイル3" width="200px" height="100px" />
                       <Link href="/">
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>

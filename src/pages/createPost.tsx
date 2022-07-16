@@ -43,17 +43,17 @@ export default function CreatePost() {
     })
 
     // 画像をStorageに保存し、URLをpostsに作成
-    let imageUrl = ""
-    const image = document.getElementById("image") as HTMLInputElement
-    if (image.value !== "") {
+    let imageUrl = ''
+    const image = document.getElementById('image') as HTMLInputElement
+    if (image.value !== '') {
       await uploadBytes(ref(storage, `postImages/${postId}`), image.files[0])
       const pathReference = ref(storage, `postImages/${postId}`)
-      await getDownloadURL(pathReference)
-      .then((url) => {
+      await getDownloadURL(pathReference).then((url) => {
         imageUrl = url
       })
     } else {
-      imageUrl = "https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e"
+      imageUrl =
+        'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
     }
     await updateDoc(updateRef, {
       image: imageUrl
