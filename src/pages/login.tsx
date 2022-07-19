@@ -55,6 +55,7 @@ export default function Login() {
         setMessage(errorCode)
       })
   }
+
   return (
     <div>
       <h1>ログイン</h1>

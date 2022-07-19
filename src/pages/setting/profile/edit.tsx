@@ -27,34 +27,36 @@ export default function ProfileEdit() {
   const [userLanguages, setUserLanguages] = useState(['None'])
   const [userHobbies, setUserHobbies] = useState(['None'])
 
-  const getUserProfile = async () => {
-    const userRef = doc(db, 'users', uid)
-    const userSnap = await getDoc(userRef)
+  useEffect(() => {
+    const getUserProfile = async () => {
+      const userRef = doc(db, 'users', uid)
+      const userSnap = await getDoc(userRef)
 
-    // userEmail !== userSnap.data().email は、useStateによる無限ループを防ぐために
-    if (userSnap.exists() && userEmail !== userSnap.data().email) {
-      setUserName(userSnap.data().name)
-      setUserEmail(userSnap.data().email)
-      setUserImage(userSnap.data().image)
-      setUserLanguages(userSnap.data().languages)
-      setUserHobbies(userSnap.data().hobbies)
-    }
+      // userEmail !== userSnap.data().email は、useStateによる無限ループを防ぐために
+      if (userSnap.exists() && userEmail !== userSnap.data().email) {
+        setUserName(userSnap.data().name)
+        setUserEmail(userSnap.data().email)
+        setUserImage(userSnap.data().image)
+        setUserLanguages(userSnap.data().languages)
+        setUserHobbies(userSnap.data().hobbies)
+      }
 
-    // firestoreから取ってきた情報をチェックボックスに反映させる
-    for (let i = 0; i < userLanguages.length; i++) {
-      if (userLanguages.length !== 1 || userLanguages[0] !== 'None') {
-        const languageCheckbox = document.getElementById(userLanguages[i]) as HTMLInputElement
-        languageCheckbox.checked = true
+      // firestoreから取ってきた情報をチェックボックスに反映させる
+      for (let i = 0; i < userLanguages.length; i++) {
+        if (userLanguages.length !== 1 || userLanguages[0] !== 'None') {
+          const languageCheckbox = document.getElementById(userLanguages[i]) as HTMLInputElement
+          languageCheckbox.checked = true
+        }
+      }
+      for (let i = 0; i < userHobbies.length; i++) {
+        if (userHobbies.length !== 1 || userHobbies[0] !== 'None') {
+          const hobbyCheckbox = document.getElementById(userHobbies[i]) as HTMLInputElement
+          hobbyCheckbox.checked = true
+        }
       }
     }
-    for (let i = 0; i < userHobbies.length; i++) {
-      if (userHobbies.length !== 1 || userHobbies[0] !== 'None') {
-        const hobbyCheckbox = document.getElementById(userHobbies[i]) as HTMLInputElement
-        hobbyCheckbox.checked = true
-      }
-    }
-  }
-  getUserProfile()
+    getUserProfile()
+  }, [])
 
   const languageCheckboxClick = (e: any) => {
     if (e.target.checked === true) {

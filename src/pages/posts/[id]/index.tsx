@@ -1,7 +1,7 @@
 import { doc, getDoc } from 'firebase/firestore'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { uidState } from '../../../atoms'
 import { db } from '../../../firebaseConfig'
@@ -14,14 +14,16 @@ export default function PostsId() {
 
   const [post, setPost] = useState({ poster: '', title: '', content: '', image: '' })
 
-  const getPost = async () => {
-    const postRef = doc(db, 'posts', postId)
-    const postSnap = await getDoc(postRef)
-    if (postSnap.exists()) {
-      setPost(postSnap.data())
+  useEffect(() => {
+    const getPost = async () => {
+      const postRef = doc(db, 'posts', postId)
+      const postSnap = await getDoc(postRef)
+      if (postSnap.exists()) {
+        setPost(postSnap.data())
+      }
     }
-  }
-  getPost()
+    getPost()
+  }, [])
 
   if (post.poster !== '') {
     return (

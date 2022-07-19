@@ -28,20 +28,22 @@ export default function Profile() {
 
   const [message, setMessage] = useState('')
 
-  const getUserProfile = async () => {
-    if (uid !== '') {
-      const userRef = doc(db, 'users', uid)
-      const userSnap = await getDoc(userRef)
-      if (userSnap.exists()) {
-        setUserName(userSnap.data().name)
-        setUserEmail(userSnap.data().email)
-        setUserImage(userSnap.data().image)
-        setUserLanguages(userSnap.data().languages)
-        setUserHobbies(userSnap.data().hobbies)
+  useEffect(() => {
+    const getUserProfile = async () => {
+      if (uid !== '') {
+        const userRef = doc(db, 'users', uid)
+        const userSnap = await getDoc(userRef)
+        if (userSnap.exists()) {
+          setUserName(userSnap.data().name)
+          setUserEmail(userSnap.data().email)
+          setUserImage(userSnap.data().image)
+          setUserLanguages(userSnap.data().languages)
+          setUserHobbies(userSnap.data().hobbies)
+        }
       }
     }
-  }
-  getUserProfile()
+    getUserProfile()
+  }, [])
 
   const clickLogout = () => {
     if (isLogin === true) {
@@ -79,7 +81,7 @@ export default function Profile() {
           <p>プロフィール編集ページへ</p>
         </Link>
         <br />
-        <button onClick={() => clickLogout}>ログアウト</button>
+        <button onClick={clickLogout}>ログアウト</button>
         <p>{message}</p>
       </div>
     )
