@@ -33,7 +33,7 @@ export default function Posts() {
       }
     }
     getUserPosts()
-  }, [])
+  }, [uid])
 
   if (postNum >= 0) {
     return (

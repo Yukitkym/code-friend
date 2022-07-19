@@ -43,7 +43,7 @@ export default function Profile() {
       }
     }
     getUserProfile()
-  }, [])
+  }, [uid])
 
   const clickLogout = () => {
     if (isLogin === true) {

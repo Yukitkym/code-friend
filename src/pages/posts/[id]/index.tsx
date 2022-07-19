@@ -23,7 +23,7 @@ export default function PostsId() {
       }
     }
     getPost()
-  }, [])
+  }, [postId])
 
   if (post.poster !== '') {
     return (

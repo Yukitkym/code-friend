@@ -56,7 +56,7 @@ export default function ProfileEdit() {
       }
     }
     getUserProfile()
-  }, [])
+  }, [uid, userEmail, userHobbies, userLanguages])
 
   const languageCheckboxClick = (e: any) => {
     if (e.target.checked === true) {
