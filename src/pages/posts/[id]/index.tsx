@@ -42,8 +42,6 @@ export default function PostsId() {
       </div>
     )
   } else {
-    return (
-      <p>読み込み中です</p>
-    )
+    return <p>読み込み中です</p>
   }
 }

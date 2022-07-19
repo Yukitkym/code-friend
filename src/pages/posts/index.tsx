@@ -59,8 +59,6 @@ export default function Posts() {
       </div>
     )
   } else {
-    return (
-      <p>読み込み中です</p>
-    )
+    return <p>読み込み中です</p>
   }
 }

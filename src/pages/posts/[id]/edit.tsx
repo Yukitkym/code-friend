@@ -163,7 +163,9 @@ export default function PostsIdEdit() {
         <p>タイトル</p>
         <input
           value={post.title}
-          onChange={(e: any) => setPost({ id: post.id, title: e.target.value, content: post.content, image: post.image })}
+          onChange={(e: any) =>
+            setPost({ id: post.id, title: e.target.value, content: post.content, image: post.image })
+          }
         />
         <p>内容</p>
         <input
@@ -175,7 +177,12 @@ export default function PostsIdEdit() {
         {/* eslint-disable-next-line */}
         <img src={post.image} alt="現在のサムネイル画像" className="w-[300px]" />
         <br />
-        <select name="selectImage" id="selectImage" value={selectImage} onChange={(e) => setSelectImage(e.target.value)}>
+        <select
+          name="selectImage"
+          id="selectImage"
+          value={selectImage}
+          onChange={(e) => setSelectImage(e.target.value)}
+        >
           <option value="not change">現在の画像を使う</option>
           <option value="choice">サンプル画像から選ぶ</option>
           <option value="upload">画像をアップロードする</option>
@@ -246,8 +253,6 @@ export default function PostsIdEdit() {
       </div>
     )
   } else {
-    return (
-      <p>読み込み中です</p>
-    )
+    return <p>読み込み中です</p>
   }
 }
