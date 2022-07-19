@@ -23,15 +23,17 @@ export default function Posts() {
   // 読み込み中か判別するために-1に設定
   const [postNum, setPostNum] = useState(-1)
 
-  const getUserPosts = async () => {
-    const userRef = doc(db, 'users', uid)
-    const userSnap = await getDoc(userRef)
-    if (userSnap.exists()) {
-      setPosts(userSnap.data().posts)
-      setPostNum(userSnap.data().postNum)
+  useEffect(() => {
+    const getUserPosts = async () => {
+      const userRef = doc(db, 'users', uid)
+      const userSnap = await getDoc(userRef)
+      if (userSnap.exists()) {
+        setPosts(userSnap.data().posts)
+        setPostNum(userSnap.data().postNum)
+      }
     }
-  }
-  getUserPosts()
+    getUserPosts()
+  }, [uid])
 
   if (postNum >= 0) {
     return (
