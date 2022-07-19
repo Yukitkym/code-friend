@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { auth, db } from '../firebaseConfig'
 import Link from 'next/link'
@@ -84,6 +84,9 @@ export default function SignUp() {
       })
       setIsLogin(true)
       setUid(uid)
+      await sendEmailVerification(auth.currentUser).then(() => {
+        // メールアドレス確認メールを送信した旨のポップアップを出す
+      })
     }
 
     // Firebase Authを使い、メールアドレスとパスワードを登録

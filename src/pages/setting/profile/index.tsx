@@ -25,6 +25,7 @@ export default function Profile() {
   const [userImage, setUserImage] = useState('')
   const [userLanguages, setUserLanguages] = useState(['None'])
   const [userHobbies, setUserHobbies] = useState(['None'])
+  const [userVerification, setUserVerification] = useState(false)
 
   const [message, setMessage] = useState('')
 
@@ -39,6 +40,7 @@ export default function Profile() {
           setUserImage(userSnap.data().image)
           setUserLanguages(userSnap.data().languages)
           setUserHobbies(userSnap.data().hobbies)
+          setUserVerification(auth.currentUser.emailVerified)
         }
       }
     }
@@ -72,6 +74,7 @@ export default function Profile() {
         <p>メールアドレス: {userEmail}</p>
         <p>プログラミング言語: {userLanguages}</p>
         <p>趣味: {userHobbies}</p>
+        <p>{userVerification ? 'メールアドレス確認済み' : 'メールアドレスが確認されていません'}</p>
         <br />
         <Link href="/posts">
           <p>投稿一覧ページへ</p>
