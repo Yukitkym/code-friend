@@ -84,10 +84,9 @@ export default function SignUp() {
       })
       setIsLogin(true)
       setUid(uid)
-      await sendEmailVerification(auth.currentUser)
-       .then(() => {
+      await sendEmailVerification(auth.currentUser).then(() => {
         // メールアドレス確認メールを送信した旨のポップアップを出す
-       })
+      })
     }
 
     // Firebase Authを使い、メールアドレスとパスワードを登録
