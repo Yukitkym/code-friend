@@ -28,7 +28,8 @@ export default function Home() {
         {
           id: '',
           title: '',
-          content: ''
+          content: '',
+          image: ''
         }
       ]
     }

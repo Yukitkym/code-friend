@@ -115,78 +115,84 @@ export default function ProfileEdit() {
     }
   }
 
-  return (
-    <div>
-      <p>プロフィール編集ページです</p>
-      <br />
-      <p>ユーザー名</p>
-      <input value={userName} onChange={(e: any) => setUserName(e.target.value)} />
-      <br />
-      <br />
-      {/* eslint-disable-next-line */}
-      <img src={userImage} alt="現在のプロフィール画像" className="w-[100px]" />
-      <br />
-      <input id="image" type="file" />
-      <br />
-      <br />
-      <p>プログラミング言語</p>
-      <div className="flex">
-        {languages.map((language: string, index: number) => (
-          <div key={index} className="flex">
-            <input
-              type="checkbox"
-              className="h-[16px] w-[16px] m-auto"
-              id={language}
-              onChange={(e: any) => languageCheckboxClick(e)}
-            />
-            <p className="code-blue mr-[10px]">{language},</p>
-          </div>
-        ))}
+  if (userEmail !== '') {
+    return (
+      <div>
+        <p>プロフィール編集ページです</p>
+        <br />
+        <p>ユーザー名</p>
+        <input value={userName} onChange={(e: any) => setUserName(e.target.value)} />
+        <br />
+        <br />
+        {/* eslint-disable-next-line */}
+        <img src={userImage} alt="現在のプロフィール画像" className="w-[100px]" />
+        <br />
+        <input id="image" type="file" />
+        <br />
+        <br />
+        <p>プログラミング言語</p>
+        <div className="flex">
+          {languages.map((language: string, index: number) => (
+            <div key={index} className="flex">
+              <input
+                type="checkbox"
+                className="h-[16px] w-[16px] m-auto"
+                id={language}
+                onChange={(e: any) => languageCheckboxClick(e)}
+              />
+              <p className="code-blue mr-[10px]">{language},</p>
+            </div>
+          ))}
+        </div>
+        <br />
+        <p>趣味</p>
+        <div className="flex">
+          {games.map((game: string, index: number) => (
+            <div key={index} className="flex">
+              <input
+                type="checkbox"
+                className="h-[16px] w-[16px] m-auto"
+                id={game}
+                onChange={(e: any) => hobbyCheckboxClick(e)}
+              />
+              <p className="code-blue mr-[10px]">{game},</p>
+            </div>
+          ))}
+          {sports.map((sport: string, index: number) => (
+            <div key={index} className="flex">
+              <input
+                type="checkbox"
+                className="h-[16px] w-[16px] m-auto"
+                id={sport}
+                onChange={(e: any) => hobbyCheckboxClick(e)}
+              />
+              <p className="code-blue mr-[10px]">{sport},</p>
+            </div>
+          ))}
+          {watching.map((watch: string, index: number) => (
+            <div key={index} className="flex">
+              <input
+                type="checkbox"
+                className="h-[16px] w-[16px] m-auto"
+                id={watch}
+                onChange={(e: any) => hobbyCheckboxClick(e)}
+              />
+              <p className="code-blue mr-[10px]">{watch},</p>
+            </div>
+          ))}
+        </div>
+        <br />
+        <button onClick={clickEditDone}>編集完了</button>
+        <br />
+        <br />
+        <Link href="/setting/profile">
+          <p>プロフィールページへ</p>
+        </Link>
       </div>
-      <br />
-      <p>趣味</p>
-      <div className="flex">
-        {games.map((game: string, index: number) => (
-          <div key={index} className="flex">
-            <input
-              type="checkbox"
-              className="h-[16px] w-[16px] m-auto"
-              id={game}
-              onChange={(e: any) => hobbyCheckboxClick(e)}
-            />
-            <p className="code-blue mr-[10px]">{game},</p>
-          </div>
-        ))}
-        {sports.map((sport: string, index: number) => (
-          <div key={index} className="flex">
-            <input
-              type="checkbox"
-              className="h-[16px] w-[16px] m-auto"
-              id={sport}
-              onChange={(e: any) => hobbyCheckboxClick(e)}
-            />
-            <p className="code-blue mr-[10px]">{sport},</p>
-          </div>
-        ))}
-        {watching.map((watch: string, index: number) => (
-          <div key={index} className="flex">
-            <input
-              type="checkbox"
-              className="h-[16px] w-[16px] m-auto"
-              id={watch}
-              onChange={(e: any) => hobbyCheckboxClick(e)}
-            />
-            <p className="code-blue mr-[10px]">{watch},</p>
-          </div>
-        ))}
-      </div>
-      <br />
-      <button onClick={clickEditDone}>編集完了</button>
-      <br />
-      <br />
-      <Link href="/setting/profile">
-        <p>プロフィールページへ</p>
-      </Link>
-    </div>
-  )
+    )
+  } else {
+    return (
+      <p>読み込み中です</p>
+    )
+  }
 }
