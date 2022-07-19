@@ -23,21 +23,25 @@ export default function PostsId() {
   }
   getPost()
 
-  return (
-    <div>
-      <p>投稿詳細ページ</p>
-      <br />
-      <p>{postId}</p>
-      <p>{post.title}</p>
-      <p>{post.content}</p>
-      {/* eslint-disable-next-line */}
-      <img src={post.image} alt="投稿サムネイル画像" className="w-[300px]" />
-      <p>{post.poster}</p>
-      {post.poster === uid && (
-        <Link href={`/posts/${postId}/edit`}>
-          <p>投稿編集ページへ</p>
-        </Link>
-      )}
-    </div>
-  )
+  if (post.poster !== '') {
+    return (
+      <div>
+        <p>投稿詳細ページ</p>
+        <br />
+        <p>{postId}</p>
+        <p>{post.title}</p>
+        <p>{post.content}</p>
+        {/* eslint-disable-next-line */}
+        <img src={post.image} alt="投稿サムネイル画像" className="w-[300px]" />
+        <p>{post.poster}</p>
+        {post.poster === uid && (
+          <Link href={`/posts/${postId}/edit`}>
+            <p>投稿編集ページへ</p>
+          </Link>
+        )}
+      </div>
+    )
+  } else {
+    return <p>読み込み中です</p>
+  }
 }

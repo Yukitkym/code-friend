@@ -59,27 +59,31 @@ export default function Profile() {
     }
   }
 
-  return (
-    <div>
-      <p>プロフィール</p>
-      {/* eslint-disable-next-line */}
-      <img src={userImage} alt="プロフィール画像" className="w-[100px]" />
-      <p>ユーザーID: {uid}</p>
-      <p>ユーザー名: {userName}</p>
-      <p>メールアドレス: {userEmail}</p>
-      <p>プログラミング言語: {userLanguages}</p>
-      <p>趣味: {userHobbies}</p>
-      <br />
-      <Link href="/posts">
-        <p>投稿一覧ページへ</p>
-      </Link>
-      <br />
-      <Link href="/setting/profile/edit">
-        <p>プロフィール編集ページへ</p>
-      </Link>
-      <br />
-      <button onClick={clickLogout}>ログアウト</button>
-      <p>{message}</p>
-    </div>
-  )
+  if (userEmail !== '') {
+    return (
+      <div>
+        <p>プロフィール</p>
+        {/* eslint-disable-next-line */}
+        <img src={userImage} alt="プロフィール画像" className="w-[100px]" />
+        <p>ユーザーID: {uid}</p>
+        <p>ユーザー名: {userName}</p>
+        <p>メールアドレス: {userEmail}</p>
+        <p>プログラミング言語: {userLanguages}</p>
+        <p>趣味: {userHobbies}</p>
+        <br />
+        <Link href="/posts">
+          <p>投稿一覧ページへ</p>
+        </Link>
+        <br />
+        <Link href="/setting/profile/edit">
+          <p>プロフィール編集ページへ</p>
+        </Link>
+        <br />
+        <button onClick={() => clickLogout}>ログアウト</button>
+        <p>{message}</p>
+      </div>
+    )
+  } else {
+    return <p>読み込み中です</p>
+  }
 }
