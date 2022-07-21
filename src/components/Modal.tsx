@@ -43,7 +43,9 @@ export const Modal = () => {
                     </div>
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                       <Dialog.Title as="h3" className="text-lg leading-6 font-medium text-gray-900">
-                        {modalTitle !== '新規登録' ? `${modalTitle}が完了しました` : `${modalTitle}が完了しました。メールを送りましたので、メールアドレスのご確認をお願いいたします。`}
+                        {modalTitle !== '新規登録'
+                          ? `${modalTitle}が完了しました`
+                          : `${modalTitle}が完了しました。メールを送りましたので、メールアドレスのご確認をお願いいたします。`}
                       </Dialog.Title>
                     </div>
                   </div>
