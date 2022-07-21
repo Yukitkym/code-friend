@@ -3,8 +3,8 @@ import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import { isLoginState, uidState } from '../../../atoms'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { isLoginState, modal, modalAction, uidState } from '../../../atoms'
 import { db, storage } from '../../../firebaseConfig'
 
 export default function PostsIdEdit() {
@@ -13,6 +13,8 @@ export default function PostsIdEdit() {
 
   const isLogin = useRecoilValue(isLoginState)
   const uid = useRecoilValue(uidState)
+  const setOpen = useSetRecoilState(modal)
+  const setAction = useSetRecoilState(modalAction)
 
   const [poster, setPoster] = useState(uid)
 
@@ -134,6 +136,8 @@ export default function PostsIdEdit() {
       }
     }
     router.push(`/posts/${post.id}`)
+    setOpen(true)
+    setAction('投稿の編集')
   }
 
   const clickDelete = async () => {
@@ -153,6 +157,8 @@ export default function PostsIdEdit() {
     await deleteDoc(doc(db, 'posts', postId))
     await deleteObject(ref(storage, `postImages/${postId}`))
     router.push('/posts')
+    setOpen(true)
+    setAction('投稿の削除')
   }
 
   if (postNum >= 0) {

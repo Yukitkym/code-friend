@@ -22,3 +22,8 @@ export const modal = atom({
   key: 'modal',
   default: false
 })
+
+export const modalAction = atom({
+  key: 'modalAction',
+  default: ''
+})
