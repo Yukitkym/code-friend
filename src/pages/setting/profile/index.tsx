@@ -3,8 +3,8 @@ import { doc, getDoc } from 'firebase/firestore'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useRecoilState } from 'recoil'
-import { isLoginState, uidState } from '../../../atoms'
+import { useRecoilState, useSetRecoilState } from 'recoil'
+import { isLoginState, modal, modalAction, uidState } from '../../../atoms'
 import { auth, db } from '../../../firebaseConfig'
 
 export default function Profile() {
@@ -12,6 +12,8 @@ export default function Profile() {
 
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
   const [uid, setUid] = useRecoilState(uidState)
+  const setOpen = useSetRecoilState(modal)
+  const setAction = useSetRecoilState(modalAction)
 
   useEffect(() => {
     if (isLogin === false) {
@@ -54,6 +56,8 @@ export default function Profile() {
           setUid('')
           setIsLogin(false)
           router.push('/')
+          setOpen(true)
+          setAction('ログアウト')
         })
         .catch((error) => {
           setMessage(error)

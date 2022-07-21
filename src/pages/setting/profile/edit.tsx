@@ -3,8 +3,8 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import { isLoginState, uidState } from '../../../atoms'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { isLoginState, modal, modalAction, uidState } from '../../../atoms'
 import { db, storage } from '../../../firebaseConfig'
 import { games, languages, sports, watching } from '../../../languagesAndHobbies'
 
@@ -13,6 +13,8 @@ export default function ProfileEdit() {
 
   const isLogin = useRecoilValue(isLoginState)
   const uid = useRecoilValue(uidState)
+  const setOpen = useSetRecoilState(modal)
+  const setAction = useSetRecoilState(modalAction)
 
   useEffect(() => {
     if (isLogin === false) {
@@ -102,19 +104,21 @@ export default function ProfileEdit() {
         imageUrl = url
         setUserImage(url)
       })
-      updateDoc(doc(db, 'users', uid), {
+      await updateDoc(doc(db, 'users', uid), {
         name: userName,
         image: imageUrl,
         languages: userLanguages,
         hobbies: userHobbies
       })
     } else {
-      updateDoc(doc(db, 'users', uid), {
+      await updateDoc(doc(db, 'users', uid), {
         name: userName,
         languages: userLanguages,
         hobbies: userHobbies
       })
     }
+    setOpen(true)
+    setAction('プロフィールの編集')
   }
 
   if (userEmail !== '') {

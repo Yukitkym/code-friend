@@ -2,8 +2,8 @@ import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } fro
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useRecoilValue } from 'recoil'
-import { isLoginState, uidState } from '../atoms'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { db, storage } from '../firebaseConfig'
 
 export default function CreatePost() {
@@ -11,6 +11,8 @@ export default function CreatePost() {
 
   const isLogin = useRecoilValue(isLoginState)
   const uid = useRecoilValue(uidState)
+  const setOpen = useSetRecoilState(modal)
+  const setAction = useSetRecoilState(modalAction)
 
   useEffect(() => {
     if (isLogin === false) {
@@ -82,6 +84,8 @@ export default function CreatePost() {
     })
 
     router.push('/posts')
+    setOpen(true)
+    setAction('新規投稿')
   }
 
   return (

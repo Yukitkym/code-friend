@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { isLoginState, uidState } from '../atoms'
+import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { auth } from '../firebaseConfig'
 
 export default function Login() {
@@ -11,6 +11,8 @@ export default function Login() {
 
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
   const setUid = useSetRecoilState(uidState)
+  const setOpen = useSetRecoilState(modal)
+  const setAction = useSetRecoilState(modalAction)
 
   useEffect(() => {
     if (isLogin === true) {
@@ -49,13 +51,14 @@ export default function Login() {
         setIsLogin(true)
         setUid(userCredential.user.uid)
         router.push('/')
+        setOpen(true)
+        setAction('ログイン')
       })
       .catch((error) => {
         const errorCode = error.code
         setMessage(errorCode)
       })
   }
-
   return (
     <div>
       <h1>ログイン</h1>

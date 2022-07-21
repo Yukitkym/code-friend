@@ -4,13 +4,15 @@ import { useEffect, useState } from 'react'
 import { auth, db } from '../firebaseConfig'
 import Link from 'next/link'
 import { useRecoilState, useSetRecoilState } from 'recoil'
-import { isLoginState, uidState } from '../atoms'
+import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { doc, setDoc } from 'firebase/firestore'
 
 export default function SignUp() {
   const router = useRouter()
   const [isLogin, setIsLogin] = useRecoilState(isLoginState)
   const setUid = useSetRecoilState(uidState)
+  const setOpen = useSetRecoilState(modal)
+  const setAction = useSetRecoilState(modalAction)
 
   useEffect(() => {
     if (isLogin === true) {
@@ -94,6 +96,8 @@ export default function SignUp() {
       .then((userCredential) => {
         setUserFireStore(userCredential.user.uid)
         router.push('/')
+        setOpen(true)
+        setAction('新規登録')
       })
       .catch((error) => {
         const errorCode = error.code
