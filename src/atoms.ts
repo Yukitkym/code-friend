@@ -17,3 +17,8 @@ export const uidState = atom({
   default: '',
   effects_UNSTABLE: [persistAtom]
 })
+
+export const modal = atom({
+  key: 'modal',
+  default: false
+})
