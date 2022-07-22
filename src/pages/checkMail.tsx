@@ -46,7 +46,7 @@ export default function CheckMail() {
       </div>
     )
   } else {
-    router.push('/newUser')
+    router.push('/newUser/profile')
     setOpen(true)
     setAction('メールアドレスの確認')
     return (
