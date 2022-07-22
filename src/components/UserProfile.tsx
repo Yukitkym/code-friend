@@ -29,6 +29,7 @@ export default function UserProfile(props) {
   const [userImage, setUserImage] = useState('')
   const [userLanguages, setUserLanguages] = useState(['None'])
   const [userHobbies, setUserHobbies] = useState(['None'])
+  const [userContact, setUserContact] = useState('')
   const [userPosts, setUserPosts] = useState([{ id: '', title: '', content: '', image: '' }])
   const [userPostNum, setUserPostNum] = useState(0)
   const [message, setMessage] = useState('')
@@ -48,6 +49,7 @@ export default function UserProfile(props) {
           setUserImage(userSnap.data().image)
           setUserLanguages(userSnap.data().languages)
           setUserHobbies(userSnap.data().hobbies)
+          setUserContact(userSnap.data().contact)
           setUserPosts(userSnap.data().posts)
           setUserPostNum(userSnap.data().postNum)
         }
@@ -85,6 +87,7 @@ export default function UserProfile(props) {
         <p>メールアドレス: {userEmail}</p>
         <p>プログラミング言語: {userLanguages}</p>
         <p>趣味: {userHobbies}</p>
+        <p>コンタクト: {userContact}</p>
         <br />
         {page === 'myProfile' && (
           <div>
