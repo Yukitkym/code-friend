@@ -87,7 +87,9 @@ export default function SignUp() {
       setIsLogin(true)
       setUid(uid)
       await sendEmailVerification(auth.currentUser).then(() => {
-        // メールアドレス確認メールを送信した旨のポップアップを出す
+        router.push('/checkMail')
+        setOpen(true)
+        setAction('新規登録')
       })
     }
 
@@ -95,9 +97,6 @@ export default function SignUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         setUserFireStore(userCredential.user.uid)
-        router.push('/')
-        setOpen(true)
-        setAction('新規登録')
       })
       .catch((error) => {
         const errorCode = error.code
