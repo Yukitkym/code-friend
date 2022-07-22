@@ -41,7 +41,7 @@ export default function Home() {
     const unSub = onSnapshot(q, (querySnapshot) => {
       setUsers(
         querySnapshot.docs.map((user) => ({
-          uid: user.data().uid,
+          uid: user.id,
           name: user.data().name,
           image: user.data().image,
           languages: user.data().languages,
@@ -401,21 +401,25 @@ export default function Home() {
             ) {
               return (
                 <div key={index} className="bg-black-light mb-[10px]">
-                  <Image
-                    src={
-                      user.image
-                        ? user.image
-                        : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/userImages%2Finit.jpg?alt=media&token=69a50ddd-5912-4415-91cb-1cdb1fdf6d3f'
-                    }
-                    alt="ユーザー画像"
-                    width="100px"
-                    height="100px"
-                  />
-                  <p className="text-code-white">{user.name}</p>
+                  <Link href={`/user/${user.uid}`}>
+                    <Image
+                      src={
+                        user.image
+                          ? user.image
+                          : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/userImages%2Finit.jpg?alt=media&token=69a50ddd-5912-4415-91cb-1cdb1fdf6d3f'
+                      }
+                      alt="ユーザー画像"
+                      width="100px"
+                      height="100px"
+                    />
+                  </Link>
+                  <Link href={`/user/${user.uid}`}>
+                    <p className="text-code-white">{user.name}</p>
+                  </Link>
                   <p className="text-code-white">{user.languages}</p>
                   <p className="text-code-white">{user.hobbies}</p>
                   {user.postNum === 0 && (
-                    <Link href="/">
+                    <Link href={`/user/${user.uid}`}>
                       <a className="text-code-blue">もっと知りたい</a>
                     </Link>
                   )}
@@ -432,7 +436,7 @@ export default function Home() {
                         width="200px"
                         height="100px"
                       />
-                      <Link href="/">
+                      <Link href={`/posts/${user.posts[0].id}`}>
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
                     </div>
@@ -450,7 +454,7 @@ export default function Home() {
                         width="200px"
                         height="100px"
                       />
-                      <Link href="/">
+                      <Link href={`/posts/${user.posts[1].id}`}>
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
                     </div>
@@ -468,7 +472,7 @@ export default function Home() {
                         width="200px"
                         height="100px"
                       />
-                      <Link href="/">
+                      <Link href={`/posts/${user.posts[2].id}`}>
                         <a className="text-code-blue">もっと詳しく</a>
                       </Link>
                     </div>

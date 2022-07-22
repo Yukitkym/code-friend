@@ -1,9 +1,9 @@
-import { onAuthStateChanged, sendEmailVerification } from "firebase/auth"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import { useSetRecoilState } from "recoil"
-import { modal, modalAction } from "../atoms"
-import { auth } from "../firebaseConfig"
+import { onAuthStateChanged, sendEmailVerification } from 'firebase/auth'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { modal, modalAction } from '../atoms'
+import { auth } from '../firebaseConfig'
 
 export default function CheckMail() {
   const router = useRouter()
@@ -24,13 +24,13 @@ export default function CheckMail() {
 
   const clickSendAgain = () => {
     sendEmailVerification(auth.currentUser)
-    .then(() => {
-      setOpen(true)
-      setAction('メールアドレスの確認メールの送信')
-    })
-    .catch((error) => {
-      setMessage(error)
-    })
+      .then(() => {
+        setOpen(true)
+        setAction('メールアドレスの確認メールの送信')
+      })
+      .catch((error) => {
+        setMessage(error)
+      })
   }
 
   if (checkMail === false) {

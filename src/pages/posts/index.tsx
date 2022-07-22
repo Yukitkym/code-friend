@@ -19,7 +19,7 @@ export default function Posts() {
     /* eslint-disable-next-line */
   }, [isLogin])
 
-  const [posts, setPosts] = useState([{ id: '', title: '', content: '' }])
+  const [posts, setPosts] = useState([{ id: '', title: '', content: '', image: '' }])
   // 読み込み中か判別するために-1に設定
   const [postNum, setPostNum] = useState(-1)
 
