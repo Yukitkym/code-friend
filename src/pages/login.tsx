@@ -50,7 +50,7 @@ export default function Login() {
       .then((userCredential) => {
         setIsLogin(true)
         setUid(userCredential.user.uid)
-        router.push('/')
+        userCredential.user.emailVerified ? router.push('/') : router.push('/checkMail')
         setOpen(true)
         setAction('ログイン')
       })
