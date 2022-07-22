@@ -13,19 +13,30 @@ export default function PostsId() {
   const uid = useRecoilValue(uidState)
 
   const [post, setPost] = useState({ poster: '', title: '', content: '', image: '' })
-
+  const [user, setUser] = useState({
+    name: '',
+    image: '',
+    languages: [],
+    hobbies: [],
+    contact: ''
+  })
   useEffect(() => {
     const getPost = async () => {
       const postRef = doc(db, 'posts', postId)
       const postSnap = await getDoc(postRef)
       if (postSnap.exists()) {
         setPost(postSnap.data())
+        const userRef = doc(db, 'users', postSnap.data().poster)
+        const userSnap = await getDoc(userRef)
+        if (userSnap.exists()) {
+          setUser(userSnap.data())
+        }
       }
     }
     getPost()
   }, [postId])
 
-  if (post.poster !== '') {
+  if (user.image !== '') {
     return (
       <div>
         <p>投稿詳細ページ</p>
@@ -41,6 +52,15 @@ export default function PostsId() {
             <p>投稿編集ページへ</p>
           </Link>
         )}
+        <br />
+        <br />
+        <p>投稿ユーザー</p>
+        <p>{user.name}</p>
+        {/* eslint-disable-next-line */}
+        <img src={user.image} alt="プロフィール画像" className="w-[100px]" />
+        <p>{user.languages}</p>
+        <p>{user.hobbies}</p>
+        <p>{user.contact}</p>
       </div>
     )
   } else {

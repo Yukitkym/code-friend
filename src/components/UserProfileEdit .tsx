@@ -31,6 +31,7 @@ export default function UserProfileEdit(props) {
   const [userImage, setUserImage] = useState('')
   const [userLanguages, setUserLanguages] = useState(['None'])
   const [userHobbies, setUserHobbies] = useState(['None'])
+  const [userContact, setUserContact] = useState('')
 
   useEffect(() => {
     const getUserProfile = async () => {
@@ -44,6 +45,7 @@ export default function UserProfileEdit(props) {
         setUserImage(userSnap.data().image)
         setUserLanguages(userSnap.data().languages)
         setUserHobbies(userSnap.data().hobbies)
+        setUserContact(userSnap.data().contact)
       }
 
       // firestoreから取ってきた情報をチェックボックスに反映させる
@@ -111,13 +113,15 @@ export default function UserProfileEdit(props) {
         name: userName,
         image: imageUrl,
         languages: userLanguages,
-        hobbies: userHobbies
+        hobbies: userHobbies,
+        contact: userContact
       })
     } else {
       await updateDoc(doc(db, 'users', uid), {
         name: userName,
         languages: userLanguages,
-        hobbies: userHobbies
+        hobbies: userHobbies,
+        contact: userContact
       })
     }
     if (page === 'notFirstTime') {
@@ -138,6 +142,10 @@ export default function UserProfileEdit(props) {
         <br />
         <p>ユーザー名</p>
         <input value={userName} onChange={(e: any) => setUserName(e.target.value)} />
+        <br />
+        <br />
+        <p>連絡先</p>
+        <input value={userContact} onChange={(e: any) => setUserContact(e.target.value)} />
         <br />
         <br />
         {/* eslint-disable-next-line */}
