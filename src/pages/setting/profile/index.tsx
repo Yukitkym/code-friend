@@ -1,7 +1,5 @@
 import UserProfile from '../../../components/UserProfile'
 
 export default function Profile() {
-  return (
-    <UserProfile page='myProfile' />
-  )
+  return <UserProfile page="myProfile" />
 }

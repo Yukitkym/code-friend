@@ -26,7 +26,7 @@ export default function LoginSignUp(props) {
 
   const [message, setMessage] = useState('')
 
-  const loginOrSignUpFunction = (loginOrSignUp:string, e: any) => {
+  const loginOrSignUpFunction = (loginOrSignUp: string, e: any) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
 

@@ -208,9 +208,7 @@ export default function UserProfileEdit(props) {
             </Link>
           </div>
         )}
-        {page === 'firstTime' && (
-          <button onClick={clickEditDone}>登録完了</button>
-        )}
+        {page === 'firstTime' && <button onClick={clickEditDone}>登録完了</button>}
       </div>
     )
   } else {
