@@ -38,7 +38,7 @@ export default function PostsIdEdit() {
   }, [isLogin, poster])
 
   const [post, setPost] = useState({ id: '', title: '', content: '', image: '' })
-  const [posts, setPosts] = useState([{ id: '', title: '', content: '' }])
+  const [posts, setPosts] = useState([{ id: '', title: '', content: '', image: '' }])
   // 読み込み中か判別するために-1に設定
   const [postNum, setPostNum] = useState(-1)
   const [selectImage, setSelectImage] = useState('not change')
