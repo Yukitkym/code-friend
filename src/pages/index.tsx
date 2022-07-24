@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { db } from '../firebaseConfig'
-import { hobbies,languages } from '../languagesAndHobbies'
+import { hobbies, languages } from '../languagesAndHobbies'
 import { IoIosArrowDropright, IoIosArrowDropdown } from 'react-icons/io'
 import { BsSearch } from 'react-icons/bs'
 
@@ -74,47 +74,47 @@ export default function Home() {
   const changeHobbiesDisplay = (hobby: string) => {
     switch (hobby) {
       case 'game':
-        setHobbiesDisplay({...hobbiesDisplay, 'game': !hobbiesDisplay.game})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, game: !hobbiesDisplay.game })
+        break
       case 'sports':
-        setHobbiesDisplay({...hobbiesDisplay, 'sports': !hobbiesDisplay.sports})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, sports: !hobbiesDisplay.sports })
+        break
       case 'watching':
-        setHobbiesDisplay({...hobbiesDisplay, 'watching': !hobbiesDisplay.watching})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, watching: !hobbiesDisplay.watching })
+        break
       case 'music':
-        setHobbiesDisplay({...hobbiesDisplay, 'music': !hobbiesDisplay.music})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, music: !hobbiesDisplay.music })
+        break
       case 'trip':
-        setHobbiesDisplay({...hobbiesDisplay, 'trip': !hobbiesDisplay.trip})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, trip: !hobbiesDisplay.trip })
+        break
       case 'outdoor':
-        setHobbiesDisplay({...hobbiesDisplay, 'outdoor': !hobbiesDisplay.outdoor})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, outdoor: !hobbiesDisplay.outdoor })
+        break
       case 'eat':
-        setHobbiesDisplay({...hobbiesDisplay, 'eat': !hobbiesDisplay.eat})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, eat: !hobbiesDisplay.eat })
+        break
       case 'make':
-        setHobbiesDisplay({...hobbiesDisplay, 'make': !hobbiesDisplay.make})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, make: !hobbiesDisplay.make })
+        break
       case 'drive':
-        setHobbiesDisplay({...hobbiesDisplay, 'drive': !hobbiesDisplay.drive})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, drive: !hobbiesDisplay.drive })
+        break
       case 'skill':
-        setHobbiesDisplay({...hobbiesDisplay, 'skill': !hobbiesDisplay.skill})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, skill: !hobbiesDisplay.skill })
+        break
       case 'investment':
-        setHobbiesDisplay({...hobbiesDisplay, 'investment': !hobbiesDisplay.investment})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, investment: !hobbiesDisplay.investment })
+        break
       case 'art':
-        setHobbiesDisplay({...hobbiesDisplay, 'art': !hobbiesDisplay.art})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, art: !hobbiesDisplay.art })
+        break
       case 'grow':
-        setHobbiesDisplay({...hobbiesDisplay, 'grow': !hobbiesDisplay.grow})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, grow: !hobbiesDisplay.grow })
+        break
       case 'other':
-        setHobbiesDisplay({...hobbiesDisplay, 'other': !hobbiesDisplay.other})
-        break;
+        setHobbiesDisplay({ ...hobbiesDisplay, other: !hobbiesDisplay.other })
+        break
     }
   }
 
@@ -275,13 +275,16 @@ export default function Home() {
               {hobbiesDisplay.game === false ? (
                 <p className="search-row-sub flex">
                   &quot;ゲーム・思考系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('game')} />
+                  <IoIosArrowDropright className="text-[25px] ml-[10px]" onClick={() => changeHobbiesDisplay('game')} />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;ゲーム・思考系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('game')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('game')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.game.map((hobby: string) => (
@@ -306,13 +309,19 @@ export default function Home() {
               {hobbiesDisplay.sports === false ? (
                 <p className="search-row-sub flex">
                   &quot;スポーツ系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('sports')} />
+                  <IoIosArrowDropright
+                    className="text-[25px] ml-[10px]"
+                    onClick={() => changeHobbiesDisplay('sports')}
+                  />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;スポーツ系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('sports')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('sports')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.sports.map((hobby: string) => (
@@ -333,17 +342,23 @@ export default function Home() {
                 </div>
               )}
             </div>
-            <div className='w-[100%]'>
+            <div className="w-[100%]">
               {hobbiesDisplay.watching === false ? (
                 <p className="search-row-sub flex">
                   &quot;鑑賞系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('watching')} />
+                  <IoIosArrowDropright
+                    className="text-[25px] ml-[10px]"
+                    onClick={() => changeHobbiesDisplay('watching')}
+                  />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;鑑賞系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('watching')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('watching')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.watching.map((hobby: string) => (
@@ -368,13 +383,19 @@ export default function Home() {
               {hobbiesDisplay.music === false ? (
                 <p className="search-row-sub flex">
                   &quot;音楽系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('music')} />
+                  <IoIosArrowDropright
+                    className="text-[25px] ml-[10px]"
+                    onClick={() => changeHobbiesDisplay('music')}
+                  />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;音楽系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('music')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('music')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.music.map((hobby: string) => (
@@ -399,13 +420,16 @@ export default function Home() {
               {hobbiesDisplay.trip === false ? (
                 <p className="search-row-sub flex">
                   &quot;旅行・お出かけ系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('trip')} />
+                  <IoIosArrowDropright className="text-[25px] ml-[10px]" onClick={() => changeHobbiesDisplay('trip')} />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;旅行・お出かけ系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('trip')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('trip')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.trip.map((hobby: string) => (
@@ -430,13 +454,19 @@ export default function Home() {
               {hobbiesDisplay.outdoor === false ? (
                 <p className="search-row-sub flex">
                   &quot;自然・アウトドア系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('outdoor')} />
+                  <IoIosArrowDropright
+                    className="text-[25px] ml-[10px]"
+                    onClick={() => changeHobbiesDisplay('outdoor')}
+                  />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;自然・アウトドア系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('outdoor')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('outdoor')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.outdoor.map((hobby: string) => (
@@ -461,13 +491,13 @@ export default function Home() {
               {hobbiesDisplay.eat === false ? (
                 <p className="search-row-sub flex">
                   &quot;食べる・飲む系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('eat')} />
+                  <IoIosArrowDropright className="text-[25px] ml-[10px]" onClick={() => changeHobbiesDisplay('eat')} />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;食べる・飲む系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('eat')}/>
+                    <IoIosArrowDropdown className="text-[25px] ml-[10px]" onClick={() => changeHobbiesDisplay('eat')} />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.eat.map((hobby: string) => (
@@ -492,13 +522,16 @@ export default function Home() {
               {hobbiesDisplay.make === false ? (
                 <p className="search-row-sub flex">
                   &quot;つくる系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('make')} />
+                  <IoIosArrowDropright className="text-[25px] ml-[10px]" onClick={() => changeHobbiesDisplay('make')} />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;つくる系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('make')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('make')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.make.map((hobby: string) => (
@@ -523,13 +556,19 @@ export default function Home() {
               {hobbiesDisplay.drive === false ? (
                 <p className="search-row-sub flex">
                   &quot;乗り物系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('drive')} />
+                  <IoIosArrowDropright
+                    className="text-[25px] ml-[10px]"
+                    onClick={() => changeHobbiesDisplay('drive')}
+                  />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;乗り物系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('drive')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('drive')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.drive.map((hobby: string) => (
@@ -554,13 +593,19 @@ export default function Home() {
               {hobbiesDisplay.skill === false ? (
                 <p className="search-row-sub flex">
                   &quot;スキル・一芸系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('skill')} />
+                  <IoIosArrowDropright
+                    className="text-[25px] ml-[10px]"
+                    onClick={() => changeHobbiesDisplay('skill')}
+                  />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;スキル・一芸系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('skill')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('skill')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.skill.map((hobby: string) => (
@@ -585,13 +630,19 @@ export default function Home() {
               {hobbiesDisplay.investment === false ? (
                 <p className="search-row-sub flex">
                   &quot;投資系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('investment')} />
+                  <IoIosArrowDropright
+                    className="text-[25px] ml-[10px]"
+                    onClick={() => changeHobbiesDisplay('investment')}
+                  />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;投資系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('investment')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('investment')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.investment.map((hobby: string) => (
@@ -616,13 +667,13 @@ export default function Home() {
               {hobbiesDisplay.art === false ? (
                 <p className="search-row-sub flex">
                   &quot;芸術系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('art')} />
+                  <IoIosArrowDropright className="text-[25px] ml-[10px]" onClick={() => changeHobbiesDisplay('art')} />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;芸術系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('art')}/>
+                    <IoIosArrowDropdown className="text-[25px] ml-[10px]" onClick={() => changeHobbiesDisplay('art')} />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.art.map((hobby: string) => (
@@ -647,13 +698,16 @@ export default function Home() {
               {hobbiesDisplay.grow === false ? (
                 <p className="search-row-sub flex">
                   &quot;育てる系&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('grow')} />
+                  <IoIosArrowDropright className="text-[25px] ml-[10px]" onClick={() => changeHobbiesDisplay('grow')} />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;育てる系&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('grow')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('grow')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.grow.map((hobby: string) => (
@@ -678,13 +732,19 @@ export default function Home() {
               {hobbiesDisplay.other === false ? (
                 <p className="search-row-sub flex">
                   &quot;その他&quot;<span className="code-white">:</span>
-                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('other')} />
+                  <IoIosArrowDropright
+                    className="text-[25px] ml-[10px]"
+                    onClick={() => changeHobbiesDisplay('other')}
+                  />
                 </p>
               ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;その他&quot;<span className="code-white">:</span>
-                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('other')}/>
+                    <IoIosArrowDropdown
+                      className="text-[25px] ml-[10px]"
+                      onClick={() => changeHobbiesDisplay('other')}
+                    />
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.other.map((hobby: string) => (
@@ -709,13 +769,13 @@ export default function Home() {
           </div>
           <div className="flex mt-[40px] text-white">
             <div className="bg-btn-blue w-[340px] h-[48px] flex items-center mr-[20px]" onClick={searchClick}>
-              <div className='flex m-auto'>
+              <div className="flex m-auto">
                 <BsSearch className="my-auto mr-[20px]" />
-                <p className='tracking-[15px]'>検索</p>
+                <p className="tracking-[15px]">検索</p>
               </div>
             </div>
             <div className="bg-btn-gray w-[340px] h-[48px] flex items-center" onClick={resetClick}>
-              <p className= "m-auto">リセット</p>
+              <p className="m-auto">リセット</p>
             </div>
           </div>
         </div>
@@ -727,7 +787,7 @@ export default function Home() {
             &lt;<span className="text-code-green font-ja">List</span>&gt;
           </p>
         </div>
-        <div className='flex flex-wrap flex-center items-start'>
+        <div className="flex flex-wrap flex-center items-start">
           {users.map((user: any, index: number) => {
             if (
               checkText(user.name, user.posts, user.postNum) &&
@@ -736,8 +796,8 @@ export default function Home() {
             ) {
               return (
                 <div key={index} className="bg-black-light m-[10px] min-w-[30%] max-w-[30%]">
-                  <div className='m-[8px]'>
-                    <div className='flex'>
+                  <div className="m-[8px]">
+                    <div className="flex">
                       <Link href={`/user/${user.uid}`}>
                         <Image
                           src={
@@ -748,7 +808,7 @@ export default function Home() {
                           alt="ユーザー画像"
                           width="60px"
                           height="60px"
-                          className='rounded-full'
+                          className="rounded-full"
                         />
                       </Link>
                       <Link href={`/user/${user.uid}`}>
@@ -760,16 +820,18 @@ export default function Home() {
                     <p className="text-code-white">趣味</p>
                     <p className="text-code-blue overflow-scroll h-[40px]">{user.hobbies.join(', ')}</p>
                     {user.postNum === 0 && (
-                      <div className='mt-[20px] pb-[10px]'>
+                      <div className="mt-[20px] pb-[10px]">
                         <Link href={`/user/${user.uid}`}>
-                          <a className="text-code-blue border-[1px] border-code-blue rounded px-[50px] py-[5px] mt-[20px]">もっと知りたい</a>
+                          <a className="text-code-blue border-[1px] border-code-blue rounded px-[50px] py-[5px] mt-[20px]">
+                            もっと知りたい
+                          </a>
                         </Link>
                       </div>
                     )}
                   </div>
-                  <div className='h-max-[200px] overflow-scroll'>
+                  <div className="h-max-[200px] overflow-scroll">
                     {user.postNum >= 1 && (
-                      <div className='relative h-[160px]'>
+                      <div className="relative h-[160px]">
                         <Image
                           src={
                             user.posts[0].image
@@ -777,18 +839,19 @@ export default function Home() {
                               : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
                           }
                           alt="投稿サムネイル1"
-                          layout='fill'
+                          layout="fill"
                         />
-                        <div className='absolute bg-black opacity-[40%] w-[100%] h-[100%]'>
-                        </div>
+                        <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
                         <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[0].title}</p>
                         <Link href={`/posts/${user.posts[0].id}`}>
-                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">もっと詳しく</a>
+                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">
+                            もっと詳しく
+                          </a>
                         </Link>
                       </div>
                     )}
                     {user.postNum >= 2 && (
-                      <div className='relative h-[160px] border-t-[1px]'>
+                      <div className="relative h-[160px] border-t-[1px]">
                         <Image
                           src={
                             user.posts[1].image
@@ -796,18 +859,19 @@ export default function Home() {
                               : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
                           }
                           alt="投稿サムネイル2"
-                          layout='fill'
+                          layout="fill"
                         />
-                        <div className='absolute bg-black opacity-[40%] w-[100%] h-[100%]'>
-                        </div>
+                        <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
                         <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[1].title}</p>
                         <Link href={`/posts/${user.posts[1].id}`}>
-                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">もっと詳しく</a>
+                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">
+                            もっと詳しく
+                          </a>
                         </Link>
                       </div>
                     )}
                     {user.postNum >= 3 && (
-                      <div className='relative h-[160px] border-t-[1px]'>
+                      <div className="relative h-[160px] border-t-[1px]">
                         <Image
                           src={
                             user.posts[2].image
@@ -815,13 +879,14 @@ export default function Home() {
                               : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
                           }
                           alt="投稿サムネイル3"
-                          layout='fill'
+                          layout="fill"
                         />
-                        <div className='absolute bg-black opacity-[40%] w-[100%] h-[100%]'>
-                        </div>
+                        <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
                         <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[2].title}</p>
                         <Link href={`/posts/${user.posts[2].id}`}>
-                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">もっと詳しく</a>
+                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">
+                            もっと詳しく
+                          </a>
                         </Link>
                       </div>
                     )}
