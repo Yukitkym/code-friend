@@ -230,7 +230,7 @@ export default function Home() {
             &lt;<span className="text-code-green font-ja">Filtering</span>&gt;
           </p>
         </div>
-        <div className="bg-bg-light-color border-[#000078] border-[1px] border-opacity-10 px-[42px] pt-[22px] h-[800px]">
+        <div className="bg-bg-light-color border-[#000078] border-[1px] border-opacity-10 px-[42px] pt-[22px] pb-[30px]">
           <p className="search-row">
             &quot;フリーワード&quot;<span className="code-white">:</span>
             <span className="text-code-orange ml-[10px]">
@@ -273,7 +273,7 @@ export default function Home() {
             </p>
             <div>
               {hobbiesDisplay.game === false ? (
-                  <p className="search-row-sub flex">
+                <p className="search-row-sub flex">
                   &quot;ゲーム・思考系&quot;<span className="code-white">:</span>
                   <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('game')} />
                 </p>
@@ -283,7 +283,7 @@ export default function Home() {
                     &quot;ゲーム・思考系&quot;<span className="code-white">:</span>
                     <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('game')}/>
                   </p>
-                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px]">
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.game.map((hobby: string) => (
                       <div key={hobby} className="flex">
                         <input
@@ -303,19 +303,18 @@ export default function Home() {
               )}
             </div>
             <div>
-              {hobbiesDisplay.sports === false && (
-                  <p className="search-row-sub flex">
+              {hobbiesDisplay.sports === false ? (
+                <p className="search-row-sub flex">
                   &quot;スポーツ系&quot;<span className="code-white">:</span>
                   <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('sports')} />
                 </p>
-              )}
-              {hobbiesDisplay.sports === true && (
+              ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;スポーツ系&quot;<span className="code-white">:</span>
                     <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('sports')}/>
                   </p>
-                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px]">
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.sports.map((hobby: string) => (
                       <div key={hobby} className="flex">
                         <input
@@ -334,20 +333,19 @@ export default function Home() {
                 </div>
               )}
             </div>
-            <div>
-              {hobbiesDisplay.watching === false && (
-                  <p className="search-row-sub flex">
+            <div className='w-[100%]'>
+              {hobbiesDisplay.watching === false ? (
+                <p className="search-row-sub flex">
                   &quot;鑑賞系&quot;<span className="code-white">:</span>
                   <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('watching')} />
                 </p>
-              )}
-              {hobbiesDisplay.watching === true && (
+              ) : (
                 <div>
                   <p className="search-row-sub flex">
                     &quot;鑑賞系&quot;<span className="code-white">:</span>
                     <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('watching')}/>
                   </p>
-                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px]">
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
                     {hobbies.watching.map((hobby: string) => (
                       <div key={hobby} className="flex">
                         <input
@@ -366,7 +364,347 @@ export default function Home() {
                 </div>
               )}
             </div>
-            {/* ここに残りの趣味を入れる */}
+            <div>
+              {hobbiesDisplay.music === false ? (
+                <p className="search-row-sub flex">
+                  &quot;音楽系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('music')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;音楽系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('music')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.music.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.trip === false ? (
+                <p className="search-row-sub flex">
+                  &quot;旅行・お出かけ系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('trip')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;旅行・お出かけ系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('trip')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.trip.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.outdoor === false ? (
+                <p className="search-row-sub flex">
+                  &quot;自然・アウトドア系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('outdoor')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;自然・アウトドア系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('outdoor')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.outdoor.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.eat === false ? (
+                <p className="search-row-sub flex">
+                  &quot;食べる・飲む系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('eat')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;食べる・飲む系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('eat')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.eat.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.make === false ? (
+                <p className="search-row-sub flex">
+                  &quot;つくる系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('make')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;つくる系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('make')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.make.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.drive === false ? (
+                <p className="search-row-sub flex">
+                  &quot;乗り物系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('drive')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;乗り物系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('drive')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.drive.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.skill === false ? (
+                <p className="search-row-sub flex">
+                  &quot;スキル・一芸系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('skill')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;スキル・一芸系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('skill')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.skill.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.investment === false ? (
+                <p className="search-row-sub flex">
+                  &quot;投資系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('investment')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;投資系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('investment')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.investment.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.art === false ? (
+                <p className="search-row-sub flex">
+                  &quot;芸術系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('art')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;芸術系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('art')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.art.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.grow === false ? (
+                <p className="search-row-sub flex">
+                  &quot;育てる系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('grow')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;育てる系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('grow')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.grow.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+              {hobbiesDisplay.other === false ? (
+                <p className="search-row-sub flex">
+                  &quot;その他&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('other')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;その他&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('other')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                    {hobbies.other.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
             <p className="text-braces-yellow">{'}'}</p>
           </div>
           <div className="flex mt-[40px] text-white">
