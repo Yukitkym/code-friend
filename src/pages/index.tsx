@@ -3,17 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { db } from '../firebaseConfig'
-import {
-  game1,
-  game2,
-  languages1,
-  languages2,
-  languages3,
-  sports1,
-  sports2,
-  sports3,
-  watching
-} from '../languagesAndHobbies'
+import { hobbies,languages } from '../languagesAndHobbies'
+import { IoIosArrowDropright, IoIosArrowDropdown } from 'react-icons/io'
+import { BsSearch } from 'react-icons/bs'
 
 export default function Home() {
   const [users, setUsers] = useState([
@@ -62,6 +54,69 @@ export default function Home() {
   const [filteringText, setFilteringText] = useState('')
   const [filteringLanguage, setFilteringLanguage] = useState(['None'])
   const [filteringHobby, setFilteringHobby] = useState(['None'])
+
+  const [hobbiesDisplay, setHobbiesDisplay] = useState({
+    game: false,
+    sports: false,
+    watching: false,
+    music: false,
+    trip: false,
+    outdoor: false,
+    eat: false,
+    make: false,
+    drive: false,
+    skill: false,
+    investment: false,
+    art: false,
+    grow: false,
+    other: false
+  })
+  const changeHobbiesDisplay = (hobby: string) => {
+    switch (hobby) {
+      case 'game':
+        setHobbiesDisplay({...hobbiesDisplay, 'game': !hobbiesDisplay.game})
+        break;
+      case 'sports':
+        setHobbiesDisplay({...hobbiesDisplay, 'sports': !hobbiesDisplay.sports})
+        break;
+      case 'watching':
+        setHobbiesDisplay({...hobbiesDisplay, 'watching': !hobbiesDisplay.watching})
+        break;
+      case 'music':
+        setHobbiesDisplay({...hobbiesDisplay, 'music': !hobbiesDisplay.music})
+        break;
+      case 'trip':
+        setHobbiesDisplay({...hobbiesDisplay, 'trip': !hobbiesDisplay.trip})
+        break;
+      case 'outdoor':
+        setHobbiesDisplay({...hobbiesDisplay, 'outdoor': !hobbiesDisplay.outdoor})
+        break;
+      case 'eat':
+        setHobbiesDisplay({...hobbiesDisplay, 'eat': !hobbiesDisplay.eat})
+        break;
+      case 'make':
+        setHobbiesDisplay({...hobbiesDisplay, 'make': !hobbiesDisplay.make})
+        break;
+      case 'drive':
+        setHobbiesDisplay({...hobbiesDisplay, 'drive': !hobbiesDisplay.drive})
+        break;
+      case 'skill':
+        setHobbiesDisplay({...hobbiesDisplay, 'skill': !hobbiesDisplay.skill})
+        break;
+      case 'investment':
+        setHobbiesDisplay({...hobbiesDisplay, 'investment': !hobbiesDisplay.investment})
+        break;
+      case 'art':
+        setHobbiesDisplay({...hobbiesDisplay, 'art': !hobbiesDisplay.art})
+        break;
+      case 'grow':
+        setHobbiesDisplay({...hobbiesDisplay, 'grow': !hobbiesDisplay.grow})
+        break;
+      case 'other':
+        setHobbiesDisplay({...hobbiesDisplay, 'other': !hobbiesDisplay.other})
+        break;
+    }
+  }
 
   const searchClick = () => {
     // 検索ボタンを押すとtemporary(仮の要素)から正式な要素に移り、フィルタリングを行う
@@ -178,7 +233,7 @@ export default function Home() {
         <div className="bg-bg-light-color border-[#000078] border-[1px] border-opacity-10 px-[42px] pt-[22px] h-[800px]">
           <p className="search-row">
             &quot;フリーワード&quot;<span className="code-white">:</span>
-            <span className="text-code-orange">
+            <span className="text-code-orange ml-[10px]">
               &quot;
               <input
                 className="w-[518px] bg-[#36311A] border-[#BD9B03] border-[1px]"
@@ -189,48 +244,16 @@ export default function Home() {
             </span>
           </p>
           <div className="code-blue flex">
-            <p className="search-row w-[450px]">
+            <p className="search-row w-[450px] mr-[10px]">
               &quot;プログラミング言語&quot;<span className="code-white">:</span>
             </p>
             <div>
               <div className="flex flex-wrap float-left">
-                {languages1.map((language: string, index: number) => (
-                  <div key={index}>
+                {languages.map((language: string) => (
+                  <div key={language} className="flex">
                     <input
                       type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
-                      id={language}
-                      onChange={(e: any) => languageCheckboxClick(e)}
-                    />
-                    <p className="code-blue mr-[10px]">
-                      {language}
-                      <span className="code-white">,</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-wrap float-left">
-                {languages2.map((language: string, index: number) => (
-                  <div key={index}>
-                    <input
-                      type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
-                      id={language}
-                      onChange={(e: any) => languageCheckboxClick(e)}
-                    />
-                    <p className="code-blue mr-[10px]">
-                      {language}
-                      <span className="code-white">,</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-wrap float-left">
-                {languages3.map((language: string, index: number) => (
-                  <div key={index}>
-                    <input
-                      type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
+                      className="h-[16px] w-[16px] my-auto mr-[5px]"
                       id={language}
                       onChange={(e: any) => languageCheckboxClick(e)}
                     />
@@ -246,141 +269,115 @@ export default function Home() {
           <div>
             <p className="search-row">
               &quot;趣味&quot;<span className="code-white">:</span>
-              <span className="text-braces-yellow">{'{'}</span>
+              <span className="text-braces-yellow ml-[10px]">{'{'}</span>
             </p>
             <div>
-              <p className="search-row-sub">
-                &quot;ゲーム・思考系&quot;<span className="code-white">:</span>
-                <span className="text-braces-pink">{'{'}</span>
-              </p>
-              <div className="flex flex-wrap float-left pl-[60px]">
-                {game1.map((game: string, index: number) => (
-                  <div key={index}>
-                    <input
-                      type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
-                      id={game}
-                      onChange={(e: any) => hobbyCheckboxClick(e)}
-                    />
-                    <p className="code-blue mr-[10px]">
-                      {game}
-                      <span className="code-white">,</span>
-                    </p>
+              {hobbiesDisplay.game === false ? (
+                  <p className="search-row-sub flex">
+                  &quot;ゲーム・思考系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('game')} />
+                </p>
+              ) : (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;ゲーム・思考系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('game')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px]">
+                    {hobbies.game.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <div className="flex flex-wrap float-left pl-[60px]">
-                {game2.map((game: string, index: number) => (
-                  <div key={index}>
-                    <input
-                      type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
-                      id={game}
-                      onChange={(e: any) => hobbyCheckboxClick(e)}
-                    />
-                    <p className="code-blue mr-[10px]">
-                      {game}
-                      <span className="code-white">,</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <p className="code-white pl-[30px]">
-                <span className="text-braces-pink">{'}'}</span>,
-              </p>
+                </div>
+              )}
             </div>
             <div>
-              <p className="search-row-sub">
-                &quot;スポーツ系&quot;<span className="code-white">:</span>
-                <span className="text-braces-pink">{'{'}</span>
-              </p>
-              <div className="flex flex-wrap float-left pl-[60px]">
-                {sports1.map((sports: string, index: number) => (
-                  <div key={index}>
-                    <input
-                      type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
-                      id={sports}
-                      onChange={(e: any) => hobbyCheckboxClick(e)}
-                    />
-                    <p className="code-blue mr-[10px]">
-                      {sports}
-                      <span className="code-white">,</span>
-                    </p>
+              {hobbiesDisplay.sports === false && (
+                  <p className="search-row-sub flex">
+                  &quot;スポーツ系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('sports')} />
+                </p>
+              )}
+              {hobbiesDisplay.sports === true && (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;スポーツ系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('sports')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px]">
+                    {hobbies.sports.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <div className="flex flex-wrap float-left pl-[60px]">
-                {sports2.map((sports: string, index: number) => (
-                  <div key={index}>
-                    <input
-                      type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
-                      id={sports}
-                      onChange={(e: any) => hobbyCheckboxClick(e)}
-                    />
-                    <p className="code-blue mr-[10px]">
-                      {sports}
-                      <span className="code-white">,</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-wrap float-left pl-[60px]">
-                {sports3.map((sports: string, index: number) => (
-                  <div key={index}>
-                    <input
-                      type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
-                      id={sports}
-                      onChange={(e: any) => hobbyCheckboxClick(e)}
-                    />
-                    <p className="code-blue mr-[10px]">
-                      {sports}
-                      <span className="code-white">,</span>
-                    </p>
-                  </div>
-                ))}
-              </div>
-              <p className="code-white pl-[30px]">
-                <span className="text-braces-pink">{'}'}</span>,
-              </p>
+                </div>
+              )}
             </div>
             <div>
-              <p className="search-row-sub">
-                &quot;鑑賞系&quot;<span className="code-white">:</span>
-                <span className="text-braces-pink">{'{'}</span>
-              </p>
-              <div className="flex flex-wrap float-left pl-[60px]">
-                {watching.map((watch: string, index: number) => (
-                  <div key={index}>
-                    <input
-                      type="checkbox"
-                      className="h-[16px] w-[16px] m-auto"
-                      id={watch}
-                      onChange={(e: any) => hobbyCheckboxClick(e)}
-                    />
-                    <p className="code-blue mr-[10px]">
-                      {watch}
-                      <span className="code-white">,</span>
-                    </p>
+              {hobbiesDisplay.watching === false && (
+                  <p className="search-row-sub flex">
+                  &quot;鑑賞系&quot;<span className="code-white">:</span>
+                  <IoIosArrowDropright className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('watching')} />
+                </p>
+              )}
+              {hobbiesDisplay.watching === true && (
+                <div>
+                  <p className="search-row-sub flex">
+                    &quot;鑑賞系&quot;<span className="code-white">:</span>
+                    <IoIosArrowDropdown className='text-[25px] ml-[10px]' onClick={() => changeHobbiesDisplay('watching')}/>
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px]">
+                    {hobbies.watching.map((hobby: string) => (
+                      <div key={hobby} className="flex">
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-              <p className="code-white pl-[30px]">
-                <span className="text-braces-pink">{'}'}</span>,
-              </p>
+                </div>
+              )}
             </div>
+            {/* ここに残りの趣味を入れる */}
+            <p className="text-braces-yellow">{'}'}</p>
           </div>
-          <div className="bg-btn-gray w-[148px] h-[48px] text-center mt-[20px] mb-[20px] flex items-center">
-            <p className="text-white m-auto">もっと見る</p>
-          </div>
-          <div className="flex">
-            <div className="bg-btn-blue w-[340px] h-[48px] flex items-center" onClick={searchClick}>
-              <p className="text-white m-auto">検索</p>
+          <div className="flex mt-[40px] text-white">
+            <div className="bg-btn-blue w-[340px] h-[48px] flex items-center mr-[20px]" onClick={searchClick}>
+              <div className='flex m-auto'>
+                <BsSearch className="my-auto mr-[20px]" />
+                <p className='tracking-[15px]'>検索</p>
+              </div>
             </div>
             <div className="bg-btn-gray w-[340px] h-[48px] flex items-center" onClick={resetClick}>
-              <p className="text-white m-auto">リセット</p>
+              <p className= "m-auto">リセット</p>
             </div>
           </div>
         </div>
