@@ -382,14 +382,14 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="w-[800px] mx-auto">
+      <div className="w-[800px] mx-auto mt-[50px]">
         <div className="border-b-[1px] border-border-color mb-[16px]">
           <p className="text-comment-out text-[20px] fonr-en">{'// 一覧から探す'}</p>
           <p className="tag-gray text-[20px]">
             &lt;<span className="text-code-green font-ja">List</span>&gt;
           </p>
         </div>
-        <div>
+        <div className='flex flex-wrap flex-center items-start'>
           {users.map((user: any, index: number) => {
             if (
               checkText(user.name, user.posts, user.postNum) &&
@@ -397,83 +397,97 @@ export default function Home() {
               checkHobby(user.hobbies)
             ) {
               return (
-                <div key={index} className="bg-black-light mb-[10px]">
-                  <Link href={`/user/${user.uid}`}>
-                    <Image
-                      src={
-                        user.image
-                          ? user.image
-                          : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/userImages%2Finit.jpg?alt=media&token=69a50ddd-5912-4415-91cb-1cdb1fdf6d3f'
-                      }
-                      alt="ユーザー画像"
-                      width="100px"
-                      height="100px"
-                    />
-                  </Link>
-                  <Link href={`/user/${user.uid}`}>
-                    <p className="text-code-white">{user.name}</p>
-                  </Link>
-                  <p className="text-code-white">{user.languages}</p>
-                  <p className="text-code-white">{user.hobbies}</p>
-                  {user.postNum === 0 && (
-                    <Link href={`/user/${user.uid}`}>
-                      <a className="text-code-blue">もっと知りたい</a>
-                    </Link>
-                  )}
-                  {user.postNum >= 1 && (
-                    <div>
-                      <p className="text-code-white">{user.posts[0].title}</p>
-                      <Image
-                        src={
-                          user.posts[0].image
-                            ? user.posts[0].image
-                            : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
-                        }
-                        alt="投稿サムネイル1"
-                        width="200px"
-                        height="100px"
-                      />
-                      <Link href={`/posts/${user.posts[0].id}`}>
-                        <a className="text-code-blue">もっと詳しく</a>
+                <div key={index} className="bg-black-light m-[10px] min-w-[30%] max-w-[30%]">
+                  <div className='m-[8px]'>
+                    <div className='flex'>
+                      <Link href={`/user/${user.uid}`}>
+                        <Image
+                          src={
+                            user.image
+                              ? user.image
+                              : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/userImages%2Finit.jpg?alt=media&token=69a50ddd-5912-4415-91cb-1cdb1fdf6d3f'
+                          }
+                          alt="ユーザー画像"
+                          width="60px"
+                          height="60px"
+                          className='rounded-full'
+                        />
+                      </Link>
+                      <Link href={`/user/${user.uid}`}>
+                        <p className="text-code-white my-auto ml-[10px] text-[18px]">{user.name}</p>
                       </Link>
                     </div>
-                  )}
-                  {user.postNum >= 2 && (
-                    <div>
-                      <p className="text-code-white">{user.posts[1].title}</p>
-                      <Image
-                        src={
-                          user.posts[1].image
-                            ? user.posts[1].image
-                            : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
-                        }
-                        alt="投稿サムネイル2"
-                        width="200px"
-                        height="100px"
-                      />
-                      <Link href={`/posts/${user.posts[1].id}`}>
-                        <a className="text-code-blue">もっと詳しく</a>
-                      </Link>
-                    </div>
-                  )}
-                  {user.postNum >= 3 && (
-                    <div>
-                      <p className="text-code-white">{user.posts[2].title}</p>
-                      <Image
-                        src={
-                          user.posts[2].image
-                            ? user.posts[2].image
-                            : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
-                        }
-                        alt="投稿サムネイル3"
-                        width="200px"
-                        height="100px"
-                      />
-                      <Link href={`/posts/${user.posts[2].id}`}>
-                        <a className="text-code-blue">もっと詳しく</a>
-                      </Link>
-                    </div>
-                  )}
+                    <p className="text-code-white mt-[10px]">言語</p>
+                    <p className="text-code-blue overflow-scroll h-[40px]">{user.languages.join(', ')}</p>
+                    <p className="text-code-white">趣味</p>
+                    <p className="text-code-blue overflow-scroll h-[40px]">{user.hobbies.join(', ')}</p>
+                    {user.postNum === 0 && (
+                      <div className='mt-[20px] pb-[10px]'>
+                        <Link href={`/user/${user.uid}`}>
+                          <a className="text-code-blue border-[1px] border-code-blue rounded px-[50px] py-[5px] mt-[20px]">もっと知りたい</a>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                  <div className='h-max-[200px] overflow-scroll'>
+                    {user.postNum >= 1 && (
+                      <div className='relative h-[160px]'>
+                        <Image
+                          src={
+                            user.posts[0].image
+                              ? user.posts[0].image
+                              : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
+                          }
+                          alt="投稿サムネイル1"
+                          layout='fill'
+                        />
+                        <div className='absolute bg-black opacity-[40%] w-[100%] h-[100%]'>
+                        </div>
+                        <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[0].title}</p>
+                        <Link href={`/posts/${user.posts[0].id}`}>
+                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">もっと詳しく</a>
+                        </Link>
+                      </div>
+                    )}
+                    {user.postNum >= 2 && (
+                      <div className='relative h-[160px] border-t-[1px]'>
+                        <Image
+                          src={
+                            user.posts[1].image
+                              ? user.posts[1].image
+                              : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
+                          }
+                          alt="投稿サムネイル2"
+                          layout='fill'
+                        />
+                        <div className='absolute bg-black opacity-[40%] w-[100%] h-[100%]'>
+                        </div>
+                        <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[1].title}</p>
+                        <Link href={`/posts/${user.posts[1].id}`}>
+                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">もっと詳しく</a>
+                        </Link>
+                      </div>
+                    )}
+                    {user.postNum >= 3 && (
+                      <div className='relative h-[160px] border-t-[1px]'>
+                        <Image
+                          src={
+                            user.posts[2].image
+                              ? user.posts[2].image
+                              : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
+                          }
+                          alt="投稿サムネイル3"
+                          layout='fill'
+                        />
+                        <div className='absolute bg-black opacity-[40%] w-[100%] h-[100%]'>
+                        </div>
+                        <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[2].title}</p>
+                        <Link href={`/posts/${user.posts[2].id}`}>
+                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">もっと詳しく</a>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )
             }
