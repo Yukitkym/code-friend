@@ -19,7 +19,7 @@
 }
 
 .search-row-sub {
-  @apply text-code-blue font-en pb-[20px] pl-[30px]
+  @apply text-code-blue font-en pb-[10px] pl-[30px]
 }
 
 
