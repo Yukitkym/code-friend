@@ -829,7 +829,7 @@ export default function Home() {
                       </div>
                     )}
                   </div>
-                  <div className="h-max-[200px] overflow-scroll">
+                  <div className="max-h-[240px] overflow-scroll">
                     {user.postNum >= 1 && (
                       <div className="relative h-[160px]">
                         <Image
