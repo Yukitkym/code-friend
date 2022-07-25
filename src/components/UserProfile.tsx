@@ -101,12 +101,11 @@ export default function UserProfile(props) {
             <p className="mb-[10px]">
               コンタクト: <span className="text-code-blue">{userContact !== '' ? userContact : '記載なし'}</span>
             </p>
-            {userProfile !== '' ?
-            (
+            {userProfile !== '' ? (
               <div>
                 <p className="mb-[4px]">プロフィール文</p>
-                <div className='bg-zinc-700 w-[100%] rounded'>
-                  <div className='p-[10px]'>
+                <div className="bg-zinc-700 w-[100%] rounded">
+                  <div className="p-[10px]">
                     {userProfile.split('\n').map((sentence) => (
                       <p className="text-code-blue">{sentence}</p>
                     ))}
@@ -114,7 +113,9 @@ export default function UserProfile(props) {
                 </div>
               </div>
             ) : (
-              <p className="mb-[10px]">プロフィール文: <span className="text-code-blue">記載なし</span></p>
+              <p className="mb-[10px]">
+                プロフィール文: <span className="text-code-blue">記載なし</span>
+              </p>
             )}
             {readingUserId === uid && (
               <div className="mt-[40px]">

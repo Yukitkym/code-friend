@@ -149,7 +149,13 @@ export default function UserProfileEdit(props) {
         <br />
         <br />
         <p>ユーザープロフィール</p>
-        <textarea name="userProfile" cols="30" rows="10" value={userProfile} onChange={(e: any) => setUserProfile(e.target.value)} />
+        <textarea
+          name="userProfile"
+          cols="30"
+          rows="10"
+          value={userProfile}
+          onChange={(e: any) => setUserProfile(e.target.value)}
+        />
         <br />
         <br />
         <p>連絡先</p>
