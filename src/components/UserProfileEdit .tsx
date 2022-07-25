@@ -28,6 +28,7 @@ export default function UserProfileEdit(props) {
 
   const [userName, setUserName] = useState('')
   const [userEmail, setUserEmail] = useState('')
+  const [userProfile, setUserProfile] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userLanguages, setUserLanguages] = useState(['None'])
   const [userHobbies, setUserHobbies] = useState(['None'])
@@ -42,6 +43,7 @@ export default function UserProfileEdit(props) {
       if (userSnap.exists() && userEmail !== userSnap.data().email) {
         setUserName(userSnap.data().name)
         setUserEmail(userSnap.data().email)
+        setUserProfile(userSnap.data().profile)
         setUserImage(userSnap.data().image)
         setUserLanguages(userSnap.data().languages)
         setUserHobbies(userSnap.data().hobbies)
@@ -111,6 +113,7 @@ export default function UserProfileEdit(props) {
       })
       await updateDoc(doc(db, 'users', uid), {
         name: userName,
+        profile: userProfile,
         image: imageUrl,
         languages: userLanguages,
         hobbies: userHobbies,
@@ -119,6 +122,7 @@ export default function UserProfileEdit(props) {
     } else {
       await updateDoc(doc(db, 'users', uid), {
         name: userName,
+        profile: userProfile,
         languages: userLanguages,
         hobbies: userHobbies,
         contact: userContact
@@ -142,6 +146,10 @@ export default function UserProfileEdit(props) {
         <br />
         <p>ユーザー名</p>
         <input value={userName} onChange={(e: any) => setUserName(e.target.value)} />
+        <br />
+        <br />
+        <p>ユーザープロフィール</p>
+        <textarea name="userProfile" cols="30" rows="10" value={userProfile} onChange={(e: any) => setUserProfile(e.target.value)} />
         <br />
         <br />
         <p>連絡先</p>
