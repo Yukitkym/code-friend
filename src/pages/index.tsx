@@ -208,7 +208,7 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-bg-color">
+    <div className="bg-bg-color pb-[40px]">
       <div>
         <p className="tag-gray text-[30px] text-center pt-[70px] pb-[60px]">
           &lt;<span className="code-blue">h1</span>&gt;

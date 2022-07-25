@@ -25,6 +25,51 @@ export default function LoginSignUp(props) {
   }, [isLogin, router])
 
   const [message, setMessage] = useState('')
+  const errorMessage = (errorCode: string) => {
+    switch (errorCode) {
+      case 'auth/cancelled-popup-request':
+      case 'auth/popup-closed-by-user':
+        return
+      case 'auth/email-already-in-use':
+        setMessage('このメールアドレスは使用されています')
+        return
+      case 'auth/invalid-email':
+        setMessage('メールアドレスの形式が正しくありません')
+        return
+      case 'auth/user-disabled':
+        setMessage('サービスの利用が停止されています')
+        return
+      case 'auth/user-not-found':
+        setMessage('メールアドレスまたはパスワードが違います')
+        return
+      case 'auth/user-mismatch':
+        setMessage('認証されているユーザーと異なるアカウントが選択されました')
+        return
+      case 'auth/weak-password':
+        setMessage('パスワードは6文字以上にしてください')
+        return
+      case 'auth/wrong-password':
+        setMessage('メールアドレスまたはパスワードが違います')
+        return
+      case 'auth/popup-blocked':
+        setMessage(
+          '認証ポップアップがブロックされました。ポップアップブロックをご利用の場合は設定を解除してください'
+        )
+        return
+      case 'auth/operation-not-supported-in-this-environment':
+      case 'auth/auth-domain-config-required':
+      case 'auth/operation-not-allowed':
+      case 'auth/unauthorized-domain':
+        setMessage('現在この認証方法はご利用頂けません')
+        return
+      case 'auth/requires-recent-login':
+        setMessage('認証の有効期限が切れています')
+        return
+      default:
+        setMessage('認証に失敗しました。しばらく時間をおいて再度お試しください')
+        return
+    }
+  }
 
   const loginOrSignUpFunction = (loginOrSignUp: string, e: any) => {
     e.preventDefault()
@@ -88,8 +133,7 @@ export default function LoginSignUp(props) {
           setAction('ログイン')
         })
         .catch((error) => {
-          const errorCode = error.code
-          setMessage(errorCode)
+          errorMessage(error.code)
         })
     } else {
       // 新規登録時
@@ -119,50 +163,7 @@ export default function LoginSignUp(props) {
           setUserFireStore(userCredential.user.uid)
         })
         .catch((error) => {
-          const errorCode = error.code
-          switch (errorCode) {
-            case 'auth/cancelled-popup-request':
-            case 'auth/popup-closed-by-user':
-              return
-            case 'auth/email-already-in-use':
-              setMessage('このメールアドレスは使用されています')
-              return
-            case 'auth/invalid-email':
-              setMessage('メールアドレスの形式が正しくありません')
-              return
-            case 'auth/user-disabled':
-              setMessage('サービスの利用が停止されています')
-              return
-            case 'auth/user-not-found':
-              setMessage('メールアドレスまたはパスワードが違います')
-              return
-            case 'auth/user-mismatch':
-              setMessage('認証されているユーザーと異なるアカウントが選択されました')
-              return
-            case 'auth/weak-password':
-              setMessage('パスワードは6文字以上にしてください')
-              return
-            case 'auth/wrong-password':
-              setMessage('メールアドレスまたはパスワードが違います')
-              return
-            case 'auth/popup-blocked':
-              setMessage(
-                '認証ポップアップがブロックされました。ポップアップブロックをご利用の場合は設定を解除してください'
-              )
-              return
-            case 'auth/operation-not-supported-in-this-environment':
-            case 'auth/auth-domain-config-required':
-            case 'auth/operation-not-allowed':
-            case 'auth/unauthorized-domain':
-              setMessage('現在この認証方法はご利用頂けません')
-              return
-            case 'auth/requires-recent-login':
-              setMessage('認証の有効期限が切れています')
-              return
-            default:
-              setMessage('認証に失敗しました。しばらく時間をおいて再度お試しください')
-              return
-          }
+          errorMessage(error.code)
         })
     }
   }
@@ -174,54 +175,59 @@ export default function LoginSignUp(props) {
   const clickSignUp = (e: any) => {
     loginOrSignUpFunction('signUp', e)
   }
+
   if (page === 'login') {
     return (
-      <div>
-        <h1>ログイン</h1>
-        <form onSubmit={(e: any) => clickLogin(e)}>
-          <p>メールアドレス</p>
-          <input name="email" className="bg-code-blue" />
-          <p>パスワード</p>
-          <input name="password" className="bg-code-blue" />
-          <br />
-          <br />
-          <button className="bg-code-green">ログイン</button>
-        </form>
-        <p>
-          新規登録がまだの方は
-          <Link href="/signUp">
-            <a className="text-code-blue">こちら</a>
-          </Link>
-          へ
-        </p>
-        <p>{message}</p>
+      <div className='bg-bg-color text-code-white h-[84vh]'>
+        <div className='w-[450px] mx-auto'>
+          <h1 className='text-center text-[24px] py-[20px]'>ログイン</h1>
+          <p className='text-center pb-[20px]'>
+            新規登録がまだの方は
+            <Link href="/signUp">
+              <a className="text-code-blue">こちら</a>
+            </Link>
+            へ
+          </p>
+          <form className='bg-bg-light-color border-[#000078] border-[1px] border-opacity-10' onSubmit={(e: any) => clickLogin(e)}>
+            <div className='mx-[60px] my-[40px]'>
+              <p className='text-red-500 mb-[10px]'>{message}</p>
+              <p>メールアドレス</p>
+              <input name="email" className="w-[100%] text-black-light mb-[20px]" />
+              <p>パスワード</p>
+              <input name="password" type='password' className="w-[100%] text-black-light mb-[40px]" />
+              <button className="bg-btn-blue w-[100%] rounded-full h-[40px]">ログイン</button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   } else {
     return (
-      <div>
-        <h1>サインアップ</h1>
-        <form onSubmit={(e: any) => clickSignUp(e)}>
-          <p>ユーザーネーム</p>
-          <input name="userName" className="bg-code-blue" />
-          <p>メールアドレス</p>
-          <input name="email" className="bg-code-blue" />
-          <p>パスワード</p>
-          <input name="password" className="bg-code-blue" />
-          <p>パスワード確認用</p>
-          <input name="checkPassword" className="bg-code-blue" />
-          <br />
-          <br />
-          <button className="bg-code-green">サインアップ</button>
-        </form>
-        <p>
-          新規登録済みの方は
-          <Link href="/login">
-            <a className="text-code-blue">こちら</a>
-          </Link>
-          へ
-        </p>
-        <p>{message}</p>
+      <div className='bg-bg-color text-code-white pb-[40px]'>
+        <div className='w-[450px] mx-auto'>
+          <h1 className='text-center text-[24px] py-[20px]'>サインアップ</h1>
+          <p className='text-center pb-[20px]'>
+            新規登録済みの方は
+            <Link href="/login">
+              <a className="text-code-blue">こちら</a>
+            </Link>
+            へ
+          </p>
+          <form className='bg-bg-light-color border-[#000078] border-[1px] border-opacity-10' onSubmit={(e: any) => clickSignUp(e)}>
+            <div className='mx-[60px] my-[40px]'>
+              <p className='text-red-500 mb-[10px]'>{message}</p>
+              <p>ユーザーネーム</p>
+              <input name="userName" className="w-[100%] text-black-light mb-[20px]" />
+              <p>メールアドレス</p>
+              <input name="email" className="w-[100%] text-black-light mb-[20px]" />
+              <p>パスワード</p>
+              <input name="password" type='password' className="w-[100%] text-black-light mb-[30px]" />
+              <p>パスワード確認用</p>
+              <input name="checkPassword" type='password' className="w-[100%] text-black-light mb-[40px]" />
+              <button className="bg-btn-blue w-[100%] rounded-full h-[40px]">サインアップ</button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   }
