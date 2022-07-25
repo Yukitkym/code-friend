@@ -58,70 +58,92 @@ export default function UserProfile(props) {
 
   const clickLogout = () => {
     if (isLogin === true) {
-      signOut(auth)
-        .then(() => {
-          setUid('')
-          setIsLogin(false)
-          router.push('/')
-          setOpen(true)
-          setAction('ログアウト')
-        })
+      signOut(auth).then(() => {
+        setUid('')
+        setIsLogin(false)
+        router.push('/')
+        setOpen(true)
+        setAction('ログアウト')
+      })
     }
   }
 
   if (userName !== '') {
     return (
-      <div className='bg-bg-color text-code-white pb-[40px]'>
+      <div className="bg-bg-color text-code-white pb-[40px]">
         <h1 className="text-center text-[24px] py-[20px]">プロフィール</h1>
         <div className="w-[600px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
-          <div className='mx-[60px] my-[40px]'>
-            <div className='w-[100px] mx-auto mb-[30px]'>
-              <Image src={userImage ? userImage : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'} alt="プロフィール画像" width="100px" height="100px" className='rounded-full' />
+          <div className="mx-[60px] my-[40px]">
+            <div className="w-[100px] mx-auto mb-[30px]">
+              <Image
+                src={
+                  userImage
+                    ? userImage
+                    : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
+                }
+                alt="プロフィール画像"
+                width="100px"
+                height="100px"
+                className="rounded-full"
+              />
             </div>
-            <p className='mb-[10px]'>ユーザー名: <span className='text-code-blue'>{userName}</span></p>
-            <p className='mb-[10px]'>プログラミング言語: <span className='text-code-blue'>{userLanguages.join(', ')}</span></p>
-            <p className='mb-[10px]'>趣味: <span className='text-code-blue'>{userHobbies.join(', ')}</span></p>
-            <p className='mb-[10px]'>コンタクト: <span className='text-code-blue'>{userContact !== '' ? userContact : '記載なし'}</span></p>
+            <p className="mb-[10px]">
+              ユーザー名: <span className="text-code-blue">{userName}</span>
+            </p>
+            <p className="mb-[10px]">
+              プログラミング言語: <span className="text-code-blue">{userLanguages.join(', ')}</span>
+            </p>
+            <p className="mb-[10px]">
+              趣味: <span className="text-code-blue">{userHobbies.join(', ')}</span>
+            </p>
+            <p className="mb-[10px]">
+              コンタクト: <span className="text-code-blue">{userContact !== '' ? userContact : '記載なし'}</span>
+            </p>
             {readingUserId === uid && (
-              <div className='mt-[40px]'>
+              <div className="mt-[40px]">
                 <Link href="/setting/profile/edit">
-                  <button className='bg-btn-blue w-[250px] rounded h-[40px] mr-[20px]'>プロフィール編集ページへ</button>
+                  <button className="bg-btn-blue w-[250px] rounded h-[40px] mr-[20px]">プロフィール編集ページへ</button>
                 </Link>
                 <Link href="/createPost">
-                  <button className='bg-btn-blue w-[200px] rounded h-[40px]'>新規投稿ページへ</button>
+                  <button className="bg-btn-blue w-[200px] rounded h-[40px]">新規投稿ページへ</button>
                 </Link>
-                <div className='text-right mt-[40px]'>
-                  <button className='bg-orange-700 w-[150px] rounded-full h-[40px]' onClick={clickLogout}>ログアウト</button>
+                <div className="text-right mt-[40px]">
+                  <button className="bg-orange-700 w-[150px] rounded-full h-[40px]" onClick={clickLogout}>
+                    ログアウト
+                  </button>
                 </div>
               </div>
             )}
           </div>
         </div>
-        <div className='w-[900px] mx-auto'>
+        <div className="w-[900px] mx-auto">
           <div>
             <p className="text-center text-[24px] mt-[40px] mb-[30px]">投稿一覧</p>
-            {userPostNum === 0 && <p className='text-center'>投稿はありません</p>}
+            {userPostNum === 0 && <p className="text-center">投稿はありません</p>}
             {userPostNum === 1 &&
               userPosts.map((post: any, index: number) => (
                 <div key={index} className="relative w-[270px] h-[180px] mb-[30px] mx-[auto]">
-                  <Image src={post.image} alt="投稿サムネイル画像" layout='fill' />
+                  <Image src={post.image} alt="投稿サムネイル画像" layout="fill" />
                   <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                  <p  className="text-code-white absolute text-[24px] mx-[10px] mt-[10px]">{post.title}</p>
+                  <p className="text-code-white absolute text-[24px] mx-[10px] mt-[10px]">{post.title}</p>
                   <Link href={`/posts/${post.id}`}>
-                    <a className="text-code-white absolute top-[130px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[60px] py-[6px] ml-[30px]">投稿詳細へ</a>
+                    <a className="text-code-white absolute top-[130px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[60px] py-[6px] ml-[30px]">
+                      投稿詳細へ
+                    </a>
                   </Link>
                 </div>
-              ))
-            }
+              ))}
             {userPostNum >= 2 && (
-              <div className='flex flex-wrap'>
+              <div className="flex flex-wrap">
                 {userPosts.map((post: any, index: number) => (
                   <div key={index} className="relative w-[270px] h-[180px] mb-[30px] mx-[15px]">
-                    <Image src={post.image} alt="投稿サムネイル画像" layout='fill' />
+                    <Image src={post.image} alt="投稿サムネイル画像" layout="fill" />
                     <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                    <p  className="text-code-white absolute text-[24px] mx-[10px] mt-[10px]">{post.title}</p>
+                    <p className="text-code-white absolute text-[24px] mx-[10px] mt-[10px]">{post.title}</p>
                     <Link href={`/posts/${post.id}`}>
-                      <a className="text-code-white absolute top-[130px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[60px] py-[6px] ml-[30px]">投稿詳細へ</a>
+                      <a className="text-code-white absolute top-[130px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[60px] py-[6px] ml-[30px]">
+                        投稿詳細へ
+                      </a>
                     </Link>
                   </div>
                 ))}
@@ -134,7 +156,7 @@ export default function UserProfile(props) {
   } else {
     return (
       <div className="bg-bg-color text-code-white h-[84vh]">
-        <p className='text-center text-[20px] pt-[20px]'>読み込み中です</p>
+        <p className="text-center text-[20px] pt-[20px]">読み込み中です</p>
       </div>
     )
   }
