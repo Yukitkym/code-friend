@@ -106,8 +106,10 @@ export default function UserProfile(props) {
                 <p className="mb-[4px]">プロフィール文</p>
                 <div className="bg-zinc-700 w-[100%] rounded">
                   <div className="p-[10px]">
-                    {userProfile.split('\n').map((sentence) => (
-                      <p className="text-code-blue">{sentence}</p>
+                    {userProfile.split('\n').map((sentence: string, index: number) => (
+                      <p className="text-code-blue" key={index}>
+                        {sentence}
+                      </p>
                     ))}
                   </div>
                 </div>
