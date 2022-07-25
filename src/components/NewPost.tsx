@@ -86,7 +86,7 @@ export default function NewPost(props) {
       posts: updatedPosts
     })
 
-    router.push('/posts')
+    router.push('/setting/profile')
     setOpen(true)
     setAction('新規投稿')
   }

@@ -19,7 +19,7 @@ export default function UserProfile(props) {
   const setAction = useSetRecoilState(modalAction)
 
   useEffect(() => {
-    if (isLogin === false) {
+    if (isLogin === false && page === 'myProfile') {
       router.push('/')
     }
     /* eslint-disable-next-line */
@@ -82,47 +82,49 @@ export default function UserProfile(props) {
             <p className='mb-[10px]'>プログラミング言語: <span className='text-code-blue'>{userLanguages.join(', ')}</span></p>
             <p className='mb-[10px]'>趣味: <span className='text-code-blue'>{userHobbies.join(', ')}</span></p>
             <p className='mb-[10px]'>コンタクト: <span className='text-code-blue'>{userContact !== '' ? userContact : '記載なし'}</span></p>
-            {page === 'myProfile' && (
+            {readingUserId === uid && (
               <div className='mt-[40px]'>
-                <Link href="/posts">
-                  <button className='bg-btn-blue w-[200px] rounded h-[40px] mr-[20px]'>投稿一覧ページへ</button>
-                </Link>
                 <Link href="/setting/profile/edit">
-                  <button className='bg-btn-blue w-[250px] rounded h-[40px]'>プロフィール編集ページへ</button>
+                  <button className='bg-btn-blue w-[250px] rounded h-[40px] mr-[20px]'>プロフィール編集ページへ</button>
+                </Link>
+                <Link href="/createPost">
+                  <button className='bg-btn-blue w-[200px] rounded h-[40px]'>新規投稿ページへ</button>
                 </Link>
                 <div className='text-right mt-[40px]'>
                   <button className='bg-orange-700 w-[150px] rounded-full h-[40px]' onClick={clickLogout}>ログアウト</button>
                 </div>
               </div>
             )}
-            {page === 'otherProfile' && (
-              <div>
-                {userPageId === uid && (
-                  <Link href="/setting/profile/edit">
-                    <p>プロフィール編集ページへ</p>
+          </div>
+        </div>
+        <div className='w-[900px] mx-auto'>
+          <div>
+            <p className="text-center text-[24px] mt-[40px] mb-[30px]">投稿一覧</p>
+            {userPostNum === 0 && <p className='text-center'>投稿はありません</p>}
+            {userPostNum === 1 &&
+              userPosts.map((post: any, index: number) => (
+                <div key={index} className="relative w-[270px] h-[180px] mb-[30px] mx-[auto]">
+                  <Image src={post.image} alt="投稿サムネイル画像" layout='fill' />
+                  <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
+                  <p  className="text-code-white absolute text-[24px] mx-[10px] mt-[10px]">{post.title}</p>
+                  <Link href={`/posts/${post.id}`}>
+                    <a className="text-code-white absolute top-[130px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[60px] py-[6px] ml-[30px]">投稿詳細へ</a>
                   </Link>
-                )}
-                <br />
-                <br />
-                <br />
-                <div>
-                  <p>投稿一覧</p>
-                  <br />
-                  {userPostNum === 0 && <p>投稿はありません</p>}
-                  {userPostNum >= 1 &&
-                    userPosts.map((post: any, index: number) => (
-                      <div key={index}>
-                        <p>ID: {post.id}</p>
-                        {/* eslint-disable-next-line */}
-                        <img src={post.image} alt="投稿サムネイル画像" className="w-[300px]" />
-                        <p>タイトル: {post.title}</p>
-                        <p>内容: {post.content}</p>
-                        <Link href={`/posts/${post.id}`}>
-                          <p>投稿詳細へ</p>
-                        </Link>
-                      </div>
-                    ))}
                 </div>
+              ))
+            }
+            {userPostNum >= 2 && (
+              <div className='flex flex-wrap'>
+                {userPosts.map((post: any, index: number) => (
+                  <div key={index} className="relative w-[270px] h-[180px] mb-[30px] mx-[15px]">
+                    <Image src={post.image} alt="投稿サムネイル画像" layout='fill' />
+                    <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
+                    <p  className="text-code-white absolute text-[24px] mx-[10px] mt-[10px]">{post.title}</p>
+                    <Link href={`/posts/${post.id}`}>
+                      <a className="text-code-white absolute top-[130px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[60px] py-[6px] ml-[30px]">投稿詳細へ</a>
+                    </Link>
+                  </div>
+                ))}
               </div>
             )}
           </div>

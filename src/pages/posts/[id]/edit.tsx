@@ -156,7 +156,7 @@ export default function PostsIdEdit() {
     }
     await deleteDoc(doc(db, 'posts', postId))
     await deleteObject(ref(storage, `postImages/${postId}`))
-    router.push('/posts')
+    router.push('/setting/profile')
     setOpen(true)
     setAction('投稿の削除')
   }
