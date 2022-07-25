@@ -26,6 +26,7 @@ export default function UserProfile(props) {
   }, [isLogin])
 
   const [userName, setUserName] = useState('')
+  const [userProfile, setUserProfile] = useState('')
   const [userImage, setUserImage] = useState('')
   const [userLanguages, setUserLanguages] = useState(['None'])
   const [userHobbies, setUserHobbies] = useState(['None'])
@@ -44,6 +45,7 @@ export default function UserProfile(props) {
         const userSnap = await getDoc(userRef)
         if (userSnap.exists()) {
           setUserName(userSnap.data().name)
+          setUserProfile(userSnap.data().profile)
           setUserImage(userSnap.data().image)
           setUserLanguages(userSnap.data().languages)
           setUserHobbies(userSnap.data().hobbies)
@@ -99,6 +101,22 @@ export default function UserProfile(props) {
             <p className="mb-[10px]">
               コンタクト: <span className="text-code-blue">{userContact !== '' ? userContact : '記載なし'}</span>
             </p>
+            {userProfile !== '' ? (
+              <div>
+                <p className="mb-[4px]">プロフィール文</p>
+                <div className="bg-zinc-700 w-[100%] rounded">
+                  <div className="p-[10px]">
+                    {userProfile.split('\n').map((sentence) => (
+                      <p className="text-code-blue">{sentence}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p className="mb-[10px]">
+                プロフィール文: <span className="text-code-blue">記載なし</span>
+              </p>
+            )}
             {readingUserId === uid && (
               <div className="mt-[40px]">
                 <Link href="/setting/profile/edit">
