@@ -235,21 +235,20 @@ export default function Home() {
                     )}
                   </p>
                   <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
-                    {isDisplay &&
-                      category.map((hobby: string) => (
-                        <div key={hobby} className="flex">
-                          <input
-                            type="checkbox"
-                            className="h-[16px] w-[16px] my-auto mr-[5px]"
-                            id={hobby}
-                            onChange={(e: any) => hobbyCheckboxClick(e)}
-                          />
-                          <p className="code-blue mr-[10px]">
-                            {hobby}
-                            <span className="code-white">,</span>
-                          </p>
-                        </div>
-                      ))}
+                    {category.map((hobby: string) => (
+                      <div key={hobby} className="flex" style={{ display: isDisplay ? '' : 'none'}}>
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </>
               ))}
