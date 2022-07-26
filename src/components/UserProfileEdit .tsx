@@ -143,7 +143,9 @@ export default function UserProfileEdit(props) {
   if (userEmail !== '') {
     return (
       <div className="bg-bg-color text-code-white pb-[40px]">
-        <h1 className="text-center text-[24px] py-[20px]">{page === 'notFirstTime' ? 'プロフィール編集ページ' : 'プロフィールを登録しましょう'}</h1>
+        <h1 className="text-center text-[24px] py-[20px]">
+          {page === 'notFirstTime' ? 'プロフィール編集ページ' : 'プロフィールを登録しましょう'}
+        </h1>
         <div className="w-[700px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
           <div className="mx-[60px] my-[40px]">
             <p className="mb-[5px]">プロフィール画像</p>
@@ -162,7 +164,11 @@ export default function UserProfileEdit(props) {
             </div>
             <input id="image" type="file" className="mb-[15px]" />
             <p className="mb-[5px]">ユーザー名</p>
-            <input value={userName} onChange={(e: any) => setUserName(e.target.value)} className="w-[100%] mb-[15px] text-black" />
+            <input
+              value={userName}
+              onChange={(e: any) => setUserName(e.target.value)}
+              className="w-[100%] mb-[15px] text-black"
+            />
             <p className="mb-[5px]">ユーザープロフィール</p>
             <textarea
               name="userProfile"
@@ -173,7 +179,11 @@ export default function UserProfileEdit(props) {
               className="w-[100%] text-black mb-[10px]"
             />
             <p className="mb-[5px]">連絡先</p>
-            <input value={userContact} onChange={(e: any) => setUserContact(e.target.value)} className="w-[100%] mb-[15px] text-black" />
+            <input
+              value={userContact}
+              onChange={(e: any) => setUserContact(e.target.value)}
+              className="w-[100%] mb-[15px] text-black"
+            />
             <p className="mb-[5px]">プログラミング言語</p>
             <div className="flex flex-wrap float-left mb-[15px]">
               {languages.map((language: string, index: number) => (
@@ -226,7 +236,12 @@ export default function UserProfileEdit(props) {
             </div>
             {page === 'notFirstTime' && (
               <div>
-                <button onClick={clickEditDone} className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[20px] tracking-[3px]">編集完了</button>
+                <button
+                  onClick={clickEditDone}
+                  className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[20px] tracking-[3px]"
+                >
+                  編集完了
+                </button>
                 <div className="text-right">
                   <Link href="/setting/profile">
                     <button className="bg-btn-gray w-[200px] rounded h-[40px] mt-[30px]">プロフィールページへ</button>
@@ -234,7 +249,14 @@ export default function UserProfileEdit(props) {
                 </div>
               </div>
             )}
-            {page === 'firstTime' && <button onClick={clickEditDone} className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[20px] tracking-[3px]">登録完了</button>}
+            {page === 'firstTime' && (
+              <button
+                onClick={clickEditDone}
+                className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[20px] tracking-[3px]"
+              >
+                登録完了
+              </button>
+            )}
           </div>
         </div>
       </div>
