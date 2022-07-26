@@ -94,18 +94,18 @@ export default function NewPost(props) {
 
   return (
     <div className="bg-bg-color text-code-white pb-[40px]">
-      <h1 className="text-center text-[24px] py-[20px]">{page === 'notFirstTime' ? '新規投稿ページ' : '投稿をしてみましょう'}</h1>
-      <form onSubmit={(e: any) => clickPost(e)} className="w-[800px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
+      <h1 className="text-center text-[24px] py-[20px]">
+        {page === 'notFirstTime' ? '新規投稿ページ' : '投稿をしてみましょう'}
+      </h1>
+      <form
+        onSubmit={(e: any) => clickPost(e)}
+        className="w-[800px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10"
+      >
         <div className="mx-[60px] my-[40px]">
           <p className="mb-[5px]">タイトル</p>
           <input name="title" className="text-black mb-[15px] w-[70%]" />
           <p className="mb-[5px]">内容</p>
-          <textarea
-              name="content"
-              cols={10}
-              rows={6}
-              className="w-[70%] text-black mb-[10px]"
-            />
+          <textarea name="content" cols={10} rows={6} className="w-[70%] text-black mb-[10px]" />
           <div className="mb-[10px]">
             <select
               name="selectImage"
@@ -121,21 +121,31 @@ export default function NewPost(props) {
           <input id="image" type="file" disabled={selectImage === 'choice'} />
           {selectImage === 'choice' && (
             <div className="flex overflow-x-auto">
-              {[1, 2, 3, 4, 5, 6].map((num: number) => (
-                <div className={`mt-[20px] mr-[20px] px-[10px] pt-[10px] pb-[5px] flex-none ${choiceImage === `example${num}` ? 'bg-code-blue' : 'bg-white'}`}>
-                  <Image
-                    src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
-                    alt={`例${num}`}
-                    width="210px"
-                    height="140px"
-                    id={`example${num}`}
-                    onClick={() => setChoiceImage(`example${num}`)}
-                  />
-                </div>
-              ))}
+              {/* 1から6までの配列を作成し、それを使ってexample1〜6までの画像を表示 */}
+              {[...Array(6)]
+                .map((_, i) => i + 1)
+                .map((num: number) => (
+                  <div
+                    key={num}
+                    className={`mt-[20px] mr-[20px] px-[10px] pt-[10px] pb-[5px] flex-none ${
+                      choiceImage === `example${num}` ? 'bg-code-blue' : 'bg-white'
+                    }`}
+                  >
+                    <Image
+                      src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
+                      alt={`例${num}`}
+                      width="210px"
+                      height="140px"
+                      id={`example${num}`}
+                      onClick={() => setChoiceImage(`example${num}`)}
+                    />
+                  </div>
+                ))}
             </div>
           )}
-          <button className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[30px] tracking-[3px]">{page === 'notFirstTime' ? '新規投稿' : '投稿する'}</button>
+          <button className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[30px] tracking-[3px]">
+            {page === 'notFirstTime' ? '新規投稿' : '投稿する'}
+          </button>
         </div>
       </form>
     </div>
