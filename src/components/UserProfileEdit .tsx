@@ -4,10 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { IoIosArrowDropdown, IoIosArrowDropright } from 'react-icons/io'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { db, storage } from '../firebaseConfig'
-import { games, languages, sports, watching } from '../languagesAndHobbies'
+import { hobbies, languages } from '../languagesAndHobbies'
 
 export default function UserProfileEdit(props) {
   // 通常のプロフィール編集時は'notFirstTime'、新規登録後のプロフィール編集時は'firstTime'
@@ -34,6 +35,7 @@ export default function UserProfileEdit(props) {
   const [userLanguages, setUserLanguages] = useState(['None'])
   const [userHobbies, setUserHobbies] = useState(['None'])
   const [userContact, setUserContact] = useState('')
+  const [hobbiesDisplay, setHobbiesDisplay] = useState(hobbies)
 
   useEffect(() => {
     const getUserProfile = async () => {
@@ -100,6 +102,13 @@ export default function UserProfileEdit(props) {
         setUserHobbies(['None'])
       }
     }
+  }
+
+  const changeHobbiesDisplay = (tit: string) => {
+    const copyHobbiesDisplay = hobbiesDisplay.map((hobbie) =>
+      hobbie.title == tit ? { ...hobbie, isDisplay: !hobbie.isDisplay } : hobbie
+    )
+    setHobbiesDisplay(copyHobbiesDisplay)
   }
 
   const clickEditDone = async () => {
@@ -200,38 +209,40 @@ export default function UserProfileEdit(props) {
             </div>
             <p className="mb-[5px]">趣味</p>
             <div className="flex flex-wrap float-left mb-[15px]">
-              {games.map((game: string, index: number) => (
-                <div key={index} className="flex">
-                  <input
-                    type="checkbox"
-                    className="h-[16px] w-[16px] m-auto"
-                    id={game}
-                    onChange={(e: any) => hobbyCheckboxClick(e)}
-                  />
-                  <p className="code-blue mr-[10px]">{game},</p>
-                </div>
-              ))}
-              {sports.map((sport: string, index: number) => (
-                <div key={index} className="flex">
-                  <input
-                    type="checkbox"
-                    className="h-[16px] w-[16px] m-auto"
-                    id={sport}
-                    onChange={(e: any) => hobbyCheckboxClick(e)}
-                  />
-                  <p className="code-blue mr-[10px]">{sport},</p>
-                </div>
-              ))}
-              {watching.map((watch: string, index: number) => (
-                <div key={index} className="flex">
-                  <input
-                    type="checkbox"
-                    className="h-[16px] w-[16px] m-auto"
-                    id={watch}
-                    onChange={(e: any) => hobbyCheckboxClick(e)}
-                  />
-                  <p className="code-blue mr-[10px]">{watch},</p>
-                </div>
+              {hobbiesDisplay.map(({ title, isDisplay, category }) => (
+                <>
+                  <p className="flex text-code-blue font-en pb-[10px]">
+                    &quot;{title}&quot;
+                    <span className="code-white">:</span>
+                    {!isDisplay ? (
+                      <IoIosArrowDropright
+                        className="text-[25px] ml-[10px]"
+                        onClick={() => changeHobbiesDisplay(title)}
+                      />
+                    ) : (
+                      <IoIosArrowDropdown
+                        className="text-[25px] ml-[10px]"
+                        onClick={() => changeHobbiesDisplay(title)}
+                      />
+                    )}
+                  </p>
+                  <div className="flex flex-wrap float-left pl-[10px] mt-[-10px] mb-[15px] w-[100%]">
+                    {category.map((hobby: string) => (
+                      <div key={hobby} className="flex" style={{ display: isDisplay ? '' : 'none' }}>
+                        <input
+                          type="checkbox"
+                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          id={hobby}
+                          onChange={(e: any) => hobbyCheckboxClick(e)}
+                        />
+                        <p className="code-blue mr-[10px]">
+                          {hobby}
+                          <span className="code-white">,</span>
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </>
               ))}
             </div>
             {page === 'notFirstTime' && (
