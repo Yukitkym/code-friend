@@ -16,68 +16,113 @@ export const languages = [
   'R',
   'Visual Basic'
 ]
-export const languages1 = languages.slice(0, 5)
-export const languages2 = languages.slice(5, 11)
-export const languages3 = languages.slice(11)
-export const hobbies = {
-  game: [
-    'PCゲーム',
-    'テレビゲーム',
-    '将棋',
-    'チェス',
-    'ポーカー',
-    '麻雀',
-    'ボードゲーム',
-    'トレーディングカードゲーム'
-  ],
-  sports: [
-    '筋トレ',
-    'ランニング',
-    '野球',
-    'サッカー',
-    'テニス',
-    'バスケ',
-    'バレーボール',
-    'ダンス',
-    'ゴルフ',
-    'スポーツ観戦',
-    'ダーツ',
-    'ビリヤード',
-    'ボルダリング',
-    'サーフィン',
-    'スノボ',
-    'スキー'
-  ],
-  watching: ['アニメ', '映画鑑賞'],
-  music: ['カラオケ', '楽器演奏', 'ライブ'],
-  trip: ['温泉巡り', 'バー巡り', 'サウナ巡り', 'カフェ巡り'],
-  outdoor: ['登山', 'キャンプ', '釣り'],
-  eat: ['食べ歩き', 'ワイン', '利き酒', 'グルメ', 'ラーメン'],
-  make: ['DIY', '料理', 'イラスト', 'ハンドメイド', 'プラモデル'],
-  drive: ['ドライブ', 'バイク', 'クロスバイク'],
-  skill: ['外国語', 'カメラ', 'マジック', '占い'],
-  investment: ['株', '仮想通貨'],
-  art: ['デッサン', '書道(習字)'],
-  grow: ['ガーデニング(園芸)', '観葉植物', 'アクアリウム'],
-  other: [
-    'サバゲー',
-    '漫画',
-    '競馬',
-    'ペット',
-    'コスプレ',
-    'ドローン',
-    'ファッション',
-    'パチンコ',
-    'アイドル',
-    'ネットサーフィン'
-  ]
-}
-export const game1 = hobbies.game.slice(0, 6)
-export const game2 = hobbies.game.slice(6)
-export const sports1 = hobbies.sports.slice(0, 6)
-export const sports2 = hobbies.sports.slice(6, 11)
-export const sports3 = hobbies.sports.slice(11)
-export const watching = hobbies.watching
 
-export const games = hobbies.game
-export const sports = hobbies.sports
+export const hobbies = [
+  {
+    title: 'ゲーム・思考系',
+    isDisplay: false,
+    category: [
+      'PCゲーム',
+      'テレビゲーム',
+      '将棋',
+      'チェス',
+      'ポーカー',
+      '麻雀',
+      'ボードゲーム',
+      'トレーディングカードゲーム'
+    ]
+  },
+  {
+    title: 'スポーツ系',
+    isDisplay: false,
+    category: [
+      '筋トレ',
+      'ランニング',
+      '野球',
+      'サッカー',
+      'テニス',
+      'バスケ',
+      'バレーボール',
+      'ダンス',
+      'ゴルフ',
+      'スポーツ観戦',
+      'ダーツ',
+      'ビリヤード',
+      'ボルダリング',
+      'サーフィン',
+      'スノボ',
+      'スキー'
+    ]
+  },
+  {
+    title: '鑑賞系',
+    isDisplay: false,
+    category: ['アニメ', '映画鑑賞']
+  },
+  {
+    title: '音楽系',
+    isDisplay: false,
+    category: ['カラオケ', '楽器演奏', 'ライブ']
+  },
+  {
+    title: '旅行・お出かけ系',
+    isDisplay: false,
+    category: ['温泉巡り', 'バー巡り', 'サウナ巡り', 'カフェ巡り']
+  },
+  {
+    title: '自然・アウトドア系',
+    isDisplay: false,
+    category: ['登山', 'キャンプ', '釣り']
+  },
+  {
+    title: '食べる・飲む系',
+    isDisplay: false,
+    category: ['食べ歩き', 'ワイン', '利き酒', 'グルメ', 'ラーメン']
+  },
+  {
+    title: 'つくる系',
+    isDisplay: false,
+    category: ['DIY', '料理', 'イラスト', 'ハンドメイド', 'プラモデル']
+  },
+  {
+    title: '乗り物系',
+    isDisplay: false,
+    category: ['ドライブ', 'バイク', 'クロスバイク']
+  },
+  {
+    title: 'スキル・一芸系',
+    isDisplay: false,
+    category: ['外国語', 'カメラ', 'マジック', '占い']
+  },
+  {
+    title: '投資系',
+    isDisplay: false,
+    category: ['株', '仮想通貨']
+  },
+  {
+    title: '芸術系',
+    isDisplay: false,
+    category: ['デッサン', '書道(習字)']
+  },
+  {
+    title: '育てる系',
+    isDisplay: false,
+    category: ['ガーデニング(園芸)', '観葉植物', 'アクアリウム']
+  },
+  {
+    title: 'その他',
+    isDisplay: false,
+    category: [
+      'サバゲー',
+      '漫画',
+      '競馬',
+      'ペット',
+      'コスプレ',
+      'ドローン',
+      'ファッション',
+      'パチンコ',
+      'アイドル',
+      'ネットサーフィン'
+    ]
+  }
+]
