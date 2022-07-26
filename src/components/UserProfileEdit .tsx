@@ -228,7 +228,7 @@ export default function UserProfileEdit(props) {
                   </p>
                   <div className="flex flex-wrap float-left pl-[10px] mt-[-10px] mb-[15px] w-[100%]">
                     {category.map((hobby: string) => (
-                      <div key={hobby} className="flex" style={{ display: isDisplay ? '' : 'none'}}>
+                      <div key={hobby} className="flex" style={{ display: isDisplay ? '' : 'none' }}>
                         <input
                           type="checkbox"
                           className="h-[16px] w-[16px] my-auto mr-[5px]"
