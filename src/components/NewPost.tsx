@@ -1,5 +1,6 @@
 import { addDoc, collection, doc, getDoc, getDocs, query, updateDoc, where } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
@@ -92,79 +93,50 @@ export default function NewPost(props) {
   }
 
   return (
-    <div>
-      <p>{page === 'notFirstTime' ? '新規投稿ページ' : '投稿をしてみましょう'}</p>
-      <form onSubmit={(e: any) => clickPost(e)}>
-        <p>タイトル</p>
-        <input name="title" className="bg-code-blue" />
-        <p>内容</p>
-        <input name="content" className="bg-code-blue" />
-        <br />
-        <br />
-        <select
-          name="selectImage"
-          id="selectImage"
-          value={selectImage}
-          onChange={(e) => setSelectImage(e.target.value)}
-        >
-          <option value="choice">サンプル画像から選ぶ</option>
-          <option value="upload">画像をアップロードする</option>
-        </select>
-        <br />
-        <br />
-        <input id="image" type="file" disabled={selectImage === 'choice'} />
-        <br />
-        <br />
-        {selectImage === 'choice' && (
-          <div className="flex">
-            {/* eslint-disable */}
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample1.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f"
-              alt="例1"
-              id="example1"
-              className={`w-[300px] mr-[30px] p-[5px] ${choiceImage === 'example1' ? 'bg-code-blue' : 'bg-white'}`}
-              onClick={() => setChoiceImage('example1')}
+    <div className="bg-bg-color text-code-white pb-[40px]">
+      <h1 className="text-center text-[24px] py-[20px]">{page === 'notFirstTime' ? '新規投稿ページ' : '投稿をしてみましょう'}</h1>
+      <form onSubmit={(e: any) => clickPost(e)} className="w-[800px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
+        <div className="mx-[60px] my-[40px]">
+          <p className="mb-[5px]">タイトル</p>
+          <input name="title" className="text-black mb-[15px] w-[70%]" />
+          <p className="mb-[5px]">内容</p>
+          <textarea
+              name="content"
+              cols={10}
+              rows={6}
+              className="w-[70%] text-black mb-[10px]"
             />
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample2.jpg?alt=media&token=eb9e6e66-5bbe-4cca-94b5-53268bcc78d5"
-              alt="例2"
-              id="example2"
-              className={`w-[300px] mr-[30px] p-[5px] ${choiceImage === 'example2' ? 'bg-code-blue' : 'bg-white'}`}
-              onClick={() => setChoiceImage('example2')}
-            />
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample3.jpg?alt=media&token=918e08bb-ac56-4ba6-aa1a-37d5dee38958"
-              alt="例3"
-              id="example3"
-              className={`w-[300px] mr-[30px] p-[5px] ${choiceImage === 'example3' ? 'bg-code-blue' : 'bg-white'}`}
-              onClick={() => setChoiceImage('example3')}
-            />
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample4.jpg?alt=media&token=0fe201b0-af92-44df-9df4-961b7f8d7b36"
-              alt="例4"
-              id="example4"
-              className={`w-[300px] mr-[30px] p-[5px] ${choiceImage === 'example4' ? 'bg-code-blue' : 'bg-white'}`}
-              onClick={() => setChoiceImage('example4')}
-            />
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample5.jpg?alt=media&token=3ccdfcea-10ef-42f8-baf2-c02462724e11"
-              alt="例5"
-              id="example5"
-              className={`w-[300px] mr-[30px] p-[5px] ${choiceImage === 'example5' ? 'bg-code-blue' : 'bg-white'}`}
-              onClick={() => setChoiceImage('example5')}
-            />
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample6.jpg?alt=media&token=ca652961-f177-4c66-88d0-87618a0d89eb"
-              alt="例6"
-              id="example6"
-              className={`w-[300px] mr-[30px] p-[5px] ${choiceImage === 'example6' ? 'bg-code-blue' : 'bg-white'}`}
-              onClick={() => setChoiceImage('example6')}
-            />
-            {/* eslint-enable */}
+          <div className="mb-[10px]">
+            <select
+              name="selectImage"
+              id="selectImage"
+              value={selectImage}
+              onChange={(e) => setSelectImage(e.target.value)}
+              className="bg-btn-gray"
+            >
+              <option value="choice">サンプル画像から選ぶ</option>
+              <option value="upload">画像をアップロードする</option>
+            </select>
           </div>
-        )}
-        <br />
-        <button className="bg-code-green">{page === 'notFirstTime' ? '新規投稿' : '投稿する'}</button>
+          <input id="image" type="file" disabled={selectImage === 'choice'} />
+          {selectImage === 'choice' && (
+            <div className="flex overflow-x-auto">
+              {[1, 2, 3, 4, 5, 6].map((num: number) => (
+                <div className={`mt-[20px] mr-[20px] px-[10px] pt-[10px] pb-[5px] flex-none ${choiceImage === `example${num}` ? 'bg-code-blue' : 'bg-white'}`}>
+                  <Image
+                    src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
+                    alt={`例${num}`}
+                    width="210px"
+                    height="140px"
+                    id={`example${num}`}
+                    onClick={() => setChoiceImage(`example${num}`)}
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+          <button className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[30px] tracking-[3px]">{page === 'notFirstTime' ? '新規投稿' : '投稿する'}</button>
+        </div>
       </form>
     </div>
   )
