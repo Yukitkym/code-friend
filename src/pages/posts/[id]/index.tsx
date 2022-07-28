@@ -52,16 +52,16 @@ export default function PostsId() {
               <div className="bg-zinc-700 w-[100%] rounded mt-[10px]">
                 <div className="p-[10px]">
                   {post.content.split('\n').map((sentence: string, index: number) => (
-                    <p key={index}>
-                      {sentence}
-                    </p>
+                    <p key={index}>{sentence}</p>
                   ))}
                 </div>
               </div>
             )}
             {post.poster === uid && (
               <Link href={`/posts/${postId}/edit`}>
-                <button className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[20px] tracking-[3px]">投稿編集ページへ</button>
+                <button className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[20px] tracking-[3px]">
+                  投稿編集ページへ
+                </button>
               </Link>
             )}
             <div className="mt-[30px]">

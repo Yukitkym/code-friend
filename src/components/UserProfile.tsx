@@ -107,9 +107,7 @@ export default function UserProfile(props) {
                 <div className="bg-zinc-700 w-[100%] rounded">
                   <div className="p-[10px]">
                     {userProfile.split('\n').map((sentence: string, index: number) => (
-                      <p key={index}>
-                        {sentence}
-                      </p>
+                      <p key={index}>{sentence}</p>
                     ))}
                   </div>
                 </div>
