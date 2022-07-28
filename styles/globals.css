@@ -15,7 +15,7 @@
 }
 
 .search-row {
-  @apply text-code-blue font-en pb-[20px]
+  @apply text-code-blue font-en pb-[10px] lg:pb-[20px]
 }
 
 .search-row-sub {
