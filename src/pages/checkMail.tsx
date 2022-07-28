@@ -40,8 +40,15 @@ export default function CheckMail() {
           <div className="mx-[60px] my-[40px]">
             <p>メールアドレスを確認してください</p>
             <p>※受信ボックスではなく、迷惑メールフォルダに届いている可能性があります</p>
-            <button className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[30px] tracking-[1px]" onClick={clickCheck}>メールアドレスを確認しました</button>
-            <button className="bg-btn-gray w-[300px] rounded h-[40px] mt-[20px]" onClick={clickSendAgain}>確認メールを再度送る</button>
+            <button
+              className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[30px] tracking-[1px]"
+              onClick={clickCheck}
+            >
+              メールアドレスを確認しました
+            </button>
+            <button className="bg-btn-gray w-[300px] rounded h-[40px] mt-[20px]" onClick={clickSendAgain}>
+              確認メールを再度送る
+            </button>
           </div>
         </div>
       </div>
