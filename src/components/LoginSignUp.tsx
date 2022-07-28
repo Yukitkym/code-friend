@@ -177,10 +177,10 @@ export default function LoginSignUp(props) {
 
   if (page === 'login') {
     return (
-      <div className="bg-bg-color text-code-white h-[84vh]">
-        <div className="w-[450px] mx-auto">
-          <h1 className="text-center text-[24px] py-[20px]">ログイン</h1>
-          <p className="text-center pb-[20px]">
+      <div className="min-h-[88vh] lg:min-h-[84vh] bg-bg-color text-code-white">
+        <div className="lg:w-[450px] mx-auto">
+          <h1 className="lg:text-[24px] py-[15px] lg:py-[20px] text-center">ログイン</h1>
+          <p className="text-[14px] lg:text-[16px] lg:pb-[20px] text-center">
             新規登録がまだの方は
             <Link href="/signUp">
               <a className="text-code-blue">こちら</a>
@@ -188,16 +188,16 @@ export default function LoginSignUp(props) {
             へ
           </p>
           <form
-            className="bg-bg-light-color border-[#000078] border-[1px] border-opacity-10"
+            className="w-[80%] lg:w-auto mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10"
             onSubmit={(e: any) => clickLogin(e)}
           >
-            <div className="mx-[60px] my-[40px]">
+            <div className="text-[14px] lg:text-[16px] mx-[20px] lg:mx-[60px] my-[15px] lg:my-[40px]">
               <p className="text-red-500 mb-[10px]">{message}</p>
               <p>メールアドレス</p>
               <input name="email" className="w-[100%] text-black-light mb-[20px]" />
               <p>パスワード</p>
-              <input name="password" type="password" className="w-[100%] text-black-light mb-[40px]" />
-              <button className="bg-btn-blue w-[100%] rounded-full h-[40px]">ログイン</button>
+              <input name="password" type="password" className="mb-[30px] lg:mb-[40px] w-[100%] text-black-light" />
+              <button className="h-[30px] lg:h-[40px] bg-btn-blue w-[100%] rounded-full">ログイン</button>
             </div>
           </form>
         </div>
@@ -205,10 +205,10 @@ export default function LoginSignUp(props) {
     )
   } else {
     return (
-      <div className="bg-bg-color text-code-white pb-[40px]">
-        <div className="w-[450px] mx-auto">
-          <h1 className="text-center text-[24px] py-[20px]">サインアップ</h1>
-          <p className="text-center pb-[20px]">
+      <div className="min-h-[88vh] lg:min-h-[84vh] lg:pb-[40px] bg-bg-color text-code-white">
+        <div className="lg:w-[450px] mx-auto">
+          <h1 className="lg:text-[24px] py-[15px] lg:py-[20px] text-center">サインアップ</h1>
+          <p className="text-[14px] lg:text-[16px] lg:pb-[20px] text-center">
             新規登録済みの方は
             <Link href="/login">
               <a className="text-code-blue">こちら</a>
@@ -216,20 +216,20 @@ export default function LoginSignUp(props) {
             へ
           </p>
           <form
-            className="bg-bg-light-color border-[#000078] border-[1px] border-opacity-10"
+            className="w-[80%] lg:w-auto mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10"
             onSubmit={(e: any) => clickSignUp(e)}
           >
-            <div className="mx-[60px] my-[40px]">
-              <p className="text-red-500 mb-[10px]">{message}</p>
+            <div className="text-[14px] lg:text-[16px] mx-[20px] lg:mx-[60px] my-[15px] lg:my-[40px]">
+              <p className="mb-[5px] lg:mb-[10px] text-red-500">{message}</p>
               <p>ユーザーネーム</p>
-              <input name="userName" className="w-[100%] text-black-light mb-[20px]" />
+              <input name="userName" className="mb-[15px] lg:mb-[20px] w-[100%] text-black-light" />
               <p>メールアドレス</p>
-              <input name="email" className="w-[100%] text-black-light mb-[20px]" />
+              <input name="email" className="mb-[15px] lg:mb-[20px] w-[100%] text-black-light" />
               <p>パスワード</p>
-              <input name="password" type="password" className="w-[100%] text-black-light mb-[30px]" />
+              <input name="password" type="password" className="mb-[15px] lg:mb-[20px] w-[100%] text-black-light" />
               <p>パスワード確認用</p>
-              <input name="checkPassword" type="password" className="w-[100%] text-black-light mb-[40px]" />
-              <button className="bg-btn-blue w-[100%] rounded-full h-[40px]">サインアップ</button>
+              <input name="checkPassword" type="password" className="mb-[25px] lg:mb-[40px] w-[100%] text-black-light" />
+              <button className="h-[30px] lg:h-[40px] bg-btn-blue w-[100%] rounded-full">サインアップ</button>
             </div>
           </form>
         </div>
