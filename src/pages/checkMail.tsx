@@ -10,7 +10,6 @@ export default function CheckMail() {
   const setOpen = useSetRecoilState(modal)
   const setAction = useSetRecoilState(modalAction)
   const [checkMail, setCheckMail] = useState(false)
-  const [message, setMessage] = useState('')
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -29,20 +28,22 @@ export default function CheckMail() {
         setAction('メールアドレスの確認メールの送信')
       })
       .catch((error) => {
-        setMessage(error)
+        console.log(error)
       })
   }
 
   if (checkMail === false) {
     return (
-      <div>
-        <p className="text-red-600">{message}</p>
-        <p>メールアドレスの確認がされていません</p>
-        <p>メールアドレスを確認してください</p>
-        <br />
-        <button onClick={clickCheck}>メールアドレスを確認しました</button>
-        <br />
-        <button onClick={clickSendAgain}>確認メールを再度送る</button>
+      <div className="bg-bg-color text-code-white pb-[40px] min-h-[84vh]">
+        <h1 className="text-center text-[24px] py-[20px]">メールアドレスの確認がされていません</h1>
+        <div className="w-[600px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
+          <div className="mx-[60px] my-[40px]">
+            <p>メールアドレスを確認してください</p>
+            <p>※受信ボックスではなく、迷惑メールフォルダに届いている可能性があります</p>
+            <button className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[30px] tracking-[1px]" onClick={clickCheck}>メールアドレスを確認しました</button>
+            <button className="bg-btn-gray w-[300px] rounded h-[40px] mt-[20px]" onClick={clickSendAgain}>確認メールを再度送る</button>
+          </div>
+        </div>
       </div>
     )
   } else {
@@ -50,8 +51,8 @@ export default function CheckMail() {
     setOpen(true)
     setAction('メールアドレスの確認')
     return (
-      <div>
-        <p>メールアドレスが確認できました</p>
+      <div className="bg-bg-color text-code-white min-h-[84vh]">
+        <p className="text-center text-[20px] pt-[20px]">メールアドレスが確認できました</p>
       </div>
     )
   }
