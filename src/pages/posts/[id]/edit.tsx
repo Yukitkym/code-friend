@@ -182,7 +182,9 @@ export default function PostsIdEdit() {
               cols={10}
               rows={6}
               value={post.content}
-              onChange={(e: any) => setPost({ id: post.id, title: post.title, content: e.target.value, image: post.image })}
+              onChange={(e: any) =>
+                setPost({ id: post.id, title: post.title, content: e.target.value, image: post.image })
+              }
               className="w-[100%] text-black mb-[10px]"
             />
             <p className="mb-[5px]">現在のサムネイル画像</p>
@@ -212,34 +214,41 @@ export default function PostsIdEdit() {
             {selectImage === 'upload' && <input id="image" type="file" className="mt-[15px]" />}
             {selectImage === 'choice' && (
               <div className="flex overflow-x-auto">
-              {/* 1から6までの配列を作成し、それを使ってexample1〜6までの画像を表示 */}
-              {[...Array(6)]
-                .map((_, i) => i + 1)
-                .map((num: number) => (
-                  <div
-                    key={num}
-                    className={`mt-[20px] mr-[20px] px-[10px] pt-[10px] pb-[5px] flex-none ${
-                      choiceImage === `example${num}` ? 'bg-code-blue' : 'bg-white'
-                    }`}
-                  >
-                    <Image
-                      src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
-                      alt={`例${num}`}
-                      width="210px"
-                      height="140px"
-                      id={`example${num}`}
-                      onClick={() => setChoiceImage(`example${num}`)}
-                    />
-                  </div>
-                ))}
-            </div>
+                {/* 1から6までの配列を作成し、それを使ってexample1〜6までの画像を表示 */}
+                {[...Array(6)]
+                  .map((_, i) => i + 1)
+                  .map((num: number) => (
+                    <div
+                      key={num}
+                      className={`mt-[20px] mr-[20px] px-[10px] pt-[10px] pb-[5px] flex-none ${
+                        choiceImage === `example${num}` ? 'bg-code-blue' : 'bg-white'
+                      }`}
+                    >
+                      <Image
+                        src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
+                        alt={`例${num}`}
+                        width="210px"
+                        height="140px"
+                        id={`example${num}`}
+                        onClick={() => setChoiceImage(`example${num}`)}
+                      />
+                    </div>
+                  ))}
+              </div>
             )}
-            <button onClick={clickEditDone} className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[30px] tracking-[3px]">編集完了</button>
+            <button
+              onClick={clickEditDone}
+              className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[30px] tracking-[3px]"
+            >
+              編集完了
+            </button>
             <div className="mt-[30px] flex">
               <Link href={`/posts/${post.id}`}>
                 <button className="bg-btn-gray w-[350px] rounded h-[40px] tracking-[1px]">投稿詳細ページへ</button>
               </Link>
-              <button className="bg-orange-700 w-[150px] rounded h-[40px] mx-0 ml-auto" onClick={clickDelete}>投稿を削除</button>
+              <button className="bg-orange-700 w-[150px] rounded h-[40px] mx-0 ml-auto" onClick={clickDelete}>
+                投稿を削除
+              </button>
             </div>
           </div>
         </div>
