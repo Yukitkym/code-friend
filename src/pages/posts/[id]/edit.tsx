@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { isLoginState, modal, modalAction, uidState } from '../../../atoms'
+import { Loading } from '../../../components/Loading '
 import { db, storage } from '../../../firebaseConfig'
 
 export default function PostsIdEdit() {
@@ -257,10 +258,6 @@ export default function PostsIdEdit() {
       </div>
     )
   } else {
-    return (
-      <div className="bg-bg-color text-code-white h-[84vh]">
-        <p className="text-center text-[20px] pt-[20px]">読み込み中です</p>
-      </div>
-    )
+    return <Loading />
   }
 }

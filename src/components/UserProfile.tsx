@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil'
 import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { auth, db } from '../firebaseConfig'
+import { Loading } from './Loading '
 
 export default function UserProfile(props) {
   const page = props.page
@@ -171,10 +172,6 @@ export default function UserProfile(props) {
       </div>
     )
   } else {
-    return (
-      <div className="bg-bg-color text-code-white h-[84vh]">
-        <p className="text-center text-[20px] pt-[20px]">読み込み中です</p>
-      </div>
-    )
+    return <Loading />
   }
 }

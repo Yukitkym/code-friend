@@ -9,6 +9,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { db, storage } from '../firebaseConfig'
 import { hobbies, languages } from '../languagesAndHobbies'
+import { Loading } from './Loading '
 
 export default function UserProfileEdit(props) {
   // 通常のプロフィール編集時は'notFirstTime'、新規登録後のプロフィール編集時は'firstTime'
@@ -273,10 +274,6 @@ export default function UserProfileEdit(props) {
       </div>
     )
   } else {
-    return (
-      <div className="bg-bg-color text-code-white h-[84vh]">
-        <p className="text-center text-[20px] pt-[20px]">読み込み中です</p>
-      </div>
-    )
+    return <Loading />
   }
 }

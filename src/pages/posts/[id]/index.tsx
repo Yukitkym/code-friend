@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import { uidState } from '../../../atoms'
+import { Loading } from '../../../components/Loading '
 import { db } from '../../../firebaseConfig'
 
 export default function PostsId() {
@@ -84,10 +85,6 @@ export default function PostsId() {
       </div>
     )
   } else {
-    return (
-      <div className="bg-bg-color text-code-white h-[84vh]">
-        <p className="text-center text-[20px] pt-[20px]">読み込み中です</p>
-      </div>
-    )
+    return <Loading />
   }
 }
