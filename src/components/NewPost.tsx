@@ -93,19 +93,19 @@ export default function NewPost(props) {
   }
 
   return (
-    <div className="bg-bg-color text-code-white pb-[40px]">
-      <h1 className="text-center text-[24px] py-[20px]">
+    <div className="min-h-[88vh] lg:min-h-[84vh] bg-bg-color text-code-white pb-[40px]">
+      <h1 className="lg:text-[24px] pt-[15px] lg:py-[20px] text-center">
         {page === 'notFirstTime' ? '新規投稿ページ' : '投稿をしてみましょう'}
       </h1>
       <form
         onSubmit={(e: any) => clickPost(e)}
-        className="w-[800px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10"
+        className="lg:w-[800px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10"
       >
-        <div className="mx-[60px] my-[40px]">
+        <div className="text-[14px] lg:text-[16px] mx-[15px] lg:mx-[60px] my-[15px] lg:my-[40px]">
           <p className="mb-[5px]">タイトル</p>
-          <input name="title" className="text-black mb-[15px] w-[70%]" />
+          <input name="title" className="w-[100%] lg:w-[70%] text-black mb-[15px]" />
           <p className="mb-[5px]">内容</p>
-          <textarea name="content" cols={10} rows={6} className="w-[70%] text-black mb-[10px]" />
+          <textarea name="content" cols={10} rows={6} className="w-[100%] lg:w-[70%] text-black mb-[10px]" />
           <div className="mb-[10px]">
             <select
               name="selectImage"
@@ -127,18 +127,19 @@ export default function NewPost(props) {
                 .map((num: number) => (
                   <div
                     key={num}
-                    className={`mt-[20px] mr-[20px] px-[10px] pt-[10px] pb-[5px] flex-none ${
+                    className={`mt-[20px] mr-[20px] px-[10px] py-[10px] flex-none ${
                       choiceImage === `example${num}` ? 'bg-code-blue' : 'bg-white'
                     }`}
                   >
-                    <Image
-                      src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
-                      alt={`例${num}`}
-                      width="210px"
-                      height="140px"
-                      id={`example${num}`}
-                      onClick={() => setChoiceImage(`example${num}`)}
-                    />
+                    <div className="w-[150px] lg:w-[210px] h-[100px] lg:h-[140px] relative">
+                      <Image
+                        src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
+                        alt={`例${num}`}
+                        layout="fill"
+                        id={`example${num}`}
+                        onClick={() => setChoiceImage(`example${num}`)}
+                      />
+                    </div>
                   </div>
                 ))}
             </div>
