@@ -167,10 +167,10 @@ export default function PostsIdEdit() {
 
   if (postNum >= 0) {
     return (
-      <div className="bg-bg-color text-code-white pb-[40px]">
-        <h1 className="text-center text-[24px] py-[20px]">投稿編集ページ</h1>
-        <div className="w-[650px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
-          <div className="mx-[60px] my-[40px]">
+      <div className="min-h-[88vh] lg:min-h-[84vh] bg-bg-color text-code-white pb-[40px]">
+        <h1 className="lg:text-[24px] pt-[15px] lg:py-[20px] text-center">投稿編集ページ</h1>
+        <div className="lg:w-[650px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
+          <div className="text-[14px] lg:text-[16px] mx-[15px] lg:mx-[60px] my-[15px] lg:my-[40px]">
             <p className="mb-[5px]">タイトル</p>
             <input
               value={post.title}
@@ -191,23 +191,24 @@ export default function PostsIdEdit() {
               className="w-[100%] text-black mb-[10px]"
             />
             <p className="mb-[5px]">現在のサムネイル画像</p>
-            <Image
-              src={
-                post.image
-                  ? post.image
-                  : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
-              }
-              alt="現在のサムネイル画像"
-              width="300px"
-              height="200px"
-            />
+            <div className="relative w-[210px] lg:w-[300px] h-[140px] lg:h-[200px]">
+              <Image
+                src={
+                  post.image
+                    ? post.image
+                    : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
+                }
+                alt="現在のサムネイル画像"
+                layout="fill"
+              />
+            </div>
             <div>
               <select
                 name="selectImage"
                 id="selectImage"
                 value={selectImage}
                 onChange={(e) => setSelectImage(e.target.value)}
-                className="text-black"
+                className="mt-[15px] text-black"
               >
                 <option value="not change">現在の画像を使う</option>
                 <option value="choice">サンプル画像から選ぶ</option>
@@ -227,14 +228,15 @@ export default function PostsIdEdit() {
                         choiceImage === `example${num}` ? 'bg-code-blue' : 'bg-white'
                       }`}
                     >
-                      <Image
-                        src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
-                        alt={`例${num}`}
-                        width="210px"
-                        height="140px"
-                        id={`example${num}`}
-                        onClick={() => setChoiceImage(`example${num}`)}
-                      />
+                      <div className="w-[150px] lg:w-[210px] h-[100px] lg:h-[140px] relative">
+                        <Image
+                          src={`https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2Fexample${num}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`}
+                          alt={`例${num}`}
+                          layout="fill"
+                          id={`example${num}`}
+                          onClick={() => setChoiceImage(`example${num}`)}
+                        />
+                      </div>
                     </div>
                   ))}
               </div>
@@ -245,11 +247,11 @@ export default function PostsIdEdit() {
             >
               編集完了
             </button>
-            <div className="mt-[30px] flex">
+            <div className="mt-[25px] lg:mt-[30px] flex">
               <Link href={`/posts/${post.id}`}>
-                <button className="bg-btn-gray w-[350px] rounded h-[40px] tracking-[1px]">投稿詳細ページへ</button>
+                <button className="w-[180px] lg:w-[350px] bg-btn-gray rounded h-[40px] tracking-[1px]">投稿詳細ページへ</button>
               </Link>
-              <button className="bg-orange-700 w-[150px] rounded h-[40px] mx-0 ml-auto" onClick={clickDelete}>
+              <button className="w-[120px] lg:w-[150px] bg-orange-700 rounded h-[40px] mx-0 ml-auto" onClick={clickDelete}>
                 投稿を削除
               </button>
             </div>
