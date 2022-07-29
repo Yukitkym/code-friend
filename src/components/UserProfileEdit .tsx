@@ -214,7 +214,7 @@ export default function UserProfileEdit(props: any) {
             <p className="mb-[5px]">趣味</p>
             <div className="flex flex-wrap float-left mb-[15px]">
               {hobbiesDisplay.map(({ title, isDisplay, category }) => (
-                <div key={title}>
+                <div key={title} className="w-[100%]">
                   <p className="flex text-code-blue font-en pb-[10px]">
                     &quot;{title}&quot;
                     <span className="code-white">:</span>
