@@ -153,13 +153,13 @@ export default function UserProfileEdit(props) {
   if (userEmail !== '') {
     return (
       <div className="bg-bg-color text-code-white pb-[40px]">
-        <h1 className="text-center text-[24px] py-[20px]">
+        <h1 className="lg:text-[24px] py-[15px] lg:py-[20px] text-center">
           {page === 'notFirstTime' ? 'プロフィール編集ページ' : 'プロフィールを登録しましょう'}
         </h1>
-        <div className="w-[700px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
-          <div className="mx-[60px] my-[40px]">
+        <div className="lg:w-[700px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
+          <div className="text-[14px] lg:text-[16px] mx-[15px] lg:mx-[60px] my-[15px] lg:my-[40px]">
             <p className="mb-[5px]">プロフィール画像</p>
-            <div className="w-[100px] mb-[10px]">
+            <div className="w-[70px] lg:w-[100px] h-[70px] lg:h-[100px] relative mb-[10px]">
               <Image
                 src={
                   userImage
@@ -167,12 +167,11 @@ export default function UserProfileEdit(props) {
                     : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
                 }
                 alt="プロフィール画像"
-                width="100px"
-                height="100px"
+                layout="fill"
                 className="rounded-full"
               />
             </div>
-            <input id="image" type="file" className="mb-[15px]" />
+            <input id="image" type="file" className="text-[12px] lg:text-[16px] mt-[10px] lg:mt-[5px] mb-[15px]" />
             <p className="mb-[5px]">ユーザー名</p>
             <input
               value={userName}
@@ -250,13 +249,13 @@ export default function UserProfileEdit(props) {
               <div>
                 <button
                   onClick={clickEditDone}
-                  className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[20px] tracking-[3px]"
+                  className="lg:mt-[20px] bg-btn-blue w-[100%] rounded-full h-[40px] tracking-[3px]"
                 >
                   編集完了
                 </button>
                 <div className="text-right">
                   <Link href="/setting/profile">
-                    <button className="bg-btn-gray w-[200px] rounded h-[40px] mt-[30px]">プロフィールページへ</button>
+                    <button className="mt-[20px] lg:mt-[30px] bg-btn-gray w-[200px] rounded h-[40px]">プロフィールページへ</button>
                   </Link>
                 </div>
               </div>
@@ -264,7 +263,7 @@ export default function UserProfileEdit(props) {
             {page === 'firstTime' && (
               <button
                 onClick={clickEditDone}
-                className="bg-btn-blue w-[100%] rounded-full h-[40px] mt-[20px] tracking-[3px]"
+                className="lg:mt-[20px] bg-btn-blue w-[100%] rounded-full h-[40px] tracking-[3px]"
               >
                 登録完了
               </button>
