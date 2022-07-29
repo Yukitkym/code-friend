@@ -54,7 +54,8 @@ export default function NewPost(props: any) {
     // 画像をStorageに保存し、URLをpostsに作成
     let imageUrl = ''
     if (selectImage === 'choice') {
-      imageUrl = (document.getElementById(choiceImage) as HTMLInputElement).src
+      const sample = (document.getElementById(choiceImage) as HTMLInputElement).id
+      imageUrl = `https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2F${sample}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`
     } else {
       const image = document.getElementById('image') as HTMLInputElement
       if (image.value !== '') {

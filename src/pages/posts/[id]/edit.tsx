@@ -81,7 +81,8 @@ export default function PostsIdEdit() {
       })
     } else if (selectImage === 'choice') {
       // サンプル画像ver
-      imageUrl = (document.getElementById(choiceImage) as HTMLInputElement).src
+      const sample = (document.getElementById(choiceImage) as HTMLInputElement).id
+      imageUrl = `https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2F${sample}.jpg?alt=media&token=6bb2265e-27fd-4153-a8f4-52fbd1e0ee0f`
       const newPosts = posts.map((oldPost) => {
         return oldPost.id === post.id
           ? {
