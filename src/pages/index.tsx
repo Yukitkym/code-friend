@@ -153,14 +153,14 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-bg-color pb-[40px]">
+    <div className="bg-bg-color pb-[40px] px-[10px] lg:px-0">
       <div>
-        <p className="tag-gray text-[30px] text-center pt-[70px] pb-[60px]">
+        <p className="text-[15px] lg:text-[30px] pt-[30px] lg:pt-[70px] pb-[25px] lg:pb-[60px] tag-gray text-center ">
           &lt;<span className="code-blue">h1</span>&gt;
           <span className="code-white">エンジニア友達をつくりませんか？</span>&lt;<span className="code-blue">/h1</span>
           &gt;
         </p>
-        <p className="tag-gray text-[20px] text-center pb-[90px]">
+        <p className="text-[12px] lg:text-[20px] pb-[30px] lg:pb-[90px] tag-gray text-center ">
           &lt;<span className="code-blue">p</span>&gt;
           <span className="code-white">
             同じ言語を学習している友達や、同じ趣味で一緒に遊べるエンジニア友達を探しませんか？
@@ -168,41 +168,44 @@ export default function Home() {
           &lt;<span className="code-blue">/p</span>&gt;
         </p>
       </div>
-      <div className="w-[800px] mx-auto">
+      <div className="lg:w-[800px] md:w-[300px] mx-auto">
         <div className="border-b-[1px] border-border-color mb-[16px]">
-          <p className="text-comment-out text-[20px] fonr-en">{'// 条件から探す'}</p>
-          <p className="tag-gray text-[20px]">
+          <p className="text-[14px] lg:text-[20px] text-comment-out fonr-en">{'// 条件から探す'}</p>
+          <p className="text-[14px] lg:text-[20px] tag-gray">
             &lt;<span className="text-code-green font-ja">Filtering</span>&gt;
           </p>
         </div>
-        <div className="bg-bg-light-color border-[#000078] border-[1px] border-opacity-10 px-[42px] pt-[22px] pb-[30px]">
+        <div className="text-[12px] lg:text-[16px] lg:px-[42px] lg:pt-[22px] lg:pb-[30px] bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
           <p className="search-row">
             &quot;フリーワード&quot;<span className="code-white">:</span>
             <span className="text-code-orange ml-[10px]">
               &quot;
               <input
-                className="w-[518px] bg-[#36311A] border-[#BD9B03] border-[1px]"
+                className="w-[200px] lg:w-[518px] bg-[#36311A] border-[#BD9B03] border-[1px]"
                 value={temporaryFilteringText}
                 onChange={(e: any) => setTemporaryFilteringText(e.target.value)}
               />
               &quot;
             </span>
           </p>
-          <div className="code-blue flex">
-            <p className="search-row w-[450px] mr-[10px]">
+          <p className="inline-block lg:hidden search-row">
+            &quot;プログラミング言語&quot;<span className="code-white">:</span>
+          </p>
+          <div className="mb-[15px] lg:mb-0 code-blue flex">
+            <p className="hidden lg:inline-block w-[450px] search-row mr-[10px]">
               &quot;プログラミング言語&quot;<span className="code-white">:</span>
             </p>
             <div>
-              <div className="flex flex-wrap float-left">
+              <div className="ml-[10px] lg:ml-auto flex flex-wrap float-left">
                 {languages.map((language: string) => (
-                  <div key={language} className="flex">
+                  <div key={language} className="mb-[1px] lg:mb-0 flex">
                     <input
                       type="checkbox"
-                      className="h-[16px] w-[16px] my-auto mr-[5px]"
+                      className="h-[12px] lg:h-[16px] w-[12px] lg:w-[16px] mr-[2px] lg:mr-[5px] my-auto"
                       id={language}
                       onChange={(e: any) => languageCheckboxClick(e)}
                     />
-                    <p className="code-blue mr-[10px]">
+                    <p className="mr-[5px] lg:mr-[10px] code-blue ">
                       {language}
                       <span className="code-white">,</span>
                     </p>
@@ -219,27 +222,27 @@ export default function Home() {
             <div>
               {hobbiesDisplay.map(({ title, isDisplay, category }) => (
                 <>
-                  <p className="search-row-sub flex">
+                  <p className="lg:pb-[10px] pl-[10px] lg:pl-[30px] text-code-blue font-en flex">
                     &quot;{title}&quot;
                     <span className="code-white">:</span>
                     {!isDisplay ? (
                       <IoIosArrowDropright
-                        className="text-[25px] ml-[10px]"
+                        className="text-[18px] lg:text-[25px] ml-[10px]"
                         onClick={() => changeHobbiesDisplay(title)}
                       />
                     ) : (
                       <IoIosArrowDropdown
-                        className="text-[25px] ml-[10px]"
+                        className="text-[18px] lg:text-[25px] ml-[10px]"
                         onClick={() => changeHobbiesDisplay(title)}
                       />
                     )}
                   </p>
-                  <div className="flex flex-wrap float-left pl-[60px] mt-[-10px] mb-[15px] w-[100%]">
+                  <div className="pl-[15px] lg:pl-[60px] lg:mt-[-10px] mb-[5px] lg:mb-[15px] flex flex-wrap float-left w-[100%]">
                     {category.map((hobby: string) => (
-                      <div key={hobby} className="flex" style={{ display: isDisplay ? '' : 'none' }}>
+                      <div key={hobby} className="mb-[1px] lg:mb-0 flex" style={{ display: isDisplay ? '' : 'none' }}>
                         <input
                           type="checkbox"
-                          className="h-[16px] w-[16px] my-auto mr-[5px]"
+                          className="h-[12px] lg:h-[16px] w-[12px] lg:w-[16px] mr-[2px] lg:mr-[5px] my-auto"
                           id={hobby}
                           onChange={(e: any) => hobbyCheckboxClick(e)}
                         />
@@ -255,23 +258,29 @@ export default function Home() {
             </div>
             <p className="text-braces-yellow">{'}'}</p>
           </div>
-          <div className="flex mt-[40px] text-white">
-            <div className="bg-btn-blue w-[340px] h-[48px] flex items-center mr-[20px]" onClick={searchClick}>
+          <div className="mt-[20px] lg:mt-[40px] flex text-white">
+            <div
+              className="w-[200px] lg:w-[340px] h-[32px] lg:h-[48px] bg-btn-blue  flex items-center mr-[20px]"
+              onClick={searchClick}
+            >
               <div className="flex m-auto">
                 <BsSearch className="my-auto mr-[20px]" />
                 <p className="tracking-[15px]">検索</p>
               </div>
             </div>
-            <div className="bg-btn-gray w-[340px] h-[48px] flex items-center" onClick={resetClick}>
+            <div
+              className="w-[100px] lg:w-[340px] h-[32px] lg:h-[48px] bg-btn-gray flex items-center"
+              onClick={resetClick}
+            >
               <p className="m-auto">リセット</p>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-[800px] mx-auto mt-[50px]">
+      <div className="lg:w-[800px] mt-[30px] lg:mt-[50px] mx-auto ">
         <div className="border-b-[1px] border-border-color mb-[16px]">
-          <p className="text-comment-out text-[20px] fonr-en">{'// 一覧から探す'}</p>
-          <p className="tag-gray text-[20px]">
+          <p className="text-[14px] lg:text-[20px] text-comment-out fonr-en">{'// 一覧から探す'}</p>
+          <p className="text-[14px] lg:text-[20px] tag-gray">
             &lt;<span className="text-code-green font-ja">List</span>&gt;
           </p>
         </div>
@@ -283,43 +292,47 @@ export default function Home() {
               checkHobby(user.hobbies)
             ) {
               return (
-                <div key={index} className="bg-black-light m-[10px] min-w-[30%] max-w-[30%]">
-                  <div className="m-[8px]">
+                <div
+                  key={index}
+                  className="m-[8px] lg:m-[10px] min-w-[45%] lg:min-w-[30%] max-w-[45%] lg:max-w-[30%] bg-black-light"
+                >
+                  <div className="text-[12px] lg:text-[16px] m-[8px]">
                     <div className="flex">
                       <Link href={`/user/${user.uid}`}>
-                        <Image
-                          src={
-                            user.image
-                              ? user.image
-                              : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/userImages%2Finit.jpg?alt=media&token=69a50ddd-5912-4415-91cb-1cdb1fdf6d3f'
-                          }
-                          alt="ユーザー画像"
-                          width="60px"
-                          height="60px"
-                          className="rounded-full"
-                        />
+                        <div className="w-[40px] lg:w-[60px] h-[40px] lg:h-[60px] relative">
+                          <Image
+                            src={
+                              user.image
+                                ? user.image
+                                : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/userImages%2Finit.jpg?alt=media&token=69a50ddd-5912-4415-91cb-1cdb1fdf6d3f'
+                            }
+                            alt="ユーザー画像"
+                            layout="fill"
+                            className="rounded-full"
+                          />
+                        </div>
                       </Link>
                       <Link href={`/user/${user.uid}`}>
-                        <p className="text-code-white my-auto ml-[10px] text-[18px]">{user.name}</p>
+                        <p className="text-[14px] lg:text-[18px] text-code-white my-auto ml-[10px]">{user.name}</p>
                       </Link>
                     </div>
-                    <p className="text-code-white mt-[10px]">言語</p>
+                    <p className="text-[14px] lg:text-[16px] text-code-white mt-[10px]">言語</p>
                     <p className="text-code-blue overflow-scroll h-[40px]">{user.languages.join(', ')}</p>
-                    <p className="text-code-white">趣味</p>
+                    <p className="text-[14px] lg:text-[16px] text-code-white">趣味</p>
                     <p className="text-code-blue overflow-scroll h-[40px]">{user.hobbies.join(', ')}</p>
                     {user.postNum === 0 && (
-                      <div className="mt-[20px] pb-[10px]">
+                      <div className="lg:mt-[20px] pb-[10px]">
                         <Link href={`/user/${user.uid}`}>
-                          <a className="text-code-blue border-[1px] border-code-blue rounded px-[50px] py-[5px] mt-[20px]">
+                          <a className="px-[25px] lg:px-[50px] py-[5px] lg:py-[5px] text-code-blue border-[1px] border-code-blue rounded">
                             もっと知りたい
                           </a>
                         </Link>
                       </div>
                     )}
                   </div>
-                  <div className="max-h-[240px] overflow-scroll">
+                  <div className="max-h-[153px] lg:max-h-[240px] overflow-scroll">
                     {user.postNum >= 1 && (
-                      <div className="relative h-[160px]">
+                      <div className="h-[102px] lg:h-[160px] relative">
                         <Image
                           src={
                             user.posts[0].image
@@ -330,16 +343,18 @@ export default function Home() {
                           layout="fill"
                         />
                         <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                        <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[0].title}</p>
+                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">
+                          {user.posts[0].title}
+                        </p>
                         <Link href={`/posts/${user.posts[0].id}`}>
-                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">
+                          <a className="text-[14px] lg:text-[16px] top-[70px] lg:top-[110px] px-[20px] lg:px-[50px] py-[1px] lg:py-[3px] ml-[14px] lg:ml-[20px] text-code-white absolute  border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                             もっと詳しく
                           </a>
                         </Link>
                       </div>
                     )}
                     {user.postNum >= 2 && (
-                      <div className="relative h-[160px] border-t-[1px]">
+                      <div className="h-[102px] lg:h-[160px] relative border-t-[1px]">
                         <Image
                           src={
                             user.posts[1].image
@@ -350,16 +365,18 @@ export default function Home() {
                           layout="fill"
                         />
                         <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                        <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[1].title}</p>
+                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">
+                          {user.posts[1].title}
+                        </p>
                         <Link href={`/posts/${user.posts[1].id}`}>
-                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">
+                          <a className="text-[14px] lg:text-[16px] top-[70px] lg:top-[110px] px-[20px] lg:px-[50px] py-[1px] lg:py-[3px] ml-[14px] lg:ml-[20px] text-code-white absolute  border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                             もっと詳しく
                           </a>
                         </Link>
                       </div>
                     )}
                     {user.postNum >= 3 && (
-                      <div className="relative h-[160px] border-t-[1px]">
+                      <div className="h-[102px] lg:h-[160px] relative border-t-[1px]">
                         <Image
                           src={
                             user.posts[2].image
@@ -370,9 +387,11 @@ export default function Home() {
                           layout="fill"
                         />
                         <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                        <p className="text-code-white absolute text-[24px] mx-[5px] mt-[10px]">{user.posts[2].title}</p>
+                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">
+                          {user.posts[2].title}
+                        </p>
                         <Link href={`/posts/${user.posts[2].id}`}>
-                          <a className="text-code-white absolute top-[110px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[50px] py-[3px] ml-[20px]">
+                          <a className="text-[14px] lg:text-[16px] top-[70px] lg:top-[110px] px-[20px] lg:px-[50px] py-[1px] lg:py-[3px] ml-[14px] lg:ml-[20px] text-code-white absolute  border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                             もっと詳しく
                           </a>
                         </Link>
