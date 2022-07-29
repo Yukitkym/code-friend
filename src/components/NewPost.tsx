@@ -7,7 +7,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { db, storage } from '../firebaseConfig'
 
-export default function NewPost(props) {
+export default function NewPost(props: any) {
   // 通常の新規投稿ページは'notFirstTime'、新規登録後の新規投稿ページは'firstTime'
   const page = props.page
 
@@ -54,15 +54,19 @@ export default function NewPost(props) {
     // 画像をStorageに保存し、URLをpostsに作成
     let imageUrl = ''
     if (selectImage === 'choice') {
-      imageUrl = document.getElementById(choiceImage).src
+      imageUrl = (document.getElementById(choiceImage) as HTMLInputElement).src
     } else {
       const image = document.getElementById('image') as HTMLInputElement
       if (image.value !== '') {
-        await uploadBytes(ref(storage, `postImages/${postId}`), image.files[0])
-        const pathReference = ref(storage, `postImages/${postId}`)
-        await getDownloadURL(pathReference).then((url) => {
-          imageUrl = url
-        })
+        if (image.files) {
+          await uploadBytes(ref(storage, `postImages/${postId}`), image.files[0])
+          const pathReference = ref(storage, `postImages/${postId}`)
+          await getDownloadURL(pathReference)
+            .then((url) => {
+              imageUrl = url
+            })
+            .catch((error) => console.log(error))
+        }
       } else {
         imageUrl =
           'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
@@ -73,9 +77,10 @@ export default function NewPost(props) {
     })
 
     // usersに投稿を作成
-    const userDocData = await (await getDoc(doc(db, 'users', uid))).data()
-    const posts = userDocData.posts
-    const postNum: number = userDocData.postNum
+    const userGetDoc = await getDoc(doc(db, 'users', uid))
+    const userDocData = userGetDoc.data()
+    const posts = userDocData ? userDocData.posts : null
+    const postNum: number = userDocData ? userDocData.postNum : null
     const updatedPosts =
       postNum === 0
         ? [{ id: postId, title: title, content: content, image: imageUrl }]
