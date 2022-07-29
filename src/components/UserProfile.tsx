@@ -72,11 +72,11 @@ export default function UserProfile(props) {
 
   if (userName !== '') {
     return (
-      <div className="bg-bg-color text-code-white pb-[40px]">
-        <h1 className="text-center text-[24px] py-[20px]">プロフィール</h1>
-        <div className="w-[600px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
-          <div className="mx-[60px] my-[40px]">
-            <div className="w-[100px] mx-auto mb-[30px]">
+      <div className="min-h-[88vh] lg:min-h-[84vh] bg-bg-color text-code-white pb-[40px]">
+        <h1 className="lg:text-[24px] py-[15px] lg:py-[20px] text-center">プロフィール</h1>
+        <div className="lg:w-[600px] mx-auto bg-bg-light-color border-[#000078] border-[1px] border-opacity-10">
+          <div className="text-[14px] lg:text-[16px] mx-[15px] lg:mx-[60px] my-[15px] lg:my-[40px]">
+            <div className="w-[70px] lg:w-[100px] h-[70px] lg:h-[100px] mb-[15px] lg:mb-[30px] relative mx-auto">
               <Image
                 src={
                   userImage
@@ -84,8 +84,7 @@ export default function UserProfile(props) {
                     : 'https://firebasestorage.googleapis.com/v0/b/code-friend.appspot.com/o/postImages%2FpostInit.jpg?alt=media&token=b468ee38-405a-4044-a9f5-d55a38ff222e'
                 }
                 alt="プロフィール画像"
-                width="100px"
-                height="100px"
+                layout="fill"
                 className="rounded-full"
               />
             </div>
@@ -118,14 +117,14 @@ export default function UserProfile(props) {
               </p>
             )}
             {readingUserId === uid && (
-              <div className="mt-[40px]">
+              <div className="mt-[20px] lg:mt-[40px]">
                 <Link href="/setting/profile/edit">
-                  <button className="bg-btn-blue w-[250px] rounded h-[40px] mr-[20px]">プロフィール編集ページへ</button>
+                  <button className="w-[180px] lg:w-[250px] h-[35px] lg:h-[40px] bg-btn-blue rounded mr-[10px]">プロフィール編集ページへ</button>
                 </Link>
                 <Link href="/createPost">
-                  <button className="bg-btn-blue w-[200px] rounded h-[40px]">新規投稿ページへ</button>
+                  <button className="w-[130px] lg:w-[200px] h-[35px] lg:h-[40px] bg-btn-blue rounded">新規投稿ページへ</button>
                 </Link>
-                <div className="text-right mt-[40px]">
+                <div className="mt-[25px] lg:mt-[40px] text-right">
                   <button className="bg-orange-700 w-[150px] rounded-full h-[40px]" onClick={clickLogout}>
                     ログアウト
                   </button>
@@ -134,32 +133,32 @@ export default function UserProfile(props) {
             )}
           </div>
         </div>
-        <div className="w-[900px] mx-auto">
-          <div>
-            <p className="text-center text-[24px] mt-[40px] mb-[30px]">投稿一覧</p>
+        <div className="lg:w-[900px] mx-auto">
+          <div className="text-[14px] lg:text-[16px]">
+            <p className="lg:text-[24px] py-[15px] lg:py-[20px] mt-[25px] lg:mt-[40px] mb-[20px] lg:mb-[30px] text-center">投稿一覧</p>
             {userPostNum === 0 && <p className="text-center">投稿はありません</p>}
             {userPostNum === 1 &&
               userPosts.map((post: any, index: number) => (
-                <div key={index} className="relative w-[270px] h-[180px] mb-[30px] mx-[auto]">
+                <div key={index} className="w-[195px] lg:w-[270px] h-[130px] lg:h-[180px] relative mb-[30px] mx-[auto]">
                   <Image src={post.image} alt="投稿サムネイル画像" layout="fill" />
                   <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                  <p className="text-code-white absolute text-[24px] mx-[10px] mt-[10px]">{post.title}</p>
+                  <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[10px] mt-[10px]">{post.title}</p>
                   <Link href={`/posts/${post.id}`}>
-                    <a className="text-code-white absolute top-[130px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[60px] py-[6px] ml-[30px]">
+                    <a className="top-[90px] lg:top-[130px] px-[25px] lg:px-[60px] py-[3px] lg:py-[6px] ml-[35px] lg:ml-[30px] text-code-white absolute border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                       投稿詳細へ
                     </a>
                   </Link>
                 </div>
               ))}
             {userPostNum >= 2 && (
-              <div className="flex flex-wrap">
+              <div className="lg:flex lg:flex-wrap">
                 {userPosts.map((post: any, index: number) => (
-                  <div key={index} className="relative w-[270px] h-[180px] mb-[30px] mx-[15px]">
+                  <div key={index} className="w-[195px] lg:w-[270px] h-[130px] lg:h-[180px] mx-auto lg:mx-[15px] mb-[15px] lg:mb-[30px] relative">
                     <Image src={post.image} alt="投稿サムネイル画像" layout="fill" />
                     <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                    <p className="text-code-white absolute text-[24px] mx-[10px] mt-[10px]">{post.title}</p>
+                    <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[10px] mt-[10px]">{post.title}</p>
                     <Link href={`/posts/${post.id}`}>
-                      <a className="text-code-white absolute top-[130px] border-[1px] border-code-white rounded bg-code-blue opacity-[75%] px-[60px] py-[6px] ml-[30px]">
+                      <a className="top-[90px] lg:top-[130px] px-[25px] lg:px-[60px] py-[3px] lg:py-[6px] ml-[35px] lg:ml-[30px] text-code-white absolute border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                         投稿詳細へ
                       </a>
                     </Link>
