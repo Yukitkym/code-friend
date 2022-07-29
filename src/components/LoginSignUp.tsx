@@ -7,7 +7,7 @@ import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { auth, db } from '../firebaseConfig'
 import { doc, setDoc } from 'firebase/firestore'
 
-export default function LoginSignUp(props) {
+export default function LoginSignUp(props: any) {
   // ログインページの時はlogin、新規登録ページの時はsignUp
   const page = props.page
 
@@ -149,11 +149,15 @@ export default function LoginSignUp(props) {
         })
         setIsLogin(true)
         setUid(uid)
-        await sendEmailVerification(auth.currentUser).then(() => {
-          router.push('/checkMail')
-          setOpen(true)
-          setAction('新規登録')
-        })
+        if (auth.currentUser) {
+          await sendEmailVerification(auth.currentUser)
+            .then(() => {
+              router.push('/checkMail')
+              setOpen(true)
+              setAction('新規登録')
+            })
+            .catch((error) => console.log(error))
+        }
       }
 
       // Firebase Authを使い、メールアドレスとパスワードを登録

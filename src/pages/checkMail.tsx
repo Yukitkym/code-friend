@@ -22,14 +22,16 @@ export default function CheckMail() {
   }
 
   const clickSendAgain = () => {
-    sendEmailVerification(auth.currentUser)
-      .then(() => {
-        setOpen(true)
-        setAction('メールアドレスの確認メールの送信')
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    if (auth.currentUser) {
+      sendEmailVerification(auth.currentUser)
+        .then(() => {
+          setOpen(true)
+          setAction('メールアドレスの確認メールの送信')
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   }
 
   if (checkMail === false) {

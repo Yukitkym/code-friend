@@ -20,17 +20,19 @@ export default function PostsIdEdit() {
 
   const [poster, setPoster] = useState(uid)
 
-  const getPoster = async () => {
-    // urlを直打ちした場合、初回レンダリング時にpostIdは[id]/editとなるため
-    if (postId.length === 20) {
-      const postRef = doc(db, 'posts', postId)
-      const postSnap = await getDoc(postRef)
-      if (postSnap.exists()) {
-        setPoster(postSnap.data().poster)
+  useEffect(() => {
+    const getPoster = async () => {
+      // urlを直打ちした場合、初回レンダリング時にpostIdは[id]/editとなるため
+      if (postId.length === 20) {
+        const postRef = doc(db, 'posts', postId)
+        const postSnap = await getDoc(postRef)
+        if (postSnap.exists()) {
+          setPoster(postSnap.data().poster)
+        }
       }
     }
-  }
-  getPoster()
+    getPoster()
+  }, [postId])
 
   useEffect(() => {
     if (isLogin === false || poster !== uid) {
@@ -46,20 +48,22 @@ export default function PostsIdEdit() {
   const [selectImage, setSelectImage] = useState('not change')
   const [choiceImage, setChoiceImage] = useState('example1')
 
-  const getUserPost = async () => {
-    const userRef = doc(db, 'users', uid)
-    const userSnap = await getDoc(userRef)
-    if (userSnap.exists() && post.id === '') {
-      setPosts(userSnap.data().posts)
-      setPostNum(userSnap.data().postNum)
-      for (let i = 0; i < postNum; i++) {
-        if (posts[i].id === postId) {
-          setPost(posts[i])
+  useEffect(() => {
+    const getUserPost = async () => {
+      const userRef = doc(db, 'users', uid)
+      const userSnap = await getDoc(userRef)
+      if (userSnap.exists() && post.id === '') {
+        setPosts(userSnap.data().posts)
+        setPostNum(userSnap.data().postNum)
+        for (let i = 0; i < postNum; i++) {
+          if (posts[i].id === postId) {
+            setPost(posts[i])
+          }
         }
       }
     }
-  }
-  getUserPost()
+    getUserPost()
+  }, [post.id, postId, postNum, posts, uid])
 
   const clickEditDone = async () => {
     let imageUrl = ''
@@ -77,7 +81,7 @@ export default function PostsIdEdit() {
       })
     } else if (selectImage === 'choice') {
       // サンプル画像ver
-      imageUrl = document.getElementById(choiceImage).src
+      imageUrl = (document.getElementById(choiceImage) as HTMLInputElement).src
       const newPosts = posts.map((oldPost) => {
         return oldPost.id === post.id
           ? {
@@ -101,29 +105,33 @@ export default function PostsIdEdit() {
       const image = document.getElementById('image') as HTMLInputElement
       if (image.value !== '') {
         // 画像をStorageに保存
-        await uploadBytes(ref(storage, `postImages/${post.id}`), image.files[0])
-        const pathReference = ref(storage, `postImages/${post.id}`)
-        await getDownloadURL(pathReference).then((url) => {
-          imageUrl = url
-        })
-        await updateDoc(doc(db, 'posts', post.id), {
-          title: post.title,
-          content: post.content,
-          image: imageUrl
-        })
-        const newPosts = posts.map((oldPost) => {
-          return oldPost.id === post.id
-            ? {
-                id: post.id,
-                title: post.title,
-                content: post.content,
-                image: imageUrl
-              }
-            : oldPost
-        })
-        await updateDoc(doc(db, 'users', uid), {
-          posts: newPosts
-        })
+        if (image.files) {
+          await uploadBytes(ref(storage, `postImages/${post.id}`), image.files[0])
+          const pathReference = ref(storage, `postImages/${post.id}`)
+          await getDownloadURL(pathReference)
+            .then((url) => {
+              imageUrl = url
+            })
+            .catch((error) => console.log(error))
+          await updateDoc(doc(db, 'posts', post.id), {
+            title: post.title,
+            content: post.content,
+            image: imageUrl
+          })
+          const newPosts = posts.map((oldPost) => {
+            return oldPost.id === post.id
+              ? {
+                  id: post.id,
+                  title: post.title,
+                  content: post.content,
+                  image: imageUrl
+                }
+              : oldPost
+          })
+          await updateDoc(doc(db, 'users', uid), {
+            posts: newPosts
+          })
+        }
       } else {
         const newPosts = posts.map((oldPost) => {
           return oldPost.id === post.id ? post : oldPost
@@ -157,9 +165,7 @@ export default function PostsIdEdit() {
       })
     }
     await deleteDoc(doc(db, 'posts', postId))
-    await deleteObject(ref(storage, `postImages/${postId}`)).catch((error) => {
-      console.log(error)
-    })
+    await deleteObject(ref(storage, `postImages/${postId}`))
     router.push('/setting/profile')
     setOpen(true)
     setAction('投稿の削除')

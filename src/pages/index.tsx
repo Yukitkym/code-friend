@@ -221,7 +221,7 @@ export default function Home() {
             </p>
             <div>
               {hobbiesDisplay.map(({ title, isDisplay, category }) => (
-                <>
+                <div key={title}>
                   <p className="lg:pb-[10px] pl-[10px] lg:pl-[30px] text-code-blue font-en flex">
                     &quot;{title}&quot;
                     <span className="code-white">:</span>
@@ -253,7 +253,7 @@ export default function Home() {
                       </div>
                     ))}
                   </div>
-                </>
+                </div>
               ))}
             </div>
             <p className="text-braces-yellow">{'}'}</p>

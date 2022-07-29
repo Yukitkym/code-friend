@@ -9,7 +9,7 @@ import { isLoginState, modal, modalAction, uidState } from '../atoms'
 import { auth, db } from '../firebaseConfig'
 import { Loading } from './Loading '
 
-export default function UserProfile(props) {
+export default function UserProfile(props: any) {
   const page = props.page
 
   const router = useRouter()
@@ -61,13 +61,15 @@ export default function UserProfile(props) {
 
   const clickLogout = () => {
     if (isLogin === true) {
-      signOut(auth).then(() => {
-        setUid('')
-        setIsLogin(false)
-        router.push('/')
-        setOpen(true)
-        setAction('ログアウト')
-      })
+      signOut(auth)
+        .then(() => {
+          setUid('')
+          setIsLogin(false)
+          router.push('/')
+          setOpen(true)
+          setAction('ログアウト')
+        })
+        .catch((error) => console.log(error))
     }
   }
 

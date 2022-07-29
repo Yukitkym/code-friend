@@ -27,11 +27,11 @@ export default function PostsId() {
       const postRef = doc(db, 'posts', postId)
       const postSnap = await getDoc(postRef)
       if (postSnap.exists()) {
-        setPost(postSnap.data())
+        setPost(postSnap.data() as any)
         const userRef = doc(db, 'users', postSnap.data().poster)
         const userSnap = await getDoc(userRef)
         if (userSnap.exists()) {
-          setUser(userSnap.data())
+          setUser(userSnap.data() as any)
         }
       }
     }

@@ -11,7 +11,7 @@ import { db, storage } from '../firebaseConfig'
 import { hobbies, languages } from '../languagesAndHobbies'
 import { Loading } from './Loading '
 
-export default function UserProfileEdit(props) {
+export default function UserProfileEdit(props: any) {
   // 通常のプロフィール編集時は'notFirstTime'、新規登録後のプロフィール編集時は'firstTime'
   const page = props.page
 
@@ -115,21 +115,25 @@ export default function UserProfileEdit(props) {
   const clickEditDone = async () => {
     const image = document.getElementById('image') as HTMLInputElement
     if (image.value !== '') {
-      await uploadBytes(ref(storage, `userImages/${uid}`), image.files[0])
-      const pathReference = ref(storage, `userImages/${uid}`)
-      let imageUrl = ''
-      await getDownloadURL(pathReference).then((url) => {
-        imageUrl = url
-        setUserImage(url)
-      })
-      await updateDoc(doc(db, 'users', uid), {
-        name: userName,
-        profile: userProfile,
-        image: imageUrl,
-        languages: userLanguages,
-        hobbies: userHobbies,
-        contact: userContact
-      })
+      if (image.files) {
+        await uploadBytes(ref(storage, `userImages/${uid}`), image.files[0])
+        const pathReference = ref(storage, `userImages/${uid}`)
+        let imageUrl = ''
+        await getDownloadURL(pathReference)
+          .then((url) => {
+            imageUrl = url
+            setUserImage(url)
+          })
+          .catch((error) => console.log(error))
+        await updateDoc(doc(db, 'users', uid), {
+          name: userName,
+          profile: userProfile,
+          image: imageUrl,
+          languages: userLanguages,
+          hobbies: userHobbies,
+          contact: userContact
+        })
+      }
     } else {
       await updateDoc(doc(db, 'users', uid), {
         name: userName,
@@ -210,7 +214,7 @@ export default function UserProfileEdit(props) {
             <p className="mb-[5px]">趣味</p>
             <div className="flex flex-wrap float-left mb-[15px]">
               {hobbiesDisplay.map(({ title, isDisplay, category }) => (
-                <>
+                <div key={title}>
                   <p className="flex text-code-blue font-en pb-[10px]">
                     &quot;{title}&quot;
                     <span className="code-white">:</span>
@@ -242,7 +246,7 @@ export default function UserProfileEdit(props) {
                       </div>
                     ))}
                   </div>
-                </>
+                </div>
               ))}
             </div>
             {page === 'notFirstTime' && (
