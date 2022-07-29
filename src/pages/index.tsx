@@ -259,13 +259,19 @@ export default function Home() {
             <p className="text-braces-yellow">{'}'}</p>
           </div>
           <div className="mt-[20px] lg:mt-[40px] flex text-white">
-            <div className="w-[200px] lg:w-[340px] h-[32px] lg:h-[48px] bg-btn-blue  flex items-center mr-[20px]" onClick={searchClick}>
+            <div
+              className="w-[200px] lg:w-[340px] h-[32px] lg:h-[48px] bg-btn-blue  flex items-center mr-[20px]"
+              onClick={searchClick}
+            >
               <div className="flex m-auto">
                 <BsSearch className="my-auto mr-[20px]" />
                 <p className="tracking-[15px]">検索</p>
               </div>
             </div>
-            <div className="w-[100px] lg:w-[340px] h-[32px] lg:h-[48px] bg-btn-gray flex items-center" onClick={resetClick}>
+            <div
+              className="w-[100px] lg:w-[340px] h-[32px] lg:h-[48px] bg-btn-gray flex items-center"
+              onClick={resetClick}
+            >
               <p className="m-auto">リセット</p>
             </div>
           </div>
@@ -286,7 +292,10 @@ export default function Home() {
               checkHobby(user.hobbies)
             ) {
               return (
-                <div key={index} className="m-[8px] lg:m-[10px] min-w-[45%] lg:min-w-[30%] max-w-[45%] lg:max-w-[30%] bg-black-light">
+                <div
+                  key={index}
+                  className="m-[8px] lg:m-[10px] min-w-[45%] lg:min-w-[30%] max-w-[45%] lg:max-w-[30%] bg-black-light"
+                >
                   <div className="text-[12px] lg:text-[16px] m-[8px]">
                     <div className="flex">
                       <Link href={`/user/${user.uid}`}>
@@ -334,7 +343,9 @@ export default function Home() {
                           layout="fill"
                         />
                         <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">{user.posts[0].title}</p>
+                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">
+                          {user.posts[0].title}
+                        </p>
                         <Link href={`/posts/${user.posts[0].id}`}>
                           <a className="text-[14px] lg:text-[16px] top-[70px] lg:top-[110px] px-[20px] lg:px-[50px] py-[1px] lg:py-[3px] ml-[14px] lg:ml-[20px] text-code-white absolute  border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                             もっと詳しく
@@ -354,7 +365,9 @@ export default function Home() {
                           layout="fill"
                         />
                         <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">{user.posts[1].title}</p>
+                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">
+                          {user.posts[1].title}
+                        </p>
                         <Link href={`/posts/${user.posts[1].id}`}>
                           <a className="text-[14px] lg:text-[16px] top-[70px] lg:top-[110px] px-[20px] lg:px-[50px] py-[1px] lg:py-[3px] ml-[14px] lg:ml-[20px] text-code-white absolute  border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                             もっと詳しく
@@ -374,7 +387,9 @@ export default function Home() {
                           layout="fill"
                         />
                         <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">{user.posts[2].title}</p>
+                        <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[5px] mt-[10px]">
+                          {user.posts[2].title}
+                        </p>
                         <Link href={`/posts/${user.posts[2].id}`}>
                           <a className="text-[14px] lg:text-[16px] top-[70px] lg:top-[110px] px-[20px] lg:px-[50px] py-[1px] lg:py-[3px] ml-[14px] lg:ml-[20px] text-code-white absolute  border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                             もっと詳しく

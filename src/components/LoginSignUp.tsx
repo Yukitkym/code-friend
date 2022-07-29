@@ -228,7 +228,11 @@ export default function LoginSignUp(props) {
               <p>パスワード</p>
               <input name="password" type="password" className="mb-[15px] lg:mb-[20px] w-[100%] text-black-light" />
               <p>パスワード確認用</p>
-              <input name="checkPassword" type="password" className="mb-[25px] lg:mb-[40px] w-[100%] text-black-light" />
+              <input
+                name="checkPassword"
+                type="password"
+                className="mb-[25px] lg:mb-[40px] w-[100%] text-black-light"
+              />
               <button className="h-[30px] lg:h-[40px] bg-btn-blue w-[100%] rounded-full">サインアップ</button>
             </div>
           </form>

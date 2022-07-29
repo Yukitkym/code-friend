@@ -120,10 +120,14 @@ export default function UserProfile(props) {
             {readingUserId === uid && (
               <div className="mt-[20px] lg:mt-[40px]">
                 <Link href="/setting/profile/edit">
-                  <button className="w-[180px] lg:w-[250px] h-[35px] lg:h-[40px] bg-btn-blue rounded mr-[10px]">プロフィール編集ページへ</button>
+                  <button className="w-[180px] lg:w-[250px] h-[35px] lg:h-[40px] bg-btn-blue rounded mr-[10px]">
+                    プロフィール編集ページへ
+                  </button>
                 </Link>
                 <Link href="/createPost">
-                  <button className="w-[130px] lg:w-[200px] h-[35px] lg:h-[40px] bg-btn-blue rounded">新規投稿ページへ</button>
+                  <button className="w-[130px] lg:w-[200px] h-[35px] lg:h-[40px] bg-btn-blue rounded">
+                    新規投稿ページへ
+                  </button>
                 </Link>
                 <div className="mt-[25px] lg:mt-[40px] text-right">
                   <button className="bg-orange-700 w-[150px] rounded-full h-[40px]" onClick={clickLogout}>
@@ -136,14 +140,18 @@ export default function UserProfile(props) {
         </div>
         <div className="lg:w-[900px] mx-auto">
           <div className="text-[14px] lg:text-[16px]">
-            <p className="lg:text-[24px] py-[15px] lg:py-[20px] mt-[25px] lg:mt-[40px] mb-[20px] lg:mb-[30px] text-center">投稿一覧</p>
+            <p className="lg:text-[24px] py-[15px] lg:py-[20px] mt-[25px] lg:mt-[40px] mb-[20px] lg:mb-[30px] text-center">
+              投稿一覧
+            </p>
             {userPostNum === 0 && <p className="text-center">投稿はありません</p>}
             {userPostNum === 1 &&
               userPosts.map((post: any, index: number) => (
                 <div key={index} className="w-[195px] lg:w-[270px] h-[130px] lg:h-[180px] relative mb-[30px] mx-[auto]">
                   <Image src={post.image} alt="投稿サムネイル画像" layout="fill" />
                   <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                  <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[10px] mt-[10px]">{post.title}</p>
+                  <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[10px] mt-[10px]">
+                    {post.title}
+                  </p>
                   <Link href={`/posts/${post.id}`}>
                     <a className="top-[90px] lg:top-[130px] px-[25px] lg:px-[60px] py-[3px] lg:py-[6px] ml-[35px] lg:ml-[30px] text-code-white absolute border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                       投稿詳細へ
@@ -154,10 +162,15 @@ export default function UserProfile(props) {
             {userPostNum >= 2 && (
               <div className="lg:flex lg:flex-wrap">
                 {userPosts.map((post: any, index: number) => (
-                  <div key={index} className="w-[195px] lg:w-[270px] h-[130px] lg:h-[180px] mx-auto lg:mx-[15px] mb-[15px] lg:mb-[30px] relative">
+                  <div
+                    key={index}
+                    className="w-[195px] lg:w-[270px] h-[130px] lg:h-[180px] mx-auto lg:mx-[15px] mb-[15px] lg:mb-[30px] relative"
+                  >
                     <Image src={post.image} alt="投稿サムネイル画像" layout="fill" />
                     <div className="absolute bg-black opacity-[40%] w-[100%] h-[100%]"></div>
-                    <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[10px] mt-[10px]">{post.title}</p>
+                    <p className="text-[16px] lg:text-[24px] text-code-white absolute mx-[10px] mt-[10px]">
+                      {post.title}
+                    </p>
                     <Link href={`/posts/${post.id}`}>
                       <a className="top-[90px] lg:top-[130px] px-[25px] lg:px-[60px] py-[3px] lg:py-[6px] ml-[35px] lg:ml-[30px] text-code-white absolute border-[1px] border-code-white rounded bg-code-blue opacity-[75%]">
                         投稿詳細へ

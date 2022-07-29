@@ -255,7 +255,9 @@ export default function UserProfileEdit(props) {
                 </button>
                 <div className="text-right">
                   <Link href="/setting/profile">
-                    <button className="mt-[20px] lg:mt-[30px] bg-btn-gray w-[200px] rounded h-[40px]">プロフィールページへ</button>
+                    <button className="mt-[20px] lg:mt-[30px] bg-btn-gray w-[200px] rounded h-[40px]">
+                      プロフィールページへ
+                    </button>
                   </Link>
                 </div>
               </div>

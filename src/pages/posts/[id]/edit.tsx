@@ -249,9 +249,14 @@ export default function PostsIdEdit() {
             </button>
             <div className="mt-[25px] lg:mt-[30px] flex">
               <Link href={`/posts/${post.id}`}>
-                <button className="w-[180px] lg:w-[350px] bg-btn-gray rounded h-[40px] tracking-[1px]">投稿詳細ページへ</button>
+                <button className="w-[180px] lg:w-[350px] bg-btn-gray rounded h-[40px] tracking-[1px]">
+                  投稿詳細ページへ
+                </button>
               </Link>
-              <button className="w-[120px] lg:w-[150px] bg-orange-700 rounded h-[40px] mx-0 ml-auto" onClick={clickDelete}>
+              <button
+                className="w-[120px] lg:w-[150px] bg-orange-700 rounded h-[40px] mx-0 ml-auto"
+                onClick={clickDelete}
+              >
                 投稿を削除
               </button>
             </div>
